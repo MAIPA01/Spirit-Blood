@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2276750467536939849}
   - component: {fileID: 1166858069765331561}
   m_Layer: 6
-  m_Name: BaseGhost
+  m_Name: BaseSpirit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

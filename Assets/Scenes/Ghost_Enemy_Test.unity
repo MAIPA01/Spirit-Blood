@@ -613,7 +613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7747469968470648865, guid: 496552e3ff7ad2644a40e20ec171ec22, type: 3}
       propertyPath: m_Name
-      value: BaseGhost
+      value: BaseSpirit
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
