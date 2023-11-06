@@ -5,8 +5,8 @@ using NaughtyAttributes;
 
 enum PlayerForm
 {
-    Normal = 0,
-    Ghost = 1
+    Blood = 0,
+    Spirit = 1
 }
 
 public class Player : ObjectHealth
@@ -19,18 +19,18 @@ public class Player : ObjectHealth
     private SpriteRenderer body;
 
     [SerializeField]
-    [ShowIf("form", PlayerForm.Ghost)]
-    private float ghostDamage = 2f;
+    [ShowIf("form", PlayerForm.Spirit)]
+    private float spiritDamage = 2f;
     [SerializeField]
-    [ShowIf("form", PlayerForm.Ghost)]
-    private Color ghostColor = Color.black;
+    [ShowIf("form", PlayerForm.Spirit)]
+    private Color spiritColor = Color.black;
 
     [SerializeField]
-    [ShowIf("form", PlayerForm.Normal)]
-    private float normalDamage = 1f;
+    [ShowIf("form", PlayerForm.Blood)]
+    private float bloodDamage = 1f;
     [SerializeField]
-    [ShowIf("form", PlayerForm.Normal)]
-    private Color normalColor = Color.white;
+    [ShowIf("form", PlayerForm.Blood)]
+    private Color bloodColor = Color.white;
 
     void Start()
     {
@@ -42,20 +42,20 @@ public class Player : ObjectHealth
         
     }
 
-    public bool IsGhost() { return form == PlayerForm.Ghost; }
+    public bool IsSpirit() { return form == PlayerForm.Spirit; }
 
     public void ChangeForm() 
     { 
-        bool isGhost = IsGhost();
-        form = isGhost ? PlayerForm.Normal : PlayerForm.Ghost;
+        bool isGhost = IsSpirit();
+        form = isGhost ? PlayerForm.Blood : PlayerForm.Spirit;
         if (body != null )
         {
-            body.color = isGhost ? normalColor : ghostColor;
+            body.color = isGhost ? bloodColor : spiritColor;
         }
     }
 
     [Button]
-    private void ChangeTestForm()
+    private void ChangeFormTest()
     {
         ChangeForm();
     }

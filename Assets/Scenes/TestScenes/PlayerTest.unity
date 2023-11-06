@@ -552,10 +552,10 @@ MonoBehaviour:
   health: 0
   form: 0
   body: {fileID: 1031010489}
-  ghostDamage: 2
-  ghostColor: {r: 0, g: 0, b: 0, a: 1}
-  normalDamage: 1
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  spiritDamage: 2
+  spiritColor: {r: 0, g: 0, b: 0, a: 1}
+  bloodDamage: 1
+  bloodColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!70 &1031010487
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
