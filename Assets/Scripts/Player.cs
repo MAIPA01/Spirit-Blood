@@ -32,13 +32,11 @@ public class Player : ObjectHealth
     [ShowIf("form", PlayerForm.Normal)]
     private Color normalColor = Color.white;
 
-    // Start is called before the first frame update
     void Start()
     {
         StartHealth();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
