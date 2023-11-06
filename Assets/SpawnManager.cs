@@ -48,4 +48,14 @@ public class SpawnManager : MonoBehaviour
         GameObject obj = Instantiate(prefab, tran.position, Quaternion.identity);
         yield return new WaitForSeconds(2);
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+
+        foreach (SpawnPoint point in spawnList)
+        {
+            Gizmos.DrawSphere(point.GetTransform().position, 0.25f);
+        }
+    }
 }
