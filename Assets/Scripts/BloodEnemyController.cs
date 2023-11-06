@@ -10,7 +10,7 @@ public class BloodEnemyController : MonoBehaviour
     public float enemyAttackDmg = 0.00001f;
 
     // attacks per second
-    public float enemyAttackSpeed = 0.5f; 
+    public float enemyAttackDecay = 2f; 
 
 
     public Transform transform;

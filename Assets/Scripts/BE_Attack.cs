@@ -27,7 +27,7 @@ public class BE_Attack : IState
             sc.ChangeState(sc.chaseState);
         }
 
-        if(Time.time > lastAttackTime + 1/sc.enemyAttackSpeed)
+        if(Time.time > lastAttackTime + sc.enemyAttackDecay)
         {
             Debug.Log("OUCH! taking dmg: " + sc.enemyAttackDmg);
             lastAttackTime = Time.time;
