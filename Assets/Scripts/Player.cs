@@ -46,11 +46,11 @@ public class Player : ObjectHealth
 
     public void ChangeForm() 
     { 
-        bool isGhost = IsSpirit();
-        form = isGhost ? PlayerForm.Blood : PlayerForm.Spirit;
+        bool isSpirit = IsSpirit();
+        form = isSpirit ? PlayerForm.Blood : PlayerForm.Spirit;
         if (body != null )
         {
-            body.color = isGhost ? bloodColor : spiritColor;
+            body.color = isSpirit ? bloodColor : spiritColor;
         }
     }
 
