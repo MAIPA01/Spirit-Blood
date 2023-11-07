@@ -12,8 +12,6 @@ public class BloodEnemyController : MonoBehaviour
     // attacks per second
     public float enemyAttackDecay = 2f; 
 
-
-    public Transform transform;
     public GameObject target;
     IState currentState;
 
@@ -27,8 +25,6 @@ public class BloodEnemyController : MonoBehaviour
         {
             Debug.LogError("Target player not assigned for blood enemy :( Assign me pls");
         }
-
-        transform = GetComponent<Transform>();
         ChangeState(chaseState);
     }
 
