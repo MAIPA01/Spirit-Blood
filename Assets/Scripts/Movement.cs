@@ -1,16 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] float speed = 10f;
-    [SerializeField] float jumpForce = 50f;
+    [SerializeField] private float speed = 1f;
+    [SerializeField] private float jumpForce = 50f;
+    [SerializeField] private GroudCheck groundCheck;
+    [SerializeField] private bool _isJumping = false;
+
+    [Tooltip("Co myslicie to takich filko³kach jak zosta³o to zaprezentowane w grze platformer shooter???")]
+    [SerializeField] private bool _enableRotation = false;
 
     Rigidbody2D _rb;
-    Vector2 _movement;
-    bool _jump;
+    
 
     void Start()
     {
@@ -19,32 +21,28 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        _movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector2 vel = _rb.velocity;
+        vel.x = Input.GetAxis("Horizontal") * speed;
+        _rb.velocity = vel;
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (groundCheck.groundContats > 0)
         {
-            _jump = true;
+            _isJumping = false;
         }
+
     }
 
     void FixedUpdate()
     {
-        moveCharacter(_movement);
-
-        if (_jump)
+        if (Input.GetButtonDown("Jump") && (groundCheck.groundContats > 0 || !_isJumping))
         {
-            jump();
-            _jump = false;
+            _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+
+            if (groundCheck.groundContats == 0)
+            {
+                _isJumping = true;
+            }
         }
     }
-
-    void moveCharacter(Vector2 direction)
-    {
-        _rb.MovePosition((Vector2)transform.position + (direction * speed * Time.deltaTime));
-    }
-
-    void jump()
-    {
-        _rb.velocity += new Vector2(0, jumpForce);
-    }
+    
 };
