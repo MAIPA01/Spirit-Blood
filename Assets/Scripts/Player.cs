@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using UnityEditor.Animations;
 
 enum PlayerForm
 {
@@ -25,7 +26,10 @@ public class Player : ObjectHealth
     private bool m_FacingRight = true;
 
     [SerializeField]
-    private Animator slashAnimator;
+    private GameObject slashObject;
+
+    [SerializeField]
+    private Transform slashPosition;
 
     [Header("Forms:")]
     [SerializeField]
@@ -56,9 +60,9 @@ public class Player : ObjectHealth
 
     private void OnValidate()
     {
-        if (slashAnimator != null)
+        if (slashObject != null)
         {
-            Debug.LogWarning("Slash Animator wasn't provided!!!");
+            Debug.LogWarning("Slash Object wasn't provided!!!");
         }
 
         if (!IsSpirit() && bloodWeaponTransform == null)
@@ -116,9 +120,22 @@ public class Player : ObjectHealth
     {
         if (bloodWeaponTransform != null)
         {
-            if (slashAnimator != null)
+            if (slashObject != null)
             {
-                slashAnimator.Play("SlashAnim", -1, 0.0f);
+                GameObject slash = Instantiate(slashObject, slashPosition.position, Quaternion.identity);
+                Vector3 theScale = slash.transform.localScale;
+                theScale.x *= m_FacingRight ? 1 : -1;
+                slash.transform.localScale = theScale;
+
+                if (slash.TryGetComponent(out Animator animator))
+                {
+                    animator.Play("SlashAnim", -1, 0.0f);
+                    Destroy(slash, 2.5f);
+                }
+                else
+                {
+                    Destroy(slash, 0.5f);
+                }
             }
 
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(bloodWeaponTransform.position, bloodAttackRange, enemyLayers);
