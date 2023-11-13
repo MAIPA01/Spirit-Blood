@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     public void MenuBtn()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
     public void Start()
