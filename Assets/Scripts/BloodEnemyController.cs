@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
-public class BloodEnemyController : MonoBehaviour
+public class BloodEnemyController : ObjectHealth
 {
     public float enemyMoveSpeed = 0.5f;
     public float enemyRange = 2f;
@@ -21,6 +20,8 @@ public class BloodEnemyController : MonoBehaviour
 
     private void Start()
     {
+        StartHealth();
+
         if(target == null)
         {
             Debug.LogError("Target player not assigned for blood enemy :( Assign me pls");
