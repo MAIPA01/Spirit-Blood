@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
-public class BasicSpirit : MonoBehaviour
+public class BasicSpirit : ObjectHealth
 {
     private Rigidbody2D rigid = null;
 
@@ -23,6 +23,7 @@ public class BasicSpirit : MonoBehaviour
 
     private void Start()
     {
+        StartHealth();
         rigid = rigid != null ? rigid : GetComponent<Rigidbody2D>();
     }
 
@@ -31,7 +32,7 @@ public class BasicSpirit : MonoBehaviour
         if (target != null && rigid != null)
         {
             Vector2 toTargetVector = target.transform.position - transform.position;
-            if (toTargetVector.magnitude >= .1f)
+            if (toTargetVector.magnitude >= attackRange * 0.5f)
             {
                 targetDirection = toTargetVector.normalized;
                 rigid.velocity += speed * Time.deltaTime * targetDirection;
@@ -67,6 +68,9 @@ public class BasicSpirit : MonoBehaviour
 
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, attackRange);
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, attackRange * 0.5f);
         }
     }
 }
