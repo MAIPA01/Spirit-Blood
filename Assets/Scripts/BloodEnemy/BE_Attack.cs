@@ -22,7 +22,13 @@ public class BE_Attack : IState
 
     public void UpdateState(BloodEnemyController sc)
     {
-        if(sc.target.transform.position.x - sc.transform.position.x > sc.enemyRange || sc.target.transform.position.x - sc.transform.position.x < -sc.enemyRange)
+        if (sc.GetHealth() < sc.prevHP)
+        {
+            sc.prevHP = sc.GetHealth();
+            OnHurt(sc);
+        }
+
+        if (sc.target.transform.position.x - sc.transform.position.x > sc.enemyRange || sc.target.transform.position.x - sc.transform.position.x < -sc.enemyRange)
         {
             sc.ChangeState(sc.chaseState);
         }
@@ -30,6 +36,7 @@ public class BE_Attack : IState
         if(Time.time > lastAttackTime + sc.enemyAttackDecay)
         {
             Debug.Log("OUCH! taking dmg: " + sc.enemyAttackDmg);
+            sc.target.gameObject.GetComponent<Player>().TakeDamage(sc.enemyAttackDmg);
             lastAttackTime = Time.time;
         }
     }

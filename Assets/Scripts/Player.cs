@@ -32,14 +32,27 @@ public class Player : ObjectHealth
     [ShowIf("form", PlayerForm.Blood)]
     private Color bloodColor = Color.white;
 
+    [SerializeField] private GameManager gameController;
+    
+    // counting score for score display
+    [HideInInspector] public float score = 0;
+
     void Start()
     {
         StartHealth();
+        gameController = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
+        if (gameController == null)
+        {
+            Debug.LogError("Could not find Game Manager! Paste prefab on scene please <3");
+        }
     }
 
     void Update()
     {
-        
+        if (gameController.score < score)
+        {
+            gameController.UpdateScore(score);
+        }
     }
 
     public bool IsSpirit() { return form == PlayerForm.Spirit; }
@@ -58,5 +71,12 @@ public class Player : ObjectHealth
     private void ChangeFormTest()
     {
         ChangeForm();
+    }
+
+    public override void OnDead()
+    {
+
+        Time.timeScale = 0;
+        gameController.DeadScreen();
     }
 }

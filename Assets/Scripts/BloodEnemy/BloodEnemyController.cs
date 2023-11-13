@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
-public class BloodEnemyController : MonoBehaviour
+public class BloodEnemyController : ObjectHealth
 {
+    [HideInInspector] public float prevHP;   
+
     public float enemyMoveSpeed = 0.5f;
     public float enemyRange = 2f;
     public float enemyAttackDmg = 0.00001f;
 
-    // attacks per second
-    public float enemyAttackDecay = 2f; 
+    [Tooltip("Time in which enemy can't act after taking dmg in SECONDS")]
+    public float stunTime = 10f;
+    
+    [Tooltip("Delay between next attack in SECONDS")]
+    public float enemyAttackDecay = 2f;
+
+    [Tooltip("Score gained by killing this enemy")]
+    public float scoreGained = 10;
 
     public GameObject target;
     IState currentState;
@@ -21,10 +29,13 @@ public class BloodEnemyController : MonoBehaviour
 
     private void Start()
     {
+        StartHealth();
         if(target == null)
         {
-            Debug.LogError("Target player not assigned for blood enemy :( Assign me pls");
+            target = GameObject.FindWithTag("Player");
+            //Debug.LogError("Target player not assigned for blood enemy :( Assign me pls");
         }
+        prevHP = GetHealth();
         ChangeState(chaseState);
     }
 
@@ -45,6 +56,11 @@ public class BloodEnemyController : MonoBehaviour
 
         currentState = newState;
         currentState.OnEnter(this);
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }
 

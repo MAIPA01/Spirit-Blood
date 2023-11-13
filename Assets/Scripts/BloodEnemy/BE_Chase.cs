@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class BE_Chase : IState
@@ -24,6 +25,12 @@ public class BE_Chase : IState
 
     public void UpdateState(BloodEnemyController sc)
     {
+        if(sc.GetHealth() < sc.prevHP)
+        {
+            sc.prevHP = sc.GetHealth();
+            OnHurt(sc);
+        }
+
         if(sc.target.transform.position.x - sc.transform.position.x <= sc.enemyRange)
         {
             sc.ChangeState(sc.attackState);
