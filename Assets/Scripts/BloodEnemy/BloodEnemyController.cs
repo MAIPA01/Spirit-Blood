@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class BloodEnemyController : ObjectHealth
 {
-    [HideInInspector] public float prevHP;   
+	[HideInInspector] public float prevHP; 
 
     public float enemyMoveSpeed = 0.5f;
     public float enemyRange = 2f;
@@ -13,7 +12,7 @@ public class BloodEnemyController : ObjectHealth
 
     [Tooltip("Time in which enemy can't act after taking dmg in SECONDS")]
     public float stunTime = 10f;
-    
+
     [Tooltip("Delay between next attack in SECONDS")]
     public float enemyAttackDecay = 2f;
 
@@ -30,12 +29,13 @@ public class BloodEnemyController : ObjectHealth
     private void Start()
     {
         StartHealth();
+
         if(target == null)
         {
-            target = GameObject.FindWithTag("Player");
+			target = GameObject.FindWithTag("Player");
             //Debug.LogError("Target player not assigned for blood enemy :( Assign me pls");
         }
-        prevHP = GetHealth();
+		prevHP = GetHealth();
         ChangeState(chaseState);
     }
 
@@ -57,8 +57,8 @@ public class BloodEnemyController : ObjectHealth
         currentState = newState;
         currentState.OnEnter(this);
     }
-
-    public void Die()
+	
+	public void Die()
     {
         Destroy(gameObject);
     }
