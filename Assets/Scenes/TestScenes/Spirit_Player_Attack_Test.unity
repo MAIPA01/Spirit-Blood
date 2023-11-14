@@ -134,7 +134,7 @@ PrefabInstance:
     - target: {fileID: 1166858069765331561, guid: 496552e3ff7ad2644a40e20ec171ec22, type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1077709494}
+      objectReference: {fileID: 1077709496}
     - target: {fileID: 3557594998553732219, guid: 496552e3ff7ad2644a40e20ec171ec22, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.11
@@ -287,7 +287,7 @@ PrefabInstance:
     - target: {fileID: 1166858069765331561, guid: 496552e3ff7ad2644a40e20ec171ec22, type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1077709494}
+      objectReference: {fileID: 1077709496}
     - target: {fileID: 3557594998553732219, guid: 496552e3ff7ad2644a40e20ec171ec22, type: 3}
       propertyPath: m_LocalPosition.x
       value: -13.168987
@@ -539,8 +539,13 @@ MonoBehaviour:
   health: 0
   form: 1
   body: {fileID: 1077709499}
-  spiritDamage: 2
+  spiritDamage: 10
   spiritColor: {r: 0, g: 0, b: 0, a: 1}
+  circleRadius: 7
+  sectorAngle: 30
+  spiritLayers:
+    serializedVersion: 2
+    m_Bits: 64
   bloodDamage: 1
   bloodColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!70 &1077709497

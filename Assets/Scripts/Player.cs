@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
-using UnityEngine.Assertions.Must;
-using static UnityEngine.UI.Image;
 
 enum PlayerForm
 {
@@ -26,6 +24,15 @@ public class Player : ObjectHealth
     [SerializeField]
     [ShowIf("form", PlayerForm.Spirit)]
     private Color spiritColor = Color.black;
+    [SerializeField]
+    [ShowIf("form", PlayerForm.Spirit)]
+    private float circleRadius;
+    [SerializeField]
+    [ShowIf("form", PlayerForm.Spirit)]
+    private float sectorAngle;
+    [SerializeField]
+    [ShowIf("form", PlayerForm.Spirit)]
+    private LayerMask spiritLayers;
 
     [SerializeField]
     [ShowIf("form", PlayerForm.Blood)]
@@ -70,18 +77,25 @@ public class Player : ObjectHealth
 
     private void SpiritAttack()
     {
-        Vector2 origin = transform.position;
+        // Dodaæ Delay
+        Vector2 origin = body.transform.position;
         Vector2 lookDir = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - origin).normalized;
-        RaycastHit2D[] hits = Physic2DExtension.CircleSectorCastAll(origin, 5f, 45f, lookDir, 10f, int.MaxValue);
+        RaycastHit2D[] hits = Physic2DExtension.CircleSectorCastAll(origin, circleRadius, sectorAngle, lookDir, float.PositiveInfinity, spiritLayers.value);
         for (uint i = 0; i < hits.Length; i++)
         {
             if (hits[i].collider.gameObject == gameObject)
             {
                 continue;
             }
-            if ((hits[i].collider.gameObject.layer & LayerMask.NameToLayer("Spirit")) == LayerMask.NameToLayer("Spirit"))
+            if (((1 << hits[i].collider.gameObject.layer) & spiritLayers.value) == spiritLayers.value)
             {
-                hits[i].collider.gameObject.GetComponent<BasicSpirit>().TakeDamage(10);
+                GameObject spiritEnemy = hits[i].collider.gameObject;
+                spiritEnemy.GetComponent<BasicSpirit>().TakeDamage(spiritDamage);
+                spiritEnemy.GetComponent<BasicSpirit>().SetStunt();
+
+                Vector2 throwBackDir = spiritEnemy.transform.position - body.transform.position;
+                throwBackDir.Normalize();
+                spiritEnemy.GetComponent<Rigidbody2D>().velocity += throwBackDir * spiritDamage;
             }
         }
     }
@@ -92,9 +106,6 @@ public class Player : ObjectHealth
         {
             Vector2 origin = transform.position;
             Vector2 lookDir = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - origin).normalized;
-            float radius = 5f;
-            float maxDistance = 10f;
-            float sectorAngle = 45f;
 
             float lookRadians = MathfExtensions.DegreesToRadians(Vector2Extensions.Angle360(Vector2.right, lookDir));
 
@@ -102,24 +113,15 @@ public class Player : ObjectHealth
             float startRadians = lookRadians + halfSectorRadians;
             float endRadians = lookRadians - halfSectorRadians;
 
-            float startAngle = MathfExtensions.RadiansToDegrees(startRadians);
-            float endAngle = MathfExtensions.RadiansToDegrees(endRadians);
-            endAngle -= startAngle;
-
-
             Vector2 startPoint = (new Vector2(Mathf.Cos(startRadians), Mathf.Sin(startRadians))).normalized;
             Vector2 endPoint = (new Vector2(Mathf.Cos(endRadians), Mathf.Sin(endRadians))).normalized;
 
             Gizmos.color = Color.blue;
-            Gizmos.DrawLine(origin, origin + lookDir * maxDistance);
-
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(origin, origin + startPoint * maxDistance);
-            Gizmos.DrawLine(origin, origin + endPoint * maxDistance);
+            Gizmos.DrawLine(origin, origin + lookDir * circleRadius);
 
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(origin, origin + startPoint * radius);
-            Gizmos.DrawLine(origin, origin + endPoint * radius);
+            Gizmos.DrawLine(origin, origin + startPoint * circleRadius);
+            Gizmos.DrawLine(origin, origin + endPoint * circleRadius);
 
             float radiansDiff = (endRadians - startRadians) / 10;
             for (int i = 1; i < 11; i++)
@@ -127,11 +129,8 @@ public class Player : ObjectHealth
                 Vector2 point1 = (new Vector2(Mathf.Cos(startRadians + (i - 1) * radiansDiff), Mathf.Sin(startRadians + (i - 1) * radiansDiff))).normalized;
                 Vector2 point2 = (new Vector2(Mathf.Cos(startRadians + i * radiansDiff), Mathf.Sin(startRadians + i * radiansDiff))).normalized;
 
-                Gizmos.color = Color.green;
-                Gizmos.DrawLine(origin + point1 * maxDistance, origin + point2 * maxDistance);
-
                 Gizmos.color = Color.red;
-                Gizmos.DrawLine(origin + point1 * radius, origin + point2 * radius);
+                Gizmos.DrawLine(origin + point1 * circleRadius, origin + point2 * circleRadius);
             }
         }
     }
