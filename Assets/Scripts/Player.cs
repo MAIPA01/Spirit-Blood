@@ -30,6 +30,11 @@ public class Player : ObjectHealth
 
     [SerializeField]
     private Transform slashPosition;
+	
+	[SerializeField] private GameManager gameController;
+
+    // counting score for score display
+    [HideInInspector] public float score = 0;
 
     [Header("Forms:")]
     [SerializeField]
@@ -83,10 +88,21 @@ public class Player : ObjectHealth
     void Start()
     {
         StartHealth();
+	
+		gameController = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
+        if (gameController == null)
+        {
+            Debug.LogError("Could not find Game Manager! Paste prefab on scene please <3");
+        }	
     }
 
     void Update()
     {
+		if (gameController.score < score)
+        {
+            gameController.UpdateScore(score);
+        }
+		
         if (Input.mousePosition.x >= Screen.width / 2 && !m_FacingRight)
         {
             Flip();
@@ -113,6 +129,14 @@ public class Player : ObjectHealth
     }
 
     public bool IsSpirit() { return form == PlayerForm.Spirit; }
+
+	
+    public override void OnDead()
+    {
+
+        Time.timeScale = 0;
+        gameController.DeadScreen();
+    }
 
     public void ChangeForm() 
     { 
