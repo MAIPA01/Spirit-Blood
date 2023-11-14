@@ -5,7 +5,7 @@ using UnityEngine;
 public class BloodEnemyController : ObjectHealth
 {
 	[HideInInspector] public float prevHP; 
-	
+
     public float enemyMoveSpeed = 0.5f;
     public float enemyRange = 2f;
     public float enemyAttackDmg = 0.00001f;

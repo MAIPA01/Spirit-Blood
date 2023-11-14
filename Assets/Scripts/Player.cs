@@ -88,12 +88,11 @@ public class Player : ObjectHealth
     void Start()
     {
         StartHealth();
-	
 		gameController = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
         if (gameController == null)
         {
             Debug.LogError("Could not find Game Manager! Paste prefab on scene please <3");
-        }	
+        }
     }
 
     void Update()
@@ -129,14 +128,6 @@ public class Player : ObjectHealth
     }
 
     public bool IsSpirit() { return form == PlayerForm.Spirit; }
-
-	
-    public override void OnDead()
-    {
-
-        Time.timeScale = 0;
-        gameController.DeadScreen();
-    }
 
     public void ChangeForm() 
     { 
@@ -277,5 +268,12 @@ public class Player : ObjectHealth
                 Gizmos.DrawLine(origin + point1 * circleRadius, origin + point2 * circleRadius);
             }
         }
+	}
+	
+    public override void OnDead()
+    {
+
+        Time.timeScale = 0;
+        gameController.DeadScreen();
     }
 }

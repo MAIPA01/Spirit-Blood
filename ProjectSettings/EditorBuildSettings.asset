@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/Menu.unity
+    guid: 907655fb01b83e74f8a8be5976d162c0
+  - enabled: 1
+    path: Assets/Scenes/DmgMenuBloodIDKtestSomethingScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/SpawnerTest.unity
+    guid: a52f56b5f6826004abb7385730fdbb43
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/PlayerTest.unity
+    guid: 49b49a1ce0d3b9340b22a279a3e74bb5
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/Ghost_Enemy_Test.unity
+    guid: 12d2090371715ad4baea149e840d401f
   m_configObjects: {}
