@@ -485,6 +485,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1592870709}
   - component: {fileID: 1592870708}
+  - component: {fileID: 1592870710}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -559,6 +560,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1592870710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592870707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90d2ab25d81f43044821b1ea111d1b0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  health: 100
 --- !u!1001 &1155846956418287299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -570,7 +585,7 @@ PrefabInstance:
     - target: {fileID: 1166858069765331561, guid: 496552e3ff7ad2644a40e20ec171ec22, type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1592870707}
+      objectReference: {fileID: 1592870710}
     - target: {fileID: 3557594998553732219, guid: 496552e3ff7ad2644a40e20ec171ec22, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.42
