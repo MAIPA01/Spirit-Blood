@@ -254,7 +254,7 @@ MonoBehaviour:
   prevHP: 0
   enemyMoveSpeed: 0.5
   enemyRange: 0
-  enemyAttackDmg: 20
+  enemyAttackDmg: 5
   stunTime: 10
   enemyAttackDecay: 2
   scoreGained: 10
