@@ -36,7 +36,7 @@ public class BE_Attack : IState
         if(Time.time > lastAttackTime + sc.enemyAttackDecay)
         {
             Debug.Log("OUCH! taking dmg: " + sc.enemyAttackDmg);
-            sc.target.gameObject.GetComponent<Player>().TakeDamage(sc.enemyAttackDmg);
+            sc.target.GetComponent<Player>().TakeDamage(sc.enemyAttackDmg);
             lastAttackTime = Time.time;
         }
     }
