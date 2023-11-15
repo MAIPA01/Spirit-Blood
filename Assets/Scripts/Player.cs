@@ -20,9 +20,6 @@ public class Player : ObjectHealth
     private SpriteRenderer body;
 
     [SerializeField]
-    private LayerMask enemyLayers;
-
-    [SerializeField]
     private bool m_FacingRight = true;
 
     [SerializeField]
@@ -39,10 +36,18 @@ public class Player : ObjectHealth
     [Header("Forms:")]
     [SerializeField]
     [ShowIf("form", PlayerForm.Spirit)]
-    private float spiritDamage = 2f;
+    private Color spiritColor = Color.black;
+
+    [SerializeField]
+    [ShowIf("form", PlayerForm.Blood)]
+    private Color bloodColor = Color.white;
+
+    [Header("Attack:")]
+    [SerializeField]
+    private float attackDelay = 1f;
     [SerializeField]
     [ShowIf("form", PlayerForm.Spirit)]
-    private Color spiritColor = Color.black;
+    private float spiritDamage = 2f;
     [SerializeField]
     [ShowIf("form", PlayerForm.Spirit)]
     private float circleRadius;
@@ -52,17 +57,12 @@ public class Player : ObjectHealth
     [SerializeField]
     [ShowIf("form", PlayerForm.Spirit)]
     private LayerMask spiritLayers;
-
     [SerializeField]
     [ShowIf("form", PlayerForm.Blood)]
     private float bloodDamage = 1f;
     [SerializeField]
     [ShowIf("form", PlayerForm.Blood)]
-    private Color bloodColor = Color.white;
-
-    [Header("Attack")]
-    [SerializeField]
-    private float attackDelay = 1f;
+    private LayerMask bloodLayers;
     [SerializeField]
     [ShowIf("form", PlayerForm.Blood)]
     private Transform bloodWeaponTransform;
@@ -74,7 +74,7 @@ public class Player : ObjectHealth
 
     private void OnValidate()
     {
-        if (slashObject != null)
+        if (slashObject == null)
         {
             Debug.LogWarning("Slash Object wasn't provided!!!");
         }
@@ -83,13 +83,17 @@ public class Player : ObjectHealth
         {
             Debug.LogError("Blood Weapon Transform is needed for attack to work!!!");
         }
+
+        if (body != null)
+        {
+            body.color = IsSpirit() ? spiritColor : bloodColor;
+        }
     }
 
     void Start()
     {
         StartHealth();
-		gameController = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
-        if (gameController == null)
+        if (!GameObject.FindWithTag("GameController").TryGetComponent(out gameController))
         {
             Debug.LogError("Could not find Game Manager! Paste prefab on scene please <3");
         }
@@ -109,6 +113,11 @@ public class Player : ObjectHealth
         else if (Input.mousePosition.x < Screen.width / 2 && m_FacingRight)
         {
             Flip();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            ChangeForm();
         }
 
         if (IsSpirit())
@@ -172,7 +181,7 @@ public class Player : ObjectHealth
                 }
             }
 
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(bloodWeaponTransform.position, bloodAttackRange, enemyLayers);
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(bloodWeaponTransform.position, bloodAttackRange, bloodLayers);
 
             foreach (Collider2D enemy in hitEnemies)
             {
@@ -193,15 +202,6 @@ public class Player : ObjectHealth
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (bloodWeaponTransform != null)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(bloodWeaponTransform.position, bloodAttackRange);
-        }
     }
 
     [Button]
@@ -237,7 +237,7 @@ public class Player : ObjectHealth
 
     private void OnDrawGizmos()
     {
-        if (form == PlayerForm.Spirit)
+        if (IsSpirit())
         {
             Vector2 origin = transform.position;
             Vector2 lookDir = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - origin).normalized;
@@ -268,11 +268,18 @@ public class Player : ObjectHealth
                 Gizmos.DrawLine(origin + point1 * circleRadius, origin + point2 * circleRadius);
             }
         }
+        else
+        {
+            if (bloodWeaponTransform != null)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawWireSphere(bloodWeaponTransform.position, bloodAttackRange);
+            }
+        }
 	}
 	
     public override void OnDead()
     {
-
         Time.timeScale = 0;
         gameController.DeadScreen();
     }

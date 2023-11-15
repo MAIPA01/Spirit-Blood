@@ -16,7 +16,7 @@ public class SpawnPrefab
 public class SpawnPoint
 {
     [SerializeField] private Transform transform = null;
-    [SerializeField] private List<SpawnPrefab> prefabList = new();
+    [SerializeField] private List<SpawnPrefab> prefabList;
 
     public List<SpawnPrefab> GetSpawnPrefabs() { return prefabList; }
     public Transform GetTransform() { return transform; }
@@ -45,7 +45,7 @@ public class SpawnManager : MonoBehaviour
     IEnumerator Spawn(GameObject prefab, Transform tran, int time)
     {
         yield return new WaitForSeconds(time);
-        GameObject obj = Instantiate(prefab, tran.position, Quaternion.identity);
+        Instantiate(prefab, tran.position, Quaternion.identity);
         yield return new WaitForSeconds(2);
     }
 

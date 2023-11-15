@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject deathScreen;
-    [SerializeField] Text scoreText;
+    [SerializeField] TextMeshProUGUI scoreText;
     [HideInInspector] public float score = 0;
     public void DeadScreen()
     {
@@ -21,14 +22,12 @@ public class GameManager : MonoBehaviour
     }
     public void Start()
     {
-        scoreText.text = "Score: " + score;
+        scoreText.text = "Score\n" + score;
     }
 
     public void UpdateScore(float scorePoints)
     {
-        scoreText.text = "Score: " + scorePoints;
+        scoreText.text = "Score\n" + scorePoints;
         score = scorePoints;
     }
-
-
 }
