@@ -8,12 +8,18 @@ public class GroudCheck : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        groundContats++;
+        if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
+        {
+            groundContats++;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        groundContats--;
+        if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
+        {
+            groundContats--;
+        }
     }
     
 }
