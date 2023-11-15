@@ -249,12 +249,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b58115e663aa3a14b83f96eca3a17d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 20
   health: 0
-  enemyMoveSpeed: 1
-  enemyRange: 0.1
+  prevHP: 0
+  enemyMoveSpeed: 0.5
+  enemyRange: 0
   enemyAttackDmg: 20
+  stunTime: 10
   enemyAttackDecay: 2
+  scoreGained: 10
   target: {fileID: 0}
 --- !u!114 &1041576364808022593
 MonoBehaviour:
