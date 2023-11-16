@@ -18,6 +18,7 @@ public class BasicSpirit : ObjectHealth
     [SerializeField][Tooltip("Czas pomiêdzy jednym a drugim atakiem")] private float attackDelay = 1f;
     [SerializeField][Tooltip("Czas bycia w szoku po uderzeniu")] private float stuntTime = 1f;
     [SerializeField][Tooltip("Damage który zadaje przeciwnik")] private float attackDamage = 10f;
+    [Tooltip("Score gained by killing this enemy")] public float scoreGained = 10;
 
     private Vector2 targetDirection = Vector2.zero;
 
@@ -67,6 +68,7 @@ public class BasicSpirit : ObjectHealth
 
     public override void OnDead()
     {
+        target.GetComponent<Player>().score += scoreGained;
         base.OnDead();
         Destroy(this.gameObject);
     }

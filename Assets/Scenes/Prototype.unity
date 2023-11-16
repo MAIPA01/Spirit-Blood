@@ -1434,6 +1434,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 229335586949737649, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
+      propertyPath: maxHealth
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 229335586949737649, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
       propertyPath: attackDelay
       value: 0.25
       objectReference: {fileID: 0}
@@ -1723,8 +1727,8 @@ RectTransform:
   - {fileID: 975505322}
   - {fileID: 778812025}
   - {fileID: 714776116}
-  - {fileID: 1430796677}
   - {fileID: 1781584347}
+  - {fileID: 1430796677}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

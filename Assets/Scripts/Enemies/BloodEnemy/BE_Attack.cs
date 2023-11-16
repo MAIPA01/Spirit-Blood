@@ -29,7 +29,7 @@ public class BE_Attack : IState
             OnHurt(sc);
         }
 
-        if (Math.Abs(sc.target.transform.position.x - sc.transform.position.x) > sc.enemyRange)
+        if (!sc.checkRange())
         {
             sc.ChangeState(sc.chaseState);
         }

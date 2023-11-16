@@ -106,8 +106,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5892605793930769623}
   - {fileID: 1462521297331420585}
+  - {fileID: 5892605793930769623}
   m_Father: {fileID: 4920607125530126906}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -224,7 +224,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathScreen: {fileID: 7996457822106282484}
-  scoreText: {fileID: 7644765416037228026}
+  scoreText: {fileID: 0}
+  score: 0
 --- !u!1 &5088569660996607851
 GameObject:
   m_ObjectHideFlags: 0

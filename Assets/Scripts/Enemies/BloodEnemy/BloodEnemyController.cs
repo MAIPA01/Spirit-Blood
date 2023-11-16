@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 public class BloodEnemyController : ObjectHealth
 {
@@ -27,13 +28,13 @@ public class BloodEnemyController : ObjectHealth
     public BE_Chase chaseState;
     public BE_Hurt hurtState;
 
-    private void OnValidate()
+    /*private void OnValidate()
     {
         if (target == null)
         {
             Debug.LogWarning("Target player not assigned for blood enemy :( Assign me pls");
         }
-    }
+    }*/
 
     private void Awake()
     {
@@ -79,6 +80,14 @@ public class BloodEnemyController : ObjectHealth
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position, new Vector3(enemyRange * 2.0f, 1.0f));
     }
+
+    public bool checkRange()
+    {
+       if (Math.Abs(target.transform.position.x - transform.position.x) <= enemyRange && Math.Abs(target.transform.position.y - transform.position.y) <= enemyRange)
+            return true;
+        return false;
+    } 
+
 }
 
 public interface IState
