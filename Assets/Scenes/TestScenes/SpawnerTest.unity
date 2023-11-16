@@ -588,6 +588,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c43ccda482ff2a4b8bb28485f4d09c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loop: 1
+  timeBetweenWaves: 2
+  timeBetweenObjects: 1
   spawnList:
   - transform: {fileID: 1241690209}
     prefabList:
