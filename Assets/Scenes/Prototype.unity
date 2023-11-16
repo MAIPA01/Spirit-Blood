@@ -1439,7 +1439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 229335586949737649, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
       propertyPath: attackDelay
-      value: 0.25
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 351551538450558597, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
       propertyPath: m_Name
@@ -1449,6 +1449,18 @@ PrefabInstance:
       propertyPath: image
       value: 
       objectReference: {fileID: 717770049}
+    - target: {fileID: 1750168044587548506, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1750168044587548506, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1750168044587548506, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6728503941846826823, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.33400524
