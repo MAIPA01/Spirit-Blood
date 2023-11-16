@@ -252,7 +252,7 @@ MonoBehaviour:
   maxHealth: 20
   health: 0
   prevHP: 0
-  enemyMoveSpeed: 0.5
+  enemyMoveSpeed: 5
   enemyRange: 1.5
   enemyAttackDmg: 5
   stunTime: 10
