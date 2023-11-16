@@ -35,8 +35,6 @@ public class Movement : MonoBehaviour
         {
             _isJumping = true;
             actualJumpCount++;
-            UnityEngine.Debug.Log("Jump count: " + actualJumpCount);
-            UnityEngine.Debug.Log("Is jumping???: " + _isJumping);
             //_rb.velocity = new Vector2(0, jumpForce);
             _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
@@ -45,7 +43,6 @@ public class Movement : MonoBehaviour
         {
             actualJumpCount = 0;
             _isJumping = false;
-            UnityEngine.Debug.Log("Is jumping??: " + _isJumping);
         }
     }
 
