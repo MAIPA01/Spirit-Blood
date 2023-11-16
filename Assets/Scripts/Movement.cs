@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Security.Cryptography;
 using UnityEngine;
 
 
@@ -10,9 +11,11 @@ public class Movement : MonoBehaviour
     [SerializeField] private bool _isJumping = false;
     [SerializeField] private int _jumpCount = 1;
     private int actualJumpCount = 0;
+   /* private Vector3 m_rotateTo;
+    public float rotationTime = 0.57f;*/
 
     [Tooltip("Co myslicie to takich filko³kach jak zosta³o to zaprezentowane w grze platformer shooter???")]
-    [SerializeField] private bool _enableRotation = false;
+    //[SerializeField] private bool _enableRotation = false;
 
     Rigidbody2D _rb;
     
@@ -42,9 +45,10 @@ public class Movement : MonoBehaviour
         {
             actualJumpCount = 0;
             _isJumping = false;
-            UnityEngine.Debug.Log("Ij jumping??: " + _isJumping);
+            UnityEngine.Debug.Log("Is jumping??: " + _isJumping);
         }
-
     }
-    
+
+ 
+
 };

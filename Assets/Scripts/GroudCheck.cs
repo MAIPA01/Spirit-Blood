@@ -11,6 +11,7 @@ public class GroudCheck : MonoBehaviour
         if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
         {
             groundContats++;
+            Debug.Log("Ground contacts: " + groundContats);
         }
     }
 
@@ -19,6 +20,7 @@ public class GroudCheck : MonoBehaviour
         if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
         {
             groundContats--;
+            Debug.Log("Ground contacts: " + groundContats);
         }
     }
     
