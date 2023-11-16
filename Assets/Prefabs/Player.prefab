@@ -177,19 +177,19 @@ MonoBehaviour:
   score: 0
   spiritColor: {r: 0, g: 0, b: 0, a: 1}
   bloodColor: {r: 1, g: 1, b: 1, a: 1}
-  attackDelay: 1
-  spiritDamage: 15
+  attackDelay: 0.25
+  spiritDamage: 10
   circleRadius: 7
   sectorAngle: 30
   spiritLayers:
     serializedVersion: 2
     m_Bits: 64
-  bloodDamage: 25
+  bloodDamage: 10
   bloodLayers:
     serializedVersion: 2
     m_Bits: 128
   bloodWeaponTransform: {fileID: 9198207985852270391}
-  bloodAttackRange: 1
+  bloodAttackRange: 1.3
 --- !u!114 &5774435722727972453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,7 +246,7 @@ Transform:
   m_GameObject: {fileID: 3837038804314585393}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.37, y: -0.03, z: 0.06892356}
+  m_LocalPosition: {x: 1.66, y: -0.03, z: 0.06892356}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -368,7 +368,7 @@ Transform:
   m_GameObject: {fileID: 7715236274783532148}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.81, y: 0, z: 0}
+  m_LocalPosition: {x: 0.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

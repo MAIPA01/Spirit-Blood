@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using TMPro;
+using System.Text;
 
 [System.Serializable]
 public class SpawnPrefab
@@ -31,31 +33,55 @@ public class SpawnManager : MonoBehaviour
     [ShowIf("loop")]
     private float timeBetweenWaves = 5.0f;
     [SerializeField]
+    [ShowIf("loop")]
+    private TextMeshProUGUI countdownTxt;
+    [SerializeField]
     private float timeBetweenObjects = 1.0f;
     [SerializeField] 
     private List<SpawnPoint> spawnList = new();
 
-    private float timeBefore = 0.0f;
+    private float oneWaveTime = 0.0f;
+
+    private float timeCount = 0.0f;
 
     void Awake()
     {
-        timeBefore = timeBetweenWaves + SpawnEverything(timeBefore);
+        oneWaveTime = SpawnEverything();
+        timeCount = timeBetweenWaves;
+        countdownTxt.text = "";
     }
 
     private void Update()
     {
         if (loop)
         {
-            timeBefore = timeBetweenWaves + SpawnEverything(timeBefore);
+            if (oneWaveTime > 0.0f)
+            {
+                oneWaveTime -= Time.deltaTime;
+            }
+            else
+            {
+                if (timeCount > 0.0f)
+                {
+                    timeCount -= Time.deltaTime;
+                    countdownTxt.text = new StringBuilder("Next Wave In: ").Append(timeCount.ToString("0")).Append("s").ToString();
+                }
+                else
+                {
+                    countdownTxt.text = "";
+                    oneWaveTime = SpawnEverything();
+                    timeCount = timeBetweenWaves;
+                }
+            }
         }
     }
 
-    float SpawnEverything(float addT)
+    float SpawnEverything()
     {
         float lastTime = 0.0f;
         foreach (SpawnPoint point in spawnList)
         {
-            float time = addT;
+            float time = 0.0f;
 
             foreach (SpawnPrefab prefab in point.GetSpawnPrefabs())
             {
