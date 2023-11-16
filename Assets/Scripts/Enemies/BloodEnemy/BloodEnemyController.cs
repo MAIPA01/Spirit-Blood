@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BloodEnemyController : ObjectHealth
@@ -71,6 +72,12 @@ public class BloodEnemyController : ObjectHealth
     {
 		target.GetComponent<Player>().score += scoreGained;
         Destroy(gameObject);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, new Vector3(enemyRange * 2.0f, 1.0f));
     }
 }
 

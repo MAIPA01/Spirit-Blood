@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,14 +29,14 @@ public class BE_Attack : IState
             OnHurt(sc);
         }
 
-        if (sc.target.transform.position.x - sc.transform.position.x > sc.enemyRange || sc.target.transform.position.x - sc.transform.position.x < -sc.enemyRange)
+        if (Math.Abs(sc.target.transform.position.x - sc.transform.position.x) > sc.enemyRange)
         {
             sc.ChangeState(sc.chaseState);
         }
 
         if(Time.time > lastAttackTime + sc.enemyAttackDecay)
         {
-            Debug.Log("OUCH! taking dmg: " + sc.enemyAttackDmg);
+            //Debug.Log("OUCH! taking dmg: " + sc.enemyAttackDmg);
             sc.target.GetComponent<Player>().TakeDamage(sc.enemyAttackDmg);
             lastAttackTime = Time.time;
         }

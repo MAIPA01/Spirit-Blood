@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -31,7 +32,7 @@ public class BE_Chase : IState
             OnHurt(sc);
         }
 
-        if(sc.target.transform.position.x - sc.transform.position.x <= sc.enemyRange)
+        if(Math.Abs(sc.target.transform.position.x - sc.transform.position.x) <= sc.enemyRange)
         {
             sc.ChangeState(sc.attackState);
         }
