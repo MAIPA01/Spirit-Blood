@@ -120,19 +120,9 @@ public class Player : ObjectHealth
             ChangeForm();
         }
 
-        if (IsSpirit())
+        if (canAttack)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                SpiritAttack();
-            }
-        }
-        else 
-        {
-          if (Input.GetMouseButtonDown(0) && canAttack)
-          {
-              StartCoroutine(Attack());
-          }
+            StartCoroutine(Attack());
         }
     }
 
@@ -154,6 +144,10 @@ public class Player : ObjectHealth
         if (!IsSpirit())
         {
             BloodAttack();
+        }
+        else
+        {
+            SpiritAttack();
         }
         yield return new WaitForSeconds(attackDelay);
         canAttack = true;
