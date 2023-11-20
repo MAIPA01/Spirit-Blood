@@ -663,7 +663,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.3018868, g: 0.17799929, b: 0.21413313, a: 1}
+  m_BackGroundColor: {r: 0.28675684, g: 0.18084727, b: 0.3018868, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1455,15 +1455,15 @@ PrefabInstance:
       objectReference: {fileID: 717770049}
     - target: {fileID: 1750168044587548506, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1750168044587548506, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.07058824
       objectReference: {fileID: 0}
     - target: {fileID: 1750168044587548506, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.7294118
       objectReference: {fileID: 0}
     - target: {fileID: 5774435722727972453, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
       propertyPath: jumpForce
