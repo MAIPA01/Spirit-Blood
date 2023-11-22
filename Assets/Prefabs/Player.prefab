@@ -190,6 +190,9 @@ MonoBehaviour:
     m_Bits: 128
   bloodWeaponTransform: {fileID: 9198207985852270391}
   bloodAttackRange: 1.3
+  spiritSlashSprite: {fileID: 0}
+  slashMaskSpriteResolution: 64
+  slashMaskPivot: {x: 0, y: 0}
 --- !u!114 &5774435722727972453
 MonoBehaviour:
   m_ObjectHideFlags: 0
