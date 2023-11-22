@@ -1445,6 +1445,10 @@ PrefabInstance:
       propertyPath: circleRadius
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 229335586949737649, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
+      propertyPath: gameController
+      value: 
+      objectReference: {fileID: 1680073421}
     - target: {fileID: 351551538450558597, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
       propertyPath: m_Name
       value: Player

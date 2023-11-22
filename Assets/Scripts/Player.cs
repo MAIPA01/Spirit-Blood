@@ -159,15 +159,12 @@ public class Player : ObjectHealth
         {
             if (slashObject != null)
             {
-                GameObject slash = Instantiate(slashObject, slashPosition.position, Quaternion.identity);
-                Vector3 theScale = slash.transform.localScale;
-                theScale.x *= m_FacingRight ? 1 : -1;
-                slash.transform.localScale = theScale;
+                GameObject slash = Instantiate(slashObject, slashPosition.position, Quaternion.identity, slashPosition);
 
                 if (slash.TryGetComponent(out Animator animator))
                 {
                     animator.Play("SlashAnim", -1, 0.0f);
-                    Destroy(slash, 2.5f);
+                    Destroy(slash, attackDelay + 0.5f);
                 }
                 else
                 {
