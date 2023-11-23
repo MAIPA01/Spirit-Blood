@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
-using UnityEditor.Animations;
-using UnityEngine.Rendering;
-using System.Linq.Expressions;
 
 enum PlayerForm
 {
@@ -123,11 +120,13 @@ public class Player : ObjectHealth
             gameController.UpdateScore(score);
         }
 		
-        if (Input.mousePosition.x >= Screen.width / 2 && !m_FacingRight)
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if (mousePos.x >= transform.position.x && !m_FacingRight)
         {
             Flip();
         }
-        else if (Input.mousePosition.x < Screen.width / 2 && m_FacingRight)
+        else if (mousePos.x < transform.position.x && m_FacingRight)
         {
             Flip();
         }
@@ -235,64 +234,66 @@ public class Player : ObjectHealth
 
     private void CreateSlashMaskSprite()
     {
-        if (spiritSlashMask != null)
+        if (spiritSlashMask == null)
         {
-            List<Vector3> meshVerticies = new();
-            List<int> meshTriangles = new();
+            ReloadSpiritSlashMaskSprite();
+        }
 
-            // CENTER POINT
-            Vector3 origin = new(0f, 0f, 0f);
-            meshVerticies.Add(origin);
+        List<Vector3> meshVerticies = new();
+        List<int> meshTriangles = new();
 
-            float halfSectorRadians = (sectorAngle / 2f) * Mathf.Deg2Rad;
-            float startRadians = halfSectorRadians * 2f;
-            float endRadians = 0f;
+        // CENTER POINT
+        Vector3 origin = new(0f, 0f, 0f);
+        meshVerticies.Add(origin);
 
-            Vector3 startPoint = (new Vector2(Mathf.Cos(startRadians), Mathf.Sin(startRadians))).normalized;
-            Vector3 endPoint = (new Vector2(Mathf.Cos(endRadians), Mathf.Sin(endRadians))).normalized;
+        float halfSectorRadians = (sectorAngle / 2f) * Mathf.Deg2Rad;
+        float startRadians = halfSectorRadians * 2f;
+        float endRadians = 0f;
 
-            // TOP POINT
-            meshVerticies.Add(origin + startPoint * circleRadius);
+        Vector3 startPoint = (new Vector2(Mathf.Cos(startRadians), Mathf.Sin(startRadians))).normalized;
+        Vector3 endPoint = (new Vector2(Mathf.Cos(endRadians), Mathf.Sin(endRadians))).normalized;
 
-            uint pointsNum = (uint)Mathf.Abs((int)((endRadians - startRadians) / (Mathf.Deg2Rad * 3f)));
-            float radiansDiff = (endRadians - startRadians) / pointsNum;
-            for (int i = 1; i < pointsNum - 1; i++)
-            {
-                // POINTS BETWEEN TOP AND BOTTOM
-                Vector3 point = (new Vector3(Mathf.Cos(startRadians + i * radiansDiff), Mathf.Sin(startRadians + i * radiansDiff), 0f)).normalized;
+        // TOP POINT
+        meshVerticies.Add(origin + startPoint * circleRadius);
 
-                meshVerticies.Add(origin + point * circleRadius);
-            }
-            // BOTTOM POINT
-            meshVerticies.Add(origin + endPoint * circleRadius);
+        uint pointsNum = (uint)Mathf.Abs((int)((endRadians - startRadians) / (Mathf.Deg2Rad * 3f)));
+        float radiansDiff = (endRadians - startRadians) / pointsNum;
+        for (int i = 1; i < pointsNum - 1; i++)
+        {
+            // POINTS BETWEEN TOP AND BOTTOM
+            Vector3 point = (new Vector3(Mathf.Cos(startRadians + i * radiansDiff), Mathf.Sin(startRadians + i * radiansDiff), 0f)).normalized;
 
-            for (int i = 1; i < meshVerticies.Count - 1; i++)
-            {
-                meshTriangles.Add(0);
-                meshTriangles.Add(i);
-                meshTriangles.Add(i + 1);
-            }
+            meshVerticies.Add(origin + point * circleRadius);
+        }
+        // BOTTOM POINT
+        meshVerticies.Add(origin + endPoint * circleRadius);
 
-            MeshToSprite.ConvertMeshsToSprite(meshVerticies.ToArray(), meshTriangles.ToArray(), ref spiritSlashMask);
+        for (int i = 1; i < meshVerticies.Count - 1; i++)
+        {
+            meshTriangles.Add(0);
+            meshTriangles.Add(i);
+            meshTriangles.Add(i + 1);
+        }
 
-            if (sectorAngle > 90f)
-            {
-                float alpha = (sectorAngle - 90f) * Mathf.Deg2Rad;
-                slashMaskPivot = new Vector2(Mathf.Sin(alpha) / (Mathf.Sin(alpha) + Mathf.Cos(alpha)), 0f);
-            }
-            else if (sectorAngle > 180f)
-            {
-                float alpha = (sectorAngle - 180f) * Mathf.Deg2Rad;
-                slashMaskPivot = new Vector2(.5f, Mathf.Sin(alpha) / 2f);
-            }
-            else if (sectorAngle > 270f)
-            {
-                slashMaskPivot = new Vector2(.5f, .5f);
-            }
-            else
-            {
-                slashMaskPivot = Vector2.zero;
-            }
+        MeshToSprite.ConvertMeshsToSprite(meshVerticies.ToArray(), meshTriangles.ToArray(), ref spiritSlashMask);
+
+        if (sectorAngle > 90f)
+        {
+            float alpha = (sectorAngle - 90f) * Mathf.Deg2Rad;
+            slashMaskPivot = new Vector2(Mathf.Sin(alpha) / (Mathf.Sin(alpha) + Mathf.Cos(alpha)), 0f);
+        }
+        else if (sectorAngle > 180f)
+        {
+            float alpha = (sectorAngle - 180f) * Mathf.Deg2Rad;
+            slashMaskPivot = new Vector2(.5f, Mathf.Sin(alpha) / 2f);
+        }
+        else if (sectorAngle > 270f)
+        {
+            slashMaskPivot = new Vector2(.5f, .5f);
+        }
+        else
+        {
+            slashMaskPivot = Vector2.zero;
         }
     }
 
@@ -329,7 +330,7 @@ public class Player : ObjectHealth
         slash.transform.parent = this.transform;
         slash.GetComponent<SpriteMask>().sprite = spiritSlashMask;
         SpriteRenderer renderer = slash.GetComponentInChildren<SpriteRenderer>();
-        renderer.transform.localScale = new Vector3(1f, 1f) * 2f * radius * 0.32f + Vector3.forward; // NIE WIEM SKĄD 0.64 nie mam siły teraz tego liczyć i sprawdzać
+        renderer.transform.localScale = new Vector3(1f, 1f) * 2f * radius * 0.32f + Vector3.forward; // NIE WIEM SKĄD 0.32 nie mam siły teraz tego liczyć i sprawdzać
 
         slash.transform.Rotate(Vector3.forward, Vector2Extensions.Angle360(Vector2.right, lookDir) - sectorAngle / 2f);
         slash.transform.Translate(-slashMaskPivot * radius); // Wstęp do wyższych kątów (na razie nie działa)
