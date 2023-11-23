@@ -1502,6 +1502,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1650655934}
     - target: {fileID: 229335586949737649, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
+      propertyPath: spiritSlashPrefab
+      value: 
+      objectReference: {fileID: 2889274423400091504, guid: bcdd9bd99888c934887a88f24cde2c4e, type: 3}
+    - target: {fileID: 229335586949737649, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
       propertyPath: spiritSlashSprite
       value: 
       objectReference: {fileID: 21300000, guid: e8a0c618420d5a043bb6f294b76342bb, type: 3}

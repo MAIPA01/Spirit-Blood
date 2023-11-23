@@ -76,11 +76,11 @@ public class Player : ObjectHealth
 
     private Sprite spiritSlashMask = null;
     [SerializeField]
-    private Sprite spiritSlashSprite = null;
-    [SerializeField]
     private int slashMaskSpriteResolution = 64;
     [SerializeField]
     private Vector2 slashMaskPivot = Vector2.zero;
+    [SerializeField]
+    private GameObject spiritSlashPrefab = null;
 
     private void OnValidate()
     {
@@ -321,22 +321,15 @@ public class Player : ObjectHealth
         }
 
         // całe to rysowanie działa na razie dla kątów mniejszych równych 90 stopni
-        GameObject slash = new("Slash");
+        GameObject slash = Instantiate(spiritSlashPrefab);
         slash.transform.position = transform.position;
         float max = slashMaskPivot.x > slashMaskPivot.y ? slashMaskPivot.x : slashMaskPivot.y;
         float radius = circleRadius / (2f * (1f - max));
         slash.transform.localScale = new Vector3(1f, 1f) * radius + Vector3.forward;
         slash.transform.parent = this.transform;
-        slash.AddComponent<SpriteMask>().sprite = spiritSlashMask;
-
-        GameObject slashSprite = new("SlashSprite");
-        slashSprite.transform.parent = slash.transform;
-        slashSprite.transform.position = transform.position;
-        slashSprite.transform.localScale = new Vector3(1f, 1f) * 2f * radius * 0.64f + Vector3.forward; // NIE WIEM SKĄD 0.64 nie mam siły teraz tego liczyć i sprawdzać
-        SpriteRenderer renderer = slashSprite.AddComponent<SpriteRenderer>();
-        renderer.sortingOrder = 1;
-        renderer.sprite = spiritSlashSprite;
-        renderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+        slash.GetComponent<SpriteMask>().sprite = spiritSlashMask;
+        SpriteRenderer renderer = slash.GetComponentInChildren<SpriteRenderer>();
+        renderer.transform.localScale = new Vector3(1f, 1f) * 2f * radius * 0.64f + Vector3.forward; // NIE WIEM SKĄD 0.64 nie mam siły teraz tego liczyć i sprawdzać
 
         slash.transform.Rotate(Vector3.forward, Vector2Extensions.Angle360(Vector2.right, lookDir) - sectorAngle / 2f);
         slash.transform.Translate(-slashMaskPivot * radius); // Wstęp do wyższych kątów (na razie nie działa)
