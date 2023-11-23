@@ -333,6 +333,8 @@ public class Player : ObjectHealth
 
         slash.transform.Rotate(Vector3.forward, Vector2Extensions.Angle360(Vector2.right, lookDir) - sectorAngle / 2f);
         slash.transform.Translate(-slashMaskPivot * radius); // Wstęp do wyższych kątów (na razie nie działa)
+
+        slash.GetComponentInChildren<Animator>().Play("SpiritSlashAnim", -1, 0f);
         Destroy(slash, .5f);
     }
 
