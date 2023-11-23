@@ -329,7 +329,7 @@ public class Player : ObjectHealth
         slash.transform.parent = this.transform;
         slash.GetComponent<SpriteMask>().sprite = spiritSlashMask;
         SpriteRenderer renderer = slash.GetComponentInChildren<SpriteRenderer>();
-        renderer.transform.localScale = new Vector3(1f, 1f) * 2f * radius * 0.64f + Vector3.forward; // NIE WIEM SKĄD 0.64 nie mam siły teraz tego liczyć i sprawdzać
+        renderer.transform.localScale = new Vector3(1f, 1f) * 2f * radius * 0.32f + Vector3.forward; // NIE WIEM SKĄD 0.64 nie mam siły teraz tego liczyć i sprawdzać
 
         slash.transform.Rotate(Vector3.forward, Vector2Extensions.Angle360(Vector2.right, lookDir) - sectorAngle / 2f);
         slash.transform.Translate(-slashMaskPivot * radius); // Wstęp do wyższych kątów (na razie nie działa)
