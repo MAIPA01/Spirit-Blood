@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15edcd4dd184b5a4cb0daeea42c859c2
-      internalID: 1963856424
+      spriteID: edf45462c93d4544dbe444d868796a90
+      internalID: -121707291
       vertices: []
       indices: 
       edges: []
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d59c90afab2b7b243a1a4bb93c696300
-      internalID: 2146222455
+      spriteID: 70fdebb7a172e994a95c2d35397559c4
+      internalID: 133747448
       vertices: []
       indices: 
       edges: []
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de3fe213e66214f4dbf44ea5d30662f6
-      internalID: 538944755
+      spriteID: c4a6f0c69c06db14ea30f44bf0406290
+      internalID: -255578692
       vertices: []
       indices: 
       edges: []
@@ -187,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a699fb64f642a114ba9fd85d6a6e36a5
-      internalID: -853337284
+      spriteID: 58a170878d7b4aa48bc9d732de43e4fe
+      internalID: -1350432588
       vertices: []
       indices: 
       edges: []
@@ -208,8 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8078e19a4b9be4e418a0a4a2e52d3dd0
-      internalID: 251018007
+      spriteID: 703f38abae666044da9ef757f2f2eae3
+      internalID: 1256312895
       vertices: []
       indices: 
       edges: []
@@ -229,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f3da592231fcb84cbffe1feb62e4d53
-      internalID: 2003872319
+      spriteID: 185d2e625c36de54dade3d0e5f5781c6
+      internalID: -1015514444
       vertices: []
       indices: 
       edges: []
@@ -246,12 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      indicator_0: 1963856424
-      indicator_1: 2146222455
-      indicator_2: 538944755
-      indicator_3: -853337284
-      indicator_4: 251018007
-      indicator_5: 2003872319
+      indicator_0: -121707291
+      indicator_1: 133747448
+      indicator_2: -255578692
+      indicator_3: -1350432588
+      indicator_4: 1256312895
+      indicator_5: -1015514444
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
