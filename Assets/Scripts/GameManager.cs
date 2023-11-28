@@ -20,6 +20,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
+
+    public void RestartBtn()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(1);
+    }
+
     public void Start()
     {
         scoreText.text = "Score\n" + score;
