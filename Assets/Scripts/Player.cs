@@ -86,6 +86,17 @@ public class Player : ObjectHealth
     [ShowIf("form", PlayerForm.Spirit)]
     private GameObject spiritSlashPrefab = null;
 
+    [Header("Ground:")]
+    [SerializeField]
+    private GroudCheck groundCheck = null;
+    [SerializeField]
+    [ShowIf("form", PlayerForm.Blood)]
+    private LayerMask bloodGroundLayers;
+    [SerializeField]
+    [ShowIf("form", PlayerForm.Spirit)]
+    private LayerMask spiritGroundLayers;
+
+
     private void OnValidate()
     {
         if (slashObject == null)
@@ -118,6 +129,8 @@ public class Player : ObjectHealth
         }
 
         CreateSlashMaskSprite();
+
+        UpdateGround();
     }
 
     void Update()
@@ -156,11 +169,31 @@ public class Player : ObjectHealth
 
     public void ChangeForm() 
     { 
+        // Mówi o starej formie
         bool isSpirit = IsSpirit();
         form = isSpirit ? PlayerForm.Blood : PlayerForm.Spirit;
         if (body != null )
         {
             body.color = isSpirit ? bloodColor : spiritColor;
+        }
+
+        UpdateGround();
+    }
+
+    void UpdateGround()
+    {
+        LayerMask playerCollision = Physics2D.GetLayerCollisionMask(LayerMask.NameToLayer("Player"));
+        playerCollision &= ~(IsSpirit() ? bloodGroundLayers : spiritGroundLayers);
+        playerCollision |= IsSpirit() ? spiritGroundLayers : bloodGroundLayers;
+        Physics2D.SetLayerCollisionMask(LayerMask.NameToLayer("Player"), playerCollision);
+
+        if (groundCheck == null)
+        {
+            Debug.LogError("Ground Check not provided");
+        }
+        else
+        {
+            groundCheck.GroundLayers = IsSpirit() ? spiritGroundLayers : bloodGroundLayers;
         }
     }
 

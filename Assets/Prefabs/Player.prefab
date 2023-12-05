@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0, g: 0.37254903, b: 0.85882354, a: 1}
+  m_Color: {r: 0.7294118, g: 0.07058824, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 500
   health: 0
-  form: 1
+  form: 0
   body: {fileID: 1750168044587548506}
   m_FacingRight: 1
   slashObject: {fileID: 2622314876609431990, guid: edc66f7762b20fe468cd55f2fcca88e7, type: 3}
@@ -190,10 +190,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   bloodWeaponTransform: {fileID: 9198207985852270391}
-  bloodAttackRange: 1.3
+  bloodAttackRange: 1.2
   slashMaskSpriteResolution: 128
   slashMaskPivot: {x: 0, y: 0}
   spiritSlashPrefab: {fileID: 2889274423400091504, guid: bcdd9bd99888c934887a88f24cde2c4e, type: 3}
+  groundCheck: {fileID: 380582366164354119}
+  bloodGroundLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  spiritGroundLayers:
+    serializedVersion: 2
+    m_Bits: 2560
 --- !u!114 &5774435722727972453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,7 +308,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aadc19792f1c2e45bbd07d4daf47415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundContats: 0
+  groundColliders: []
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!61 &3519311116937700798
 BoxCollider2D:
   m_ObjectHideFlags: 0

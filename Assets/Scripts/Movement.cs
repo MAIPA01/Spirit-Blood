@@ -31,7 +31,7 @@ public class Movement : MonoBehaviour
         vel.x = Input.GetAxis("Horizontal") * speed;
         _rb.velocity = vel;
 
-        if (Input.GetButtonDown("Jump") && (groundCheck.groundContats != 0 || !_isJumping) && actualJumpCount < _jumpCount)
+        if (Input.GetButtonDown("Jump") && (groundCheck.GroundContacts != 0 || !_isJumping) && actualJumpCount < _jumpCount)
         {
             _isJumping = true;
             actualJumpCount++;
@@ -39,7 +39,7 @@ public class Movement : MonoBehaviour
             _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
 
-        if (groundCheck.groundContats != 0 && actualJumpCount >= _jumpCount)
+        if (groundCheck.GroundContacts != 0 && actualJumpCount >= _jumpCount)
         {
             actualJumpCount = 0;
             _isJumping = false;
