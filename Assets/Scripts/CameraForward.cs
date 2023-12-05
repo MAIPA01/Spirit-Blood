@@ -4,7 +4,7 @@ using UnityEngine;
 public class CameraForward : MonoBehaviour
 {
     public Camera cam;
-    public Transform target;
+    public Rigidbody2D target;
     public Vector2 offset;
     public float forwardDistance = 5f;
     [Range(0, 10)] public float smoothFactor = 1.8f;
@@ -32,15 +32,17 @@ public class CameraForward : MonoBehaviour
 
     void ForwardFollow()
     {
-        Vector2 targetPosition = (Vector2)target.position + offset + lastDir * forwardDistance;
-        if (targetPosition - (Vector2)cam.transform.position == Vector2.zero)
+        Vector2 targetPos = (Vector2)target.transform.position + offset;
+        if (target.velocity != Vector2.zero)
         {
-            cam.transform.position = new Vector3(target.position.x, target.position.y, cam.transform.position.z);
+            targetPos += target.velocity.normalized * forwardDistance;
         }
-        else
-        {
-            lastDir = (targetPosition - (Vector2)cam.transform.position).normalized;
-            cam.transform.position = new Vector3(targetPosition.x, targetPosition.y, cam.transform.position.z);
-        }
+        Follow(targetPos);
+    }
+
+    void Follow(Vector2 targetPos)
+    {
+        Vector2 smoothPosition = Vector2.Lerp(cam.transform.position, targetPos, smoothFactor * Time.fixedDeltaTime);
+        cam.transform.position = new Vector3(smoothPosition.x, smoothPosition.y, cam.transform.position.z);
     }
 }
