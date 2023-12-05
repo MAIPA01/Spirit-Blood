@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using static UnityEngine.UI.Image;
+using UnityEditor.Rendering.LookDev;
 
 enum PlayerForm
 {
@@ -136,7 +138,7 @@ public class Player : ObjectHealth
             ChangeForm();
         }
 
-        if (canAttack)
+        if (canAttack && GameTimer.TimeMultiplier == GameTimer.PLAYING)
         {
             StartCoroutine(Attack());
         }
@@ -188,11 +190,13 @@ public class Player : ObjectHealth
                 }
             }
 
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(bloodWeaponTransform.position, bloodAttackRange, bloodLayers);
+            //Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(bloodWeaponTransform.position, bloodAttackRange, bloodLayers);
 
-            foreach (Collider2D enemy in hitEnemies)
+            RaycastHit2D[] hitEnemies = Physic2DExtension.CircleSectorCastAll(bloodWeaponTransform.position, bloodAttackRange, 180, Vector2.right, float.PositiveInfinity, bloodLayers.value);
+
+            foreach (RaycastHit2D enemy in hitEnemies)
             {
-                if (enemy.TryGetComponent(out ObjectHealth obj))
+                if (enemy.collider.TryGetComponent(out ObjectHealth obj))
                 {
                     obj.AddHealth(-bloodDamage);
                 }
@@ -209,6 +213,8 @@ public class Player : ObjectHealth
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+
+        //GetComponent<SpriteRenderer>().flipX = m_FacingRight;
     }
 
     [Button]
@@ -299,7 +305,7 @@ public class Player : ObjectHealth
 
     private void SpiritAttack()
     {
-        // Dodaæ Delay
+        // Dodac Delay
         Vector2 origin = body.transform.position;
         Vector2 lookDir = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - origin).normalized;
         RaycastHit2D[] hits = Physic2DExtension.CircleSectorCastAll(origin, circleRadius, sectorAngle, lookDir, float.PositiveInfinity, spiritLayers.value);
@@ -378,14 +384,42 @@ public class Player : ObjectHealth
             if (bloodWeaponTransform != null)
             {
                 Gizmos.color = Color.yellow;
-                Gizmos.DrawWireSphere(bloodWeaponTransform.position, bloodAttackRange);
+                //Gizmos.DrawWireSphere(bloodWeaponTransform.position, bloodAttackRange);
+
+                Vector2 origin = bloodWeaponTransform.position;
+
+                float lookRadians = MathfExtensions.DegreesToRadians(Vector2Extensions.Angle360(Vector2.right, Vector2.right));
+
+                float halfSectorRadians = MathfExtensions.DegreesToRadians(180 / 2f);
+                float startRadians = lookRadians + halfSectorRadians;
+                float endRadians = lookRadians - halfSectorRadians;
+
+                Vector2 startPoint = (new Vector2(Mathf.Cos(startRadians), Mathf.Sin(startRadians))).normalized;
+                Vector2 endPoint = (new Vector2(Mathf.Cos(endRadians), Mathf.Sin(endRadians))).normalized;
+
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawLine(origin, origin + Vector2.right * bloodAttackRange);
+
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawLine(origin, origin + startPoint * bloodAttackRange);
+                Gizmos.DrawLine(origin, origin + endPoint * bloodAttackRange);
+
+                float radiansDiff = (endRadians - startRadians) / 10;
+                Vector2 point1 = startPoint;
+                for (int i = 0; i < 10 - 1; i++)
+                {
+                    Vector2 point2 = (new Vector2(Mathf.Cos(startRadians + (i + 1) * radiansDiff), Mathf.Sin(startRadians + (i + 1) * radiansDiff))).normalized;
+
+                    Gizmos.DrawLine(origin + point1 * bloodAttackRange, origin + point2 * bloodAttackRange);
+                    point1 = point2;
+                }
+                Gizmos.DrawLine(origin + point1 * bloodAttackRange, origin + endPoint * bloodAttackRange);
             }
         }
 	}
 	
     public override void OnDead()
     {
-        Time.timeScale = 0;
         gameController.DeadScreen();
     }
 }
