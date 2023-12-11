@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using System.Security.Cryptography;
 using UnityEngine;
 
 
@@ -44,8 +42,14 @@ public class Movement : MonoBehaviour
             actualJumpCount = 0;
             _isJumping = false;
         }
+
+        // NIE USUWAÆ TEGO JEST TO WA¯NE BY DZIA£A£A GRA
+        if (groundCheck.GroundContacts == 0 && !_isJumping && actualJumpCount == 0)
+        {
+            // Budzi fizykê gracza gdy stoi na platformie (naprawia b³¹d z spirit Platform)
+            _rb.WakeUp();
+            GetComponent<Collider2D>().isTrigger = true;
+            GetComponent<Collider2D>().isTrigger = false;
+        }
     }
-
- 
-
 };

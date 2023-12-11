@@ -882,7 +882,7 @@ MonoBehaviour:
   target: {fileID: 1388811543}
   offset: {x: 0, y: 0}
   forwardDistance: 8
-  smoothFactor: 1.8
+  changeDirSpeed: 1.8
 --- !u!1 &714776115
 GameObject:
   m_ObjectHideFlags: 0
@@ -1809,6 +1809,18 @@ PrefabInstance:
       propertyPath: image
       value: 
       objectReference: {fileID: 717770049}
+    - target: {fileID: 921701510007537210, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 921701510007537210, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
+      propertyPath: m_SleepingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 921701510007537210, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6728503941846826823, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.33400524

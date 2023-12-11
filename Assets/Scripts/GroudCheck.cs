@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class GroudCheck : MonoBehaviour
 { 
     [SerializeField]
-    private List<Collider2D> groundColliders = new List<Collider2D>();
+    private List<Collider2D> groundColliders = new();
     [SerializeField]
     private LayerMask groundLayers;
 
@@ -27,7 +27,7 @@ public class GroudCheck : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (((1 << collision.gameObject.layer) & groundLayers.value) != 0 && !groundColliders.Contains(collision))
+        if (collision.gameObject.IsObjectInAnyLayer(groundLayers) && !groundColliders.Contains(collision))
         {
             groundColliders.Add(collision);
             //groundContats++;
@@ -37,7 +37,7 @@ public class GroudCheck : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (((1 << collision.gameObject.layer) & groundLayers.value) != 0 && groundColliders.Contains(collision))
+        if (collision.gameObject.IsObjectInAnyLayer(groundLayers) && groundColliders.Contains(collision))
         {
             groundColliders.Remove(collision);
             //groundContats--;
@@ -48,12 +48,12 @@ public class GroudCheck : MonoBehaviour
     private void CheckGround()
     {
         groundColliders.Clear();
-        List<Collider2D> colliders = new List<Collider2D>();
+        List<Collider2D> colliders = new();
         if (Physics2D.OverlapCollider(this.GetComponent<Collider2D>(), new ContactFilter2D(), colliders) != 0)
         {
             foreach (var col in colliders)
             {
-                if (((1 << col.gameObject.layer) & groundLayers.value) != 0 && !groundColliders.Contains(col))
+                if (col.gameObject.IsObjectInAnyLayer(groundLayers) && !groundColliders.Contains(col))
                 {
                     groundColliders.Add(col);
                     //groundContats++;

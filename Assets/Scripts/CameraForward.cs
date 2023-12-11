@@ -7,9 +7,7 @@ public class CameraForward : MonoBehaviour
     public Rigidbody2D target;
     public Vector2 offset;
     public float forwardDistance = 5f;
-    [Range(0, 10)] public float smoothFactor = 1.8f;
-
-    private Vector2 lastDir = Vector2.zero;
+    public float changeDirSpeed = 1.8f;
 
     private void OnValidate()
     {
@@ -22,7 +20,7 @@ public class CameraForward : MonoBehaviour
         cam = GetComponent<Camera>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (target == null)
             return;
@@ -42,7 +40,8 @@ public class CameraForward : MonoBehaviour
 
     void Follow(Vector2 targetPos)
     {
-        Vector2 smoothPosition = Vector2.Lerp(cam.transform.position, targetPos, smoothFactor * Time.fixedDeltaTime);
-        cam.transform.position = new Vector3(smoothPosition.x, smoothPosition.y, cam.transform.position.z);
+        float x = Mathf.Lerp(cam.transform.position.x, targetPos.x, Time.deltaTime * changeDirSpeed);
+        float y = Mathf.Lerp(cam.transform.position.y, targetPos.y, Time.deltaTime * changeDirSpeed);
+        cam.transform.position = new Vector3(x, y, cam.transform.position.z);
     }
 }
