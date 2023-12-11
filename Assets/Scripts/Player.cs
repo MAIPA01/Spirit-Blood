@@ -25,7 +25,10 @@ public class Player : ObjectHealth
     private GameObject slashObject;
 
     [SerializeField]
-    private Transform slashPosition;
+    private Transform slashPosition; 
+    
+    [SerializeField]
+    private Transform bloodSuperAttPosition;
 	
 	[SerializeField] private GameManager gameController;
 
@@ -79,11 +82,24 @@ public class Player : ObjectHealth
     [SerializeField]
     private GameObject spiritSlashPrefab = null;
 
+    private bool isDuringSuperAttack = false;
+    private float superAttackDurTimer = 0f;
+    [SerializeField]
+    private float superAttackDuration = -1f;
+    [SerializeField]
+    private GameObject bloodSuperAttackObject;
+
+
     private void OnValidate()
     {
         if (slashObject == null)
         {
             Debug.LogWarning("Slash Object wasn't provided!!!");
+        }
+
+        if (bloodSuperAttackObject == null)
+        {
+            Debug.LogWarning("bloodSuperAttackObject wasn't provided!!!");
         }
 
         if (!IsSpirit() && bloodWeaponTransform == null)
@@ -127,25 +143,38 @@ public class Player : ObjectHealth
             }
         }
 		
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if(!isDuringSuperAttack)
+        {
+            if(Input.GetKeyDown(KeyCode.Mouse0)) {
+                BloodSuperAttack();
+                superAttackDurTimer = superAttackDuration + 10;
+                isDuringSuperAttack = true;
+            }
 
-        if (mousePos.x >= transform.position.x && !m_FacingRight)
-        {
-            Flip();
-        }
-        else if (mousePos.x < transform.position.x && m_FacingRight)
-        {
-            Flip();
-        }
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ChangeForm();
-        }
+            if (mousePos.x >= transform.position.x && !m_FacingRight)
+            {
+                Flip();
+            }
+            else if (mousePos.x < transform.position.x && m_FacingRight)
+            {
+                Flip();
+            }
 
-        if (canAttack)
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                ChangeForm();
+            }
+
+            if (canAttack)
+            {
+                StartCoroutine(Attack());
+            }
+        }
+        else if(superAttackDurTimer <= 0.0f)
         {
-            StartCoroutine(Attack());
+            isDuringSuperAttack = false;
         }
     }
 
@@ -174,6 +203,12 @@ public class Player : ObjectHealth
         }
         yield return new WaitForSeconds(attackDelay);
         canAttack = true;
+    }
+
+    private void BloodSuperAttack()
+    {
+        // PUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUNCH!
+        GameObject punch = Instantiate(bloodSuperAttackObject, bloodSuperAttPosition.position, Quaternion.identity, bloodSuperAttPosition);
     }
 
     private void BloodAttack()

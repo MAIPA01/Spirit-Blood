@@ -292,6 +292,18 @@ PrefabInstance:
       propertyPath: attackDelay
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 229335586949737649, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
+      propertyPath: spiritSlashPrefab
+      value: 
+      objectReference: {fileID: 2889274423400091504, guid: bcdd9bd99888c934887a88f24cde2c4e, type: 3}
+    - target: {fileID: 229335586949737649, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
+      propertyPath: bloodSuperAttPosition
+      value: 
+      objectReference: {fileID: 1010289983}
+    - target: {fileID: 229335586949737649, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
+      propertyPath: bloodSuperAttackObject
+      value: 
+      objectReference: {fileID: 8604047429649095254, guid: 6996a835373528b4db3ca3f1cf796814, type: 3}
     - target: {fileID: 351551538450558597, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
       propertyPath: m_Name
       value: Player
@@ -338,7 +350,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6728503941846826823, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 1010289983}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
 --- !u!1 &992514788
@@ -470,6 +485,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1010289982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1010289983}
+  m_Layer: 0
+  m_Name: BloodPunchPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1010289983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010289982}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1575938190}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1445977845
 GameObject:
@@ -671,6 +717,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8402340cfbba7e44b4541a2191b0ac8, type: 3}
+--- !u!4 &1575938190 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6728503941846826823, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
+  m_PrefabInstance: {fileID: 670236976}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1763739989
 GameObject:
   m_ObjectHideFlags: 0

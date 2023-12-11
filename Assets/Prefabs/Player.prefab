@@ -173,6 +173,7 @@ MonoBehaviour:
   m_FacingRight: 1
   slashObject: {fileID: 2622314876609431990, guid: edc66f7762b20fe468cd55f2fcca88e7, type: 3}
   slashPosition: {fileID: 4875697160360446081}
+  bloodSuperAttPosition: {fileID: 0}
   gameController: {fileID: 0}
   score: 0
   spiritColor: {r: 0, g: 0.37254903, b: 0.85882354, a: 1}
@@ -193,6 +194,8 @@ MonoBehaviour:
   slashMaskSpriteResolution: 64
   slashMaskPivot: {x: 0, y: 0}
   spiritSlashPrefab: {fileID: 0}
+  superAttackDuration: -1
+  bloodSuperAttackObject: {fileID: 0}
 --- !u!114 &5774435722727972453
 MonoBehaviour:
   m_ObjectHideFlags: 0
