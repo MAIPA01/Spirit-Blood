@@ -115,9 +115,16 @@ public class Player : ObjectHealth
 
     void Update()
     {
-		if (gameController.score < score)
+        if(gameController == null)
         {
-            gameController.UpdateScore(score);
+            Debug.Log("Pls Set gameController");
+        }
+        else
+        {
+            if (gameController.score < score)
+            {
+                gameController.UpdateScore(score);
+            }
         }
 		
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
