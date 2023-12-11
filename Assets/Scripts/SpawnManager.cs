@@ -11,8 +11,8 @@ public class SpawnPrefab
     [SerializeField] private GameObject prefab = null;
     [SerializeField] private int count = 0;
 
-    public int GetCount() {  return count; }
-    public GameObject GetPrefab() {  return prefab; }
+    public int GetCount() { return count; }
+    public GameObject GetPrefab() { return prefab; }
 }
 
 [System.Serializable]
