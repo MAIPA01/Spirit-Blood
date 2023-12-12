@@ -23,5 +23,23 @@ public class GroudCheck : MonoBehaviour
             //Debug.Log("Ground contacts: " + groundContats);
         }
     }
-    
+
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
+        {
+            groundContats++;
+            //Debug.Log("Ground contacts: " + groundContats);
+        }
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
+        {
+            groundContats--;
+            //Debug.Log("Ground contacts: " + groundContats);
+        }
+    }
 }

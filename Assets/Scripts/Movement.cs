@@ -10,25 +10,32 @@ public class Movement : MonoBehaviour
     [SerializeField] private GroudCheck groundCheck;
     [SerializeField] private bool _isJumping = false;
     [SerializeField] private int _jumpCount = 1;
+    [SerializeField] private float rezistance = 0.7f;
     private int actualJumpCount = 0;
-   /* private Vector3 m_rotateTo;
-    public float rotationTime = 0.57f;*/
 
-    [Tooltip("Co myslicie to takich filko³kach jak zosta³o to zaprezentowane w grze platformer shooter???")]
-    //[SerializeField] private bool _enableRotation = false;
+    //Rigidbody2D _rb;
 
-    Rigidbody2D _rb;
+    Rigidbody _rb;
     
 
     void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
+        //_rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        Vector2 vel = _rb.velocity;
-        vel.x = Input.GetAxis("Horizontal") * speed;
+        Vector3 vel = _rb.velocity;
+        if (groundCheck.groundContats == 0)
+        {
+            vel.x = Input.GetAxis("Horizontal") * speed * rezistance;
+        }
+        else
+        {
+            vel.x = Input.GetAxis("Horizontal") * speed;
+        }
+        
         _rb.velocity = vel;
 
         if (Input.GetButtonDown("Jump") && (groundCheck.groundContats != 0 || !_isJumping) && actualJumpCount < _jumpCount)
@@ -36,7 +43,8 @@ public class Movement : MonoBehaviour
             _isJumping = true;
             actualJumpCount++;
             //_rb.velocity = new Vector2(0, jumpForce);
-            _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            _rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+
         }
 
         if (groundCheck.groundContats != 0 && actualJumpCount >= _jumpCount)
