@@ -57,7 +57,7 @@ public class BasicSpirit : ObjectHealth
         if (attackTimer <= 0f && toTargetVector.magnitude <= attackRange)
         {
             attackTimer = attackDelay;
-            Debug.Log("Attack");
+            //Debug.Log("Attack");
             target.TakeDamage(attackDamage);
         }
         else

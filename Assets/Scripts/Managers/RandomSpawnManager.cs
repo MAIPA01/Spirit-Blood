@@ -1,6 +1,10 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,8 +14,9 @@ public class RandomSpawnManager : MonoBehaviour
     [SerializeField]
     private bool loop = false;
 
+    [ShowIf("loop")]
     [SerializeField]
-    private uint duplicatedRoundsFactor = 2;
+    private uint duplicatedRoundsFactor = 6;
 
     [SerializeField]
     private List<RoundData> rounds;
@@ -20,8 +25,13 @@ public class RandomSpawnManager : MonoBehaviour
     private List<Transform> spawnPoints;
 
     [SerializeField]
-    private Button startRoundButton;
-   
+    private TextMeshProUGUI pressButtonTxt;
+
+    /*
+    * [SerializeField]
+    * private Button startRoundButton;
+    */
+
     [SerializeField]
     private LayerMask objectsLayers;
 
@@ -50,32 +60,63 @@ public class RandomSpawnManager : MonoBehaviour
     [SerializeField]
     private bool spawned = false;
 
+    [Foldout("Info")]
+    [ReadOnly]
+    [SerializeField]
+    private bool active = false;
+
     private void OnValidate()
     {
         if (rounds.Count == 0)
         {
-
+            Debug.LogError("No rounds where specified");
+        }
+        else
+        {
+            int i = 0;
+            foreach (var item in rounds)
+            {
+                if (item == null)
+                {
+                    Debug.LogError(new StringBuilder("Round ").Append(i).Append(" is null. Pls provide some round object").ToString());
+                }
+                i++;
+            }
         }
 
         if (spawnPoints.Count == 0)
         {
-
+            Debug.LogError("No spawnPoints where specified");
         }
 
+        if (pressButtonTxt == null)
+        {
+            Debug.LogError("Where is THE Text??");
+        }
+
+        /*
         if (startRoundButton == null)
         {
 
         }
+        */
     }
 
     void Start()
     {
-        startRoundButton.onClick.AddListener(PlayNextRound);
-        startRoundButton.gameObject.SetActive(false);
+        //startRoundButton.onClick.AddListener(PlayNextRound);
+        //startRoundButton.gameObject.SetActive(false);
+        active = false;
+        pressButtonTxt.gameObject.SetActive(false);
     }
 
     void Update()
     {
+        if (active && Input.GetMouseButton((int)MouseButton.Right))
+        {
+            PlayNextRound();
+        }
+
         enemies = 0;
 
         foreach (GameObject item in FindObjectsOfType<GameObject>())
@@ -102,7 +143,10 @@ public class RandomSpawnManager : MonoBehaviour
 
                 if (roundNumber != rounds.Count)
                 {
-                    startRoundButton.gameObject.SetActive(true);
+                    pressButtonTxt.text = "Press RMB to start next round";
+                    pressButtonTxt.gameObject.SetActive(true);
+                    active = true;
+                    //startRoundButton.gameObject.SetActive(true);
                 }
             }
 
@@ -192,7 +236,10 @@ public class RandomSpawnManager : MonoBehaviour
                 roundNumber++;
                 waveNumber = 0;
                 playNextRound = false;
-                startRoundButton.gameObject.SetActive(true);
+                pressButtonTxt.text = "Press RMB to start next round";
+                pressButtonTxt.gameObject.SetActive(true);
+                active = true;
+                //startRoundButton.gameObject.SetActive(true);
             }
 
             if (roundNumber % rounds.Count < rounds.Count && playNextRound)
@@ -282,10 +329,17 @@ public class RandomSpawnManager : MonoBehaviour
 
         foreach (WavePrefab prefab in wave.enemies)
         {
-            for (int i = 0; i < prefab.count + roundsRepetition * duplicatedRoundsFactor; ++i)
+            for (int i = 0; i < prefab.count; ++i)
             {
                 objects.Add(prefab.prefab);
             }
+        }
+
+        int additional = roundsRepetition * (int)duplicatedRoundsFactor;
+
+        for (int i = 0; i < additional; ++i)
+        {
+            objects.Add(wave.enemies[i % wave.enemies.Count].prefab);
         }
 
         while (objects.Count > 0)
@@ -324,6 +378,8 @@ public class RandomSpawnManager : MonoBehaviour
     void PlayNextRound()
     {
         playNextRound = true;
-        startRoundButton.gameObject.SetActive(false);
+        active = false;
+        pressButtonTxt.gameObject.SetActive(false);
+        //startRoundButton.gameObject.SetActive(false);
     }
 }

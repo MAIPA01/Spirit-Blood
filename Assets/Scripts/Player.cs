@@ -4,6 +4,8 @@ using UnityEngine;
 using NaughtyAttributes;
 using static UnityEngine.UI.Image;
 using UnityEditor.Rendering.LookDev;
+using Unity.VisualScripting;
+using System.Net;
 
 enum PlayerForm
 {
@@ -133,7 +135,14 @@ public class Player : ObjectHealth
             Flip();
         }
 
+        /*
         if (Input.GetKeyDown(KeyCode.E))
+        {
+            ChangeForm();
+        }
+        */
+
+        if (Input.GetMouseButtonDown((int)MouseButton.Left))
         {
             ChangeForm();
         }
@@ -192,7 +201,15 @@ public class Player : ObjectHealth
 
             //Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(bloodWeaponTransform.position, bloodAttackRange, bloodLayers);
 
-            RaycastHit2D[] hitEnemies = Physic2DExtension.CircleSectorCastAll(bloodWeaponTransform.position, bloodAttackRange, 180, Vector2.right, float.PositiveInfinity, bloodLayers.value);
+            RaycastHit2D[] hitEnemies;
+            if (m_FacingRight)
+            {
+                hitEnemies = Physic2DExtension.CircleSectorCastAll(bloodWeaponTransform.position, bloodAttackRange, 180, Vector2.right, float.PositiveInfinity, bloodLayers.value);
+            }
+            else
+            {
+                hitEnemies = Physic2DExtension.CircleSectorCastAll(bloodWeaponTransform.position, bloodAttackRange, 180, Vector2.left, float.PositiveInfinity, bloodLayers.value);
+            }
 
             foreach (RaycastHit2D enemy in hitEnemies)
             {
@@ -389,7 +406,6 @@ public class Player : ObjectHealth
                 Vector2 origin = bloodWeaponTransform.position;
 
                 float lookRadians = MathfExtensions.DegreesToRadians(Vector2Extensions.Angle360(Vector2.right, Vector2.right));
-
                 float halfSectorRadians = MathfExtensions.DegreesToRadians(180 / 2f);
                 float startRadians = lookRadians + halfSectorRadians;
                 float endRadians = lookRadians - halfSectorRadians;
@@ -398,7 +414,14 @@ public class Player : ObjectHealth
                 Vector2 endPoint = (new Vector2(Mathf.Cos(endRadians), Mathf.Sin(endRadians))).normalized;
 
                 Gizmos.color = Color.yellow;
-                Gizmos.DrawLine(origin, origin + Vector2.right * bloodAttackRange);
+                if (m_FacingRight)
+                {
+                    Gizmos.DrawLine(origin, origin + Vector2.right * bloodAttackRange);
+                }
+                else
+                {
+                    Gizmos.DrawLine(origin, origin + Vector2.left * bloodAttackRange);
+                }
 
                 Gizmos.color = Color.yellow;
                 Gizmos.DrawLine(origin, origin + startPoint * bloodAttackRange);
@@ -408,9 +431,18 @@ public class Player : ObjectHealth
                 Vector2 point1 = startPoint;
                 for (int i = 0; i < 10 - 1; i++)
                 {
-                    Vector2 point2 = (new Vector2(Mathf.Cos(startRadians + (i + 1) * radiansDiff), Mathf.Sin(startRadians + (i + 1) * radiansDiff))).normalized;
+                    Vector2 point2;
+                    if (m_FacingRight)
+                    {
+                        point2 = (new Vector2(Mathf.Cos(startRadians + (i + 1) * radiansDiff), Mathf.Sin(startRadians + (i + 1) * radiansDiff))).normalized;                        
+                    }
+                    else
+                    {
+                        point2 = (new Vector2(Mathf.Cos(startRadians - (i + 1) * radiansDiff), Mathf.Sin(startRadians - (i + 1) * radiansDiff))).normalized;
+                    }
 
                     Gizmos.DrawLine(origin + point1 * bloodAttackRange, origin + point2 * bloodAttackRange);
+
                     point1 = point2;
                 }
                 Gizmos.DrawLine(origin + point1 * bloodAttackRange, origin + endPoint * bloodAttackRange);

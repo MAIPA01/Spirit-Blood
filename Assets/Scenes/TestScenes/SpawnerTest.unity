@@ -980,7 +980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1077229929
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1743,7 +1743,7 @@ MonoBehaviour:
   - {fileID: 295357776}
   - {fileID: 1510280211}
   - {fileID: 797998128}
-  startRoundButton: {fileID: 1861756688}
+  pressButtonTxt: {fileID: 1077229930}
   objectsLayers:
     serializedVersion: 2
     m_Bits: 16
@@ -1752,6 +1752,7 @@ MonoBehaviour:
   enemies: 0
   playNextRound: 1
   spawned: 0
+  active: 0
 --- !u!4 &1849334561
 Transform:
   m_ObjectHideFlags: 0
@@ -1785,7 +1786,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1861756687
 RectTransform:
   m_ObjectHideFlags: 0
