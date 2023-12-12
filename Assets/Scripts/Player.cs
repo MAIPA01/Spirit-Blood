@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using NaughtyAttributes;
 
 enum PlayerForm
@@ -14,6 +16,7 @@ public class Player : ObjectHealth
     [Header("Player Global Settings:")]
     [SerializeField] 
     private PlayerForm form;
+    private UnityEvent formChangedEvent = new();
 
     [SerializeField]
     private SpriteRenderer body;
@@ -152,6 +155,12 @@ public class Player : ObjectHealth
         {
             body.color = isSpirit ? bloodColor : spiritColor;
         }
+        formChangedEvent.Invoke();
+    }
+
+    public void AddChangeFormCallback(UnityAction action)
+    {
+        formChangedEvent.AddListener(action);
     }
 
     private IEnumerator Attack()
