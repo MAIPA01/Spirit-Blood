@@ -255,7 +255,7 @@ MonoBehaviour:
   enemyMoveSpeed: 2
   enemyRange: 1.5
   enemyAttackDmg: 5
-  pushBackFactor: 3
+  pushBackFactor: 7
   stunTime: 10
   enemyAttackDecay: 2
   scoreGained: 10
