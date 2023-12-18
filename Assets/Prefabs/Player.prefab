@@ -194,7 +194,10 @@ MonoBehaviour:
   slashMaskSpriteResolution: 64
   slashMaskPivot: {x: 0, y: 0}
   spiritSlashPrefab: {fileID: 0}
-  superAttackDuration: -1
+  cooldownEndParticles: {fileID: 0}
+  superAttackWindUp: 0.15
+  superAttackDuration: 0.75
+  superAttackCooldown: 5
   bloodSuperAttackObject: {fileID: 0}
 --- !u!114 &5774435722727972453
 MonoBehaviour:

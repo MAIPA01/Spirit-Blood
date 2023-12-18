@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using static UnityEngine.UI.Image;
+using UnityEditor.Rendering.LookDev;
+using UnityEditor.Rendering;
+using Unity.VisualScripting;
+using UnityEngine.Rendering.UI;
 
 enum PlayerForm
 {
@@ -82,14 +87,22 @@ public class Player : ObjectHealth
     [SerializeField]
     private GameObject spiritSlashPrefab = null;
 
-    private bool isDuringSuperAttack = false;
+    [SerializeField]
+    private GameObject cooldownEndParticles;
     private float superAttackDurTimer = 0f;
     [SerializeField]
-    private float superAttackDuration = -1f;
+    private float superAttackWindUp = 0.10f;
     [SerializeField]
-    private GameObject bloodSuperAttackObject;
+    private float superAttackDuration = 0.75f;
+    [SerializeField]
+    private float superAttackCooldown = 5.0f;
+    private float superCooldownTimer;
+    [SerializeField]
+    private GameObject bloodSuperAttackObject = null;
 
-
+    private bool right = false;
+    private float superBloodAttackDmg; //kills all in 1 go, so should be BIG
+    private int superAttackPhase = 0; // 0 - none, 1 - windup, 1 - superAttack
     private void OnValidate()
     {
         if (slashObject == null)
@@ -127,10 +140,14 @@ public class Player : ObjectHealth
         }
 
         CreateSlashMaskSprite();
+
+        superBloodAttackDmg = 9999.0f;
+        superCooldownTimer = superAttackCooldown;
     }
 
     void Update()
-    {
+    { 
+
         if(gameController == null)
         {
             Debug.Log("Pls Set gameController");
@@ -142,24 +159,48 @@ public class Player : ObjectHealth
                 gameController.UpdateScore(score);
             }
         }
-		
-        if(!isDuringSuperAttack)
+
+        if (Input.GetKey(KeyCode.Mouse0) && superAttackPhase != 2 || superAttackPhase == 1)
         {
-            if(Input.GetKeyDown(KeyCode.Mouse0)) {
-                BloodSuperAttack();
-                superAttackDurTimer = superAttackDuration + 10;
-                isDuringSuperAttack = true;
+            if(!IsSpirit() && superCooldownTimer <= .0f)
+            {
+                BloodSuperAttack(superAttackWindUp / 2.0f, true);
+                if (superAttackPhase == 0)
+                {
+                    superAttackDurTimer = Time.time;
+                    superAttackPhase = 1;
+                }
             }
 
+            if(IsSpirit())
+            {
+                RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 200, Vector2.right, 0.01f, spiritLayers.value);
+
+                for (int i = 0; i < hits.Length; i++)
+                {
+                    GameObject targetHit = hits[i].collider.gameObject;
+                    targetHit.GetComponent<BasicSpirit>().TakeDamage(superBloodAttackDmg);
+                    GameObject b00mEffect = Instantiate(cooldownEndParticles, targetHit.transform.position, Quaternion.identity);
+                    b00mEffect.GetComponent<ParticleSystem>().startColor = Color.cyan;
+                    Destroy(b00mEffect, 1.0f);
+                }
+                superCooldownTimer = superAttackCooldown;
+            }
+        }
+
+        if (superAttackPhase == 0)
+        {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             if (mousePos.x >= transform.position.x && !m_FacingRight)
             {
                 Flip();
+                right = true;
             }
             else if (mousePos.x < transform.position.x && m_FacingRight)
             {
                 Flip();
+                right = false;
             }
 
             if (Input.GetKeyDown(KeyCode.E))
@@ -172,10 +213,29 @@ public class Player : ObjectHealth
                 StartCoroutine(Attack());
             }
         }
-        else if(superAttackDurTimer <= 0.0f)
+        else if (Time.time >= superAttackDurTimer + superAttackDuration + superAttackWindUp)
         {
-            isDuringSuperAttack = false;
+            superAttackPhase = 0;
+            superCooldownTimer = superAttackCooldown;
         }
+        else if (Time.time > superAttackDurTimer + superAttackWindUp && superAttackPhase == 1)
+        {
+            superAttackPhase = 2;
+            BloodSuperAttack(superAttackDuration, false);
+        }
+
+
+        if(superCooldownTimer > 0)
+        {
+            Debug.Log(superCooldownTimer);
+            superCooldownTimer -= Time.deltaTime;
+            if(superCooldownTimer <= 0)
+            {
+                GameObject cooldownEndEffect = Instantiate(cooldownEndParticles, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+                Destroy(cooldownEndEffect, 1.0f);
+            }
+        }
+
     }
 
     public bool IsSpirit() { return form == PlayerForm.Spirit; }
@@ -205,12 +265,48 @@ public class Player : ObjectHealth
         canAttack = true;
     }
 
-    private void BloodSuperAttack()
+    private void BloodSuperAttack(float killTime, bool check)
     {
         // PUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUNCH!
-        GameObject punch = Instantiate(bloodSuperAttackObject, bloodSuperAttPosition.position, Quaternion.identity, bloodSuperAttPosition);
-    }
+        Vector2 lookDir = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
+        Vector2 origin;
+        float circleRad = 1.10f; 
 
+        GameObject punch;
+        //lookDir.x -= 0.5f;
+        if (right)
+        {
+            punch = Instantiate(bloodSuperAttackObject, bloodSuperAttPosition.position, Quaternion.identity, bloodSuperAttPosition);
+            punch.transform.Translate(0.5f, 0, 0);
+            punch.transform.Rotate(Vector3.forward, Vector2Extensions.Angle360(Vector2.left, lookDir));
+            origin = punch.transform.position;
+        }
+        else
+        {
+            punch = Instantiate(bloodSuperAttackObject, bloodSuperAttPosition.position, Quaternion.identity, bloodSuperAttPosition);
+            punch.transform.Translate(0.5f, 0, 0);
+            punch.transform.Rotate(Vector3.forward, Vector2Extensions.Angle360(Vector2.right, lookDir));
+            origin = punch.transform.position;
+            
+        }
+        if(check)
+        {
+            punch.GetComponent<SpriteRenderer>().sprite = null;
+            punch.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.05f);
+        }
+        else
+        {
+            RaycastHit2D[] hits = Physics2D.CircleCastAll(origin, circleRad, lookDir, float.PositiveInfinity, bloodLayers.value);
+            for (int i = 0; i < hits.Length; i++)
+            {
+                GameObject targetHit = hits[i].collider.gameObject;
+                targetHit.GetComponent<BloodEnemyController>().TakeDamage(superBloodAttackDmg);
+            }
+        }
+
+        Destroy(punch, killTime);
+    }
     private void BloodAttack()
     {
         if (bloodWeaponTransform != null)
