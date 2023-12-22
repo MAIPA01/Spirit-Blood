@@ -210,6 +210,7 @@ MonoBehaviour:
   groundCheck: {fileID: 380582366164354119}
   _isJumping: 0
   _jumpCount: 2
+  rezistance: 0.7
 --- !u!114 &794629711171286026
 MonoBehaviour:
   m_ObjectHideFlags: 0
