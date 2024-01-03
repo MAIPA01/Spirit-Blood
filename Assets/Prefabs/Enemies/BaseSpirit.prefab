@@ -419,12 +419,14 @@ MonoBehaviour:
   maxHealth: 20
   health: 0
   target: {fileID: 0}
+  bullet: {fileID: 2992494814143514362, guid: 7c61644623b1865449b6b6bd8be01b55, type: 3}
   changeDirectionSpeed: 2
   speed: 5
-  attackRange: 5
+  attackRange: 6.89
   attackDelay: 1
   stuntTime: 1
   attackDamage: 10
+  bulletSpeed: 10
   scoreGained: 10
 --- !u!114 &7077643059342332841
 MonoBehaviour:

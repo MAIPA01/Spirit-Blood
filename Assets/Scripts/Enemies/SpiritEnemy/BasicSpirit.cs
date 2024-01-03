@@ -10,6 +10,7 @@ public class BasicSpirit : ObjectHealth
 
     [Header("Must Have Objects:")]
     [SerializeField][Tooltip("Zazwyczaj gracz ;)")] private ObjectHealth target = null;
+    [SerializeField][Tooltip("Pocisk przeciwnika")] private Bullet bullet = null;
 
     [Header("Essential Parameters:")]
     [SerializeField][Tooltip("Jak p³ynnie ma skrêcaæ")] private float changeDirectionSpeed = .5f;
@@ -18,6 +19,7 @@ public class BasicSpirit : ObjectHealth
     [SerializeField][Tooltip("Czas pomiêdzy jednym a drugim atakiem")] private float attackDelay = 1f;
     [SerializeField][Tooltip("Czas bycia w szoku po uderzeniu")] private float stuntTime = 1f;
     [SerializeField][Tooltip("Damage który zadaje przeciwnik")] private float attackDamage = 10f;
+    [SerializeField][Tooltip("Prêdkoœæ pocisku")] private float bulletSpeed = 5f;
     [Tooltip("Score gained by killing this enemy")] public float scoreGained = 10;
 
     private Vector2 targetDirection = Vector2.zero;
@@ -57,8 +59,15 @@ public class BasicSpirit : ObjectHealth
         if (attackTimer <= 0f && toTargetVector.magnitude <= attackRange)
         {
             attackTimer = attackDelay;
-            Debug.Log("Attack");
-            target.TakeDamage(attackDamage);
+            if (bullet != null)
+            {
+                Bullet b = Instantiate(bullet.gameObject, (Vector2)this.gameObject.transform.position + targetDirection * .5f, Quaternion.identity, null).GetComponent<Bullet>();
+                float angle = Vector2Extensions.Angle360(b.transform.forward, targetDirection);
+                b.transform.Rotate(new Vector3(0f, 0f, angle));
+                b.damage = attackDamage;
+                b.GetComponent<Rigidbody2D>().velocity = targetDirection * bulletSpeed;
+            }
+            //target.TakeDamage(attackDamage);
         }
         else
         {
