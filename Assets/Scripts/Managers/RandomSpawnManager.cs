@@ -371,6 +371,10 @@ public class RandomSpawnManager : MonoBehaviour
     IEnumerator Spawn(GameObject prefab, Transform tran, float time)
     {
         yield return new WaitForSeconds(time);
+        while (GameTimer.TimeMultiplier == GameTimer.STOPPED)
+        {
+            continue;
+        }
         Instantiate(prefab, tran.position, Quaternion.identity);
         yield return new WaitForSeconds(0.1f);
     }
