@@ -37,6 +37,10 @@ public class Player : ObjectHealth
 
     [Header("Forms:")]
     [SerializeField]
+    private float formChangeCooldown = 2f;
+    private float formCooldownTime = 0f;
+
+    [SerializeField]
     [ShowIf("form", PlayerForm.Spirit)]
     private Color spiritColor = Color.black;
 
@@ -76,11 +80,25 @@ public class Player : ObjectHealth
 
     private Sprite spiritSlashMask = null;
     [SerializeField]
+    [ShowIf("form", PlayerForm.Spirit)]
     private int slashMaskSpriteResolution = 64;
     [SerializeField]
+    [ShowIf("form", PlayerForm.Spirit)]
     private Vector2 slashMaskPivot = Vector2.zero;
     [SerializeField]
+    [ShowIf("form", PlayerForm.Spirit)]
     private GameObject spiritSlashPrefab = null;
+
+    [Header("Ground:")]
+    [SerializeField]
+    private GroudCheck groundCheck = null;
+    [SerializeField]
+    [ShowIf("form", PlayerForm.Blood)]
+    private LayerMask bloodGroundLayers;
+    [SerializeField]
+    [ShowIf("form", PlayerForm.Spirit)]
+    private LayerMask spiritGroundLayers;
+
 
     private void OnValidate()
     {
@@ -114,10 +132,14 @@ public class Player : ObjectHealth
         }
 
         CreateSlashMaskSprite();
+
+        UpdateGround();
     }
 
     void Update()
     {
+        formCooldownTime -= Time.deltaTime;
+
 		if (gameController.score < score)
         {
             gameController.UpdateScore(score);
@@ -134,8 +156,9 @@ public class Player : ObjectHealth
             Flip();
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && formCooldownTime <= 0f)
         {
+            formCooldownTime = formChangeCooldown;
             ChangeForm();
         }
 
@@ -149,6 +172,7 @@ public class Player : ObjectHealth
 
     public void ChangeForm() 
     { 
+        // Mówi o starej formie
         bool isSpirit = IsSpirit();
         form = isSpirit ? PlayerForm.Blood : PlayerForm.Spirit;
         if (body != null )
@@ -156,11 +180,30 @@ public class Player : ObjectHealth
             body.color = isSpirit ? bloodColor : spiritColor;
         }
         formChangedEvent.Invoke();
+        
+        UpdateGround();
     }
 
     public void AddChangeFormCallback(UnityAction action)
     {
         formChangedEvent.AddListener(action);
+    }
+
+    void UpdateGround()
+    {
+        LayerMask playerCollision = Physics2D.GetLayerCollisionMask(LayerMask.NameToLayer("Player"));
+        playerCollision &= ~(IsSpirit() ? bloodGroundLayers : spiritGroundLayers);
+        playerCollision |= IsSpirit() ? spiritGroundLayers : bloodGroundLayers;
+        Physics2D.SetLayerCollisionMask(LayerMask.NameToLayer("Player"), playerCollision);
+
+        if (groundCheck == null)
+        {
+            Debug.LogError("Ground Check not provided");
+        }
+        else
+        {
+            groundCheck.GroundLayers = IsSpirit() ? spiritGroundLayers : bloodGroundLayers;
+        }
     }
 
     private IEnumerator Attack()
@@ -339,7 +382,7 @@ public class Player : ObjectHealth
         slash.transform.parent = this.transform;
         slash.GetComponent<SpriteMask>().sprite = spiritSlashMask;
         SpriteRenderer renderer = slash.GetComponentInChildren<SpriteRenderer>();
-        renderer.transform.localScale = new Vector3(1f, 1f) * 2f * radius * 0.32f + Vector3.forward; // NIE WIEM SKĄD 0.32 nie mam siły teraz tego liczyć i sprawdzać
+        renderer.transform.localScale = 0.32f * 2f * radius * new Vector3(1f, 1f) + Vector3.forward; // NIE WIEM SKĄD 0.32 nie mam siły teraz tego liczyć i sprawdzać
 
         slash.transform.Rotate(Vector3.forward, Vector2Extensions.Angle360(Vector2.right, lookDir) - sectorAngle / 2f);
         slash.transform.Translate(-slashMaskPivot * radius); // Wstęp do wyższych kątów (na razie nie działa)
