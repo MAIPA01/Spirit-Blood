@@ -192,7 +192,7 @@ public class Player : ObjectHealth
                 }
             }
 
-            if(IsSpirit())
+            if(IsSpirit() && superCooldownTimer <= .0f)
             {
                 RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 200, Vector2.right, 0.01f, spiritLayers.value);
 
@@ -248,7 +248,6 @@ public class Player : ObjectHealth
 
         if(superCooldownTimer > 0)
         {
-            Debug.Log(superCooldownTimer);
             superCooldownTimer -= Time.deltaTime;
             if(superCooldownTimer <= 0)
             {
