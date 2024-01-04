@@ -35,6 +35,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7656757314995727854}
   - {fileID: 9198207985852270391}
   - {fileID: 4875697160360446081}
   - {fileID: 729503702528236190}
@@ -173,7 +174,7 @@ MonoBehaviour:
   m_FacingRight: 1
   slashObject: {fileID: 2622314876609431990, guid: edc66f7762b20fe468cd55f2fcca88e7, type: 3}
   slashPosition: {fileID: 4875697160360446081}
-  bloodSuperAttPosition: {fileID: 0}
+  bloodSuperAttPosition: {fileID: 7656757314995727854}
   gameController: {fileID: 0}
   score: 0
   formChangeCooldown: 1
@@ -238,6 +239,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthToMonitor: {fileID: 229335586949737649}
   image: {fileID: 0}
+--- !u!1 &2542019939349572828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7656757314995727854}
+  m_Layer: 0
+  m_Name: BloodPunchPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7656757314995727854
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2542019939349572828}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6728503941846826823}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3837038804314585393
 GameObject:
   m_ObjectHideFlags: 0

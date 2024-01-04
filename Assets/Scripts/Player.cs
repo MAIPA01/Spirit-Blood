@@ -170,8 +170,7 @@ public class Player : ObjectHealth
     void Update()
     {
         formCooldownTime -= Time.deltaTime;
-
-		    if (gameController.score < score)
+		    if (gameController == null)
         {
             Debug.Log("Pls Set gameController");
         }

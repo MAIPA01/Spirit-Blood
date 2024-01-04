@@ -1217,7 +1217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 519420031}
-  target: {fileID: 1388811543}
+  target: {fileID: 1388811548}
   offset: {x: 0, y: 0}
   forwardDistance: 8
   changeDirSpeed: 1.8
@@ -2496,43 +2496,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 351551538450558597, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1388811545}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
---- !u!1 &1388811543 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 351551538450558597, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
-  m_PrefabInstance: {fileID: 1388811542}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1388811544 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 229335586949737649, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
-  m_PrefabInstance: {fileID: 1388811542}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1388811543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c240b1ee805aab44981b552e467f302, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1388811545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1388811543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59c13c8bb9d163a4fa6f6ec0bd0eed83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1388811544}
-  bloodCursor: {fileID: 2800000, guid: 96cd3da6801f464429666cd4cd773d66, type: 3}
-  spiritCursor: {fileID: 2800000, guid: e56c8cdef73645f4b801d384a5ddfca0, type: 3}
---- !u!50 &1388811543 stripped
+--- !u!50 &1388811548 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 921701510007537210, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
   m_PrefabInstance: {fileID: 1388811542}
