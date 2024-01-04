@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using NaughtyAttributes;
 using static UnityEngine.UI.Image;
 using UnityEditor.Rendering.LookDev;
@@ -19,6 +21,7 @@ public class Player : ObjectHealth
     [Header("Player Global Settings:")]
     [SerializeField] 
     private PlayerForm form;
+    private UnityEvent formChangedEvent = new();
 
     [SerializeField]
     private SpriteRenderer body;
@@ -269,8 +272,14 @@ public class Player : ObjectHealth
         {
             body.color = isSpirit ? bloodColor : spiritColor;
         }
-
+        formChangedEvent.Invoke();
+        
         UpdateGround();
+    }
+
+    public void AddChangeFormCallback(UnityAction action)
+    {
+        formChangedEvent.AddListener(action);
     }
 
     void UpdateGround()
