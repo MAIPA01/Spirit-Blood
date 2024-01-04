@@ -87,12 +87,23 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        scoreText.text = "Score\n" + score;
+        if (scoreText == null)
+        {
+            Debug.Log("Pls assign TextMeshPro to me :(");
+        }
+        else
+        {
+            scoreText.text = "Score\n" + score;
+        }
+
     }
 
     public void UpdateScore(float scorePoints)
     {
-        scoreText.text = "Score\n" + scorePoints;
-        score = scorePoints;
+        if(scoreText != null)
+        {
+            scoreText.text = "Score\n" + scorePoints;
+            score = scorePoints;
+        }
     }
 }

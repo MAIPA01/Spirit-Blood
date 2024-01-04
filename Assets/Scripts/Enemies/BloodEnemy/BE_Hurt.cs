@@ -9,6 +9,9 @@ public class BE_Hurt : IState
     public void OnEnter(BloodEnemyController sc)
     {
         timer = Time.time;
+        Vector2 throwBackDir = sc.transform.position - sc.target.transform.position;
+        throwBackDir.Normalize();
+        sc.GetComponent<Rigidbody2D>().velocity += throwBackDir * sc.pushBackFactor;
     }
 
     public void OnExit(BloodEnemyController sc)

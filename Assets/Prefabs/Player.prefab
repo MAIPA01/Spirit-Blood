@@ -173,6 +173,7 @@ MonoBehaviour:
   m_FacingRight: 1
   slashObject: {fileID: 2622314876609431990, guid: edc66f7762b20fe468cd55f2fcca88e7, type: 3}
   slashPosition: {fileID: 4875697160360446081}
+  bloodSuperAttPosition: {fileID: 0}
   gameController: {fileID: 0}
   score: 0
   formChangeCooldown: 1
@@ -201,6 +202,11 @@ MonoBehaviour:
   spiritGroundLayers:
     serializedVersion: 2
     m_Bits: 2560
+  cooldownEndParticles: {fileID: 3665871754390567661, guid: 3abdf4bd79b69414786666ad02891e93, type: 3}
+  superAttackWindUp: 0.15
+  superAttackDuration: 0.75
+  superAttackCooldown: 5
+  bloodSuperAttackObject: {fileID: 8604047429649095254, guid: 6996a835373528b4db3ca3f1cf796814, type: 3}
 --- !u!114 &5774435722727972453
 MonoBehaviour:
   m_ObjectHideFlags: 0
