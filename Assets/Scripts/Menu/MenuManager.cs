@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
@@ -9,6 +8,12 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject startScreen;
     [SerializeField] private GameObject levelScreen;
     [SerializeField] private GameObject settingsScreen;
+    [SerializeField] private TextMeshProUGUI highscore;
+
+    private void Start()
+    {
+        highscore.text = "Highscore\n*" + PlayerPrefs.GetFloat("Highscore", 0.0f) + "*";
+    }
 
     public void SetSceneId(int scene_id)
     {

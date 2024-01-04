@@ -62,7 +62,6 @@ AnimationClip:
     - {fileID: -1350432588, guid: e8a0c618420d5a043bb6f294b76342bb, type: 3}
     - {fileID: 1256312895, guid: e8a0c618420d5a043bb6f294b76342bb, type: 3}
     - {fileID: -1015514444, guid: e8a0c618420d5a043bb6f294b76342bb, type: 3}
-    - {fileID: -1015514444, guid: e8a0c618420d5a043bb6f294b76342bb, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
