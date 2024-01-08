@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Security.Cryptography;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 
@@ -9,14 +10,12 @@ public class Movement : MonoBehaviour
     [SerializeField] private float jumpForce = 50f;
     [SerializeField] private GroudCheck groundCheck;
     [SerializeField] private bool _isJumping = false;
-    [SerializeField] private int _jumpCount = 1;
     [SerializeField] private float rezistance = 0.7f;
-    private int actualJumpCount = 0;
 
-    //Rigidbody2D _rb;
+
 
     Rigidbody _rb;
-    
+
 
     void Start()
     {
@@ -38,22 +37,30 @@ public class Movement : MonoBehaviour
         
         _rb.velocity = vel;
 
-        if (Input.GetButtonDown("Jump") && (groundCheck.groundContats != 0 || !_isJumping) && actualJumpCount < _jumpCount)
+        Jump();   
+    }
+
+
+    public void Jump()
+    {
+        if (Input.GetButtonDown("Jump") && (groundCheck.groundContats != 0 && !_isJumping))
         {
             _isJumping = true;
-            actualJumpCount++;
-            //_rb.velocity = new Vector2(0, jumpForce);
             _rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
 
         }
 
-        if (groundCheck.groundContats != 0 && actualJumpCount >= _jumpCount)
+        if (Input.GetButtonUp("Jump") && _rb.velocity.y > 0)
         {
-            actualJumpCount = 0;
+            _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y * 0.7f, _rb.velocity.z);
+        }
+
+        if (groundCheck.groundContats != 0)
+        {
             _isJumping = false;
         }
     }
 
- 
+
 
 };
