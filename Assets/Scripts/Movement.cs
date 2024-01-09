@@ -7,49 +7,65 @@ public class Movement : MonoBehaviour
     [SerializeField] private float jumpForce = 50f;
     [SerializeField] private GroudCheck groundCheck;
     [SerializeField] private bool _isJumping = false;
-    [SerializeField] private int _jumpCount = 1;
-    private int actualJumpCount = 0;
-   /* private Vector3 m_rotateTo;
-    public float rotationTime = 0.57f;*/
+    [SerializeField] private float rezistance = 0.7f;
 
-    [Tooltip("Co myslicie to takich filko³kach jak zosta³o to zaprezentowane w grze platformer shooter???")]
-    //[SerializeField] private bool _enableRotation = false;
 
-    Rigidbody2D _rb;
-    
+
+    Rigidbody _rb;
+
 
     void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
+        //_rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        Vector2 vel = _rb.velocity;
-        vel.x = Input.GetAxis("Horizontal") * speed;
+        Vector3 vel = _rb.velocity;
+        if (groundCheck.groundContats == 0)
+        {
+            vel.x = Input.GetAxis("Horizontal") * speed * rezistance;
+        }
+        else
+        {
+            vel.x = Input.GetAxis("Horizontal") * speed;
+        }
+        
         _rb.velocity = vel;
+        Jump();   
+    }
 
-        if (Input.GetButtonDown("Jump") && (groundCheck.GroundContacts != 0 || !_isJumping) && actualJumpCount < _jumpCount)
+
+    public void Jump()
+    {
+        if (Input.GetButtonDown("Jump") && (groundCheck.groundContats != 0 && !_isJumping))
         {
             _isJumping = true;
-            actualJumpCount++;
-            //_rb.velocity = new Vector2(0, jumpForce);
-            _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            _rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+
         }
 
-        if (groundCheck.GroundContacts != 0 && actualJumpCount >= _jumpCount)
+        if (Input.GetButtonUp("Jump") && _rb.velocity.y > 0)
         {
-            actualJumpCount = 0;
+            _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y * 0.7f, _rb.velocity.z);
+        }
+
+        if (groundCheck.groundContats != 0)
+        {
             _isJumping = false;
         }
-
-        // NIE USUWAÆ TEGO JEST TO WA¯NE BY DZIA£A£A GRA
+        
+        // TODO: ZROB NA 3D
+        /*
+        // NIE USUWAÃ† TEGO JEST TO WAÂ¯NE BY DZIAÂ£AÂ£A GRA
         if (groundCheck.GroundContacts == 0 && !_isJumping && actualJumpCount == 0)
         {
-            // Budzi fizykê gracza gdy stoi na platformie (naprawia b³¹d z spirit Platform)
+            // Budzi fizykÃª gracza gdy stoi na platformie (naprawia bÂ³Â¹d z spirit Platform)
             _rb.WakeUp();
             GetComponent<Collider2D>().isTrigger = true;
             GetComponent<Collider2D>().isTrigger = false;
         }
+        */
     }
 };

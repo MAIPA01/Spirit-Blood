@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class GroudCheck : MonoBehaviour
 { 
     [SerializeField]
+    // TODO: Make as 3D
     private List<Collider2D> groundColliders = new();
     [SerializeField]
     private LayerMask groundLayers;
@@ -25,6 +26,7 @@ public class GroudCheck : MonoBehaviour
         }
     }
 
+/*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.IsObjectInAnyLayer(groundLayers) && !groundColliders.Contains(collision))
@@ -44,7 +46,26 @@ public class GroudCheck : MonoBehaviour
             //Debug.Log("Ground contacts: " + groundContats);
         }
     }
+*/
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
+        {
+            groundContats++;
+            //Debug.Log("Ground contacts: " + groundContats);
+        }
+    }
 
+    private void OnTriggerExit(Collider collision)
+    {
+        if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
+        {
+            groundContats--;
+            //Debug.Log("Ground contacts: " + groundContats);
+        }
+    }
+    
+    // TODO: For 2D. Make it 3D
     private void CheckGround()
     {
         groundColliders.Clear();
