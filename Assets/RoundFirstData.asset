@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7e80a550fd4e944b83c96a99284b3b8, type: 3}
+  m_Name: RoundFirstData
+  m_EditorClassIdentifier: 
+  waves:
+  - numberOfSpawnPoints: 2
+    enemies:
+    - prefab: {fileID: 3339877392007961536, guid: cdca6cd9df6b5c84d9a48eb017a9c422, type: 3}
+      count: 3
+    - prefab: {fileID: 7747469968470648865, guid: 496552e3ff7ad2644a40e20ec171ec22, type: 3}
+      count: 3
+  - numberOfSpawnPoints: 2
+    enemies:
+    - prefab: {fileID: 3339877392007961536, guid: cdca6cd9df6b5c84d9a48eb017a9c422, type: 3}
+      count: 4
+    - prefab: {fileID: 7747469968470648865, guid: 496552e3ff7ad2644a40e20ec171ec22, type: 3}
+      count: 2
+  - numberOfSpawnPoints: 2
+    enemies:
+    - prefab: {fileID: 3339877392007961536, guid: cdca6cd9df6b5c84d9a48eb017a9c422, type: 3}
+      count: 2
+    - prefab: {fileID: 7747469968470648865, guid: 496552e3ff7ad2644a40e20ec171ec22, type: 3}
+      count: 4

@@ -1,6 +1,3 @@
-using System.Diagnostics;
-using System.Security.Cryptography;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 
@@ -36,7 +33,6 @@ public class Movement : MonoBehaviour
         }
         
         _rb.velocity = vel;
-
         Jump();   
     }
 
@@ -59,8 +55,17 @@ public class Movement : MonoBehaviour
         {
             _isJumping = false;
         }
+        
+        // TODO: ZROB NA 3D
+        /*
+        // NIE USUWAÆ TEGO JEST TO WA¯NE BY DZIA£A£A GRA
+        if (groundCheck.GroundContacts == 0 && !_isJumping && actualJumpCount == 0)
+        {
+            // Budzi fizykê gracza gdy stoi na platformie (naprawia b³¹d z spirit Platform)
+            _rb.WakeUp();
+            GetComponent<Collider2D>().isTrigger = true;
+            GetComponent<Collider2D>().isTrigger = false;
+        }
+        */
     }
-
-
-
 };

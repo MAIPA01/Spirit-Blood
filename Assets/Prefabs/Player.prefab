@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 229335586949737649}
   - component: {fileID: 5774435722727972453}
   - component: {fileID: 794629711171286026}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -35,6 +35,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7656757314995727854}
   - {fileID: 9198207985852270391}
   - {fileID: 4875697160360446081}
   - {fileID: 729503702528236190}
@@ -166,20 +167,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c240b1ee805aab44981b552e467f302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 500
   health: 0
   form: 0
   body: {fileID: 1750168044587548506}
   m_FacingRight: 1
   slashObject: {fileID: 2622314876609431990, guid: edc66f7762b20fe468cd55f2fcca88e7, type: 3}
   slashPosition: {fileID: 4875697160360446081}
+  bloodSuperAttPosition: {fileID: 7656757314995727854}
   gameController: {fileID: 0}
   score: 0
+  formChangeCooldown: 1
   spiritColor: {r: 0, g: 0.37254903, b: 0.85882354, a: 1}
   bloodColor: {r: 0.7294118, g: 0.07058824, b: 0, a: 1}
-  attackDelay: 0.25
+  attackDelay: 0.75
   spiritDamage: 10
-  circleRadius: 7
+  circleRadius: 6.89
   sectorAngle: 30
   spiritLayers:
     serializedVersion: 2
@@ -189,10 +192,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   bloodWeaponTransform: {fileID: 9198207985852270391}
-  bloodAttackRange: 1.3
-  slashMaskSpriteResolution: 64
+  bloodAttackRange: 1.2
+  slashMaskSpriteResolution: 128
   slashMaskPivot: {x: 0, y: 0}
-  spiritSlashPrefab: {fileID: 0}
+  spiritSlashPrefab: {fileID: 2889274423400091504, guid: bcdd9bd99888c934887a88f24cde2c4e, type: 3}
+  groundCheck: {fileID: 380582366164354119}
+  bloodGroundLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  spiritGroundLayers:
+    serializedVersion: 2
+    m_Bits: 2560
+  cooldownEndParticles: {fileID: 3665871754390567661, guid: 3abdf4bd79b69414786666ad02891e93, type: 3}
+  superAttackWindUp: 0.15
+  superAttackDuration: 0.75
+  superAttackCooldown: 5
+  bloodSuperAttackObject: {fileID: 8604047429649095254, guid: 6996a835373528b4db3ca3f1cf796814, type: 3}
 --- !u!114 &5774435722727972453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 8
-  jumpForce: 10
+  jumpForce: 12
   groundCheck: {fileID: 380582366164354119}
   _isJumping: 0
   _jumpCount: 2
@@ -225,6 +240,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthToMonitor: {fileID: 229335586949737649}
   image: {fileID: 0}
+--- !u!1 &2542019939349572828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7656757314995727854}
+  m_Layer: 0
+  m_Name: BloodPunchPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7656757314995727854
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2542019939349572828}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6728503941846826823}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3837038804314585393
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,7 +347,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aadc19792f1c2e45bbd07d4daf47415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundContats: 0
+  groundColliders: []
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!61 &3519311116937700798
 BoxCollider2D:
   m_ObjectHideFlags: 0

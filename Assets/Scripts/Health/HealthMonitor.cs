@@ -8,6 +8,13 @@ public class HealthMonitor : MonoBehaviour
 
     void Update()
     {
-        image.fillAmount = healthToMonitor.GetHealth() / healthToMonitor.GetMaxHealth();
+        if (image == null)
+        {
+            Debug.Log("Pls assign image for me to monitor health :(");
+        }
+        else
+        {
+            image.fillAmount = healthToMonitor.GetHealth() / healthToMonitor.GetMaxHealth();
+        }
     }
 }
