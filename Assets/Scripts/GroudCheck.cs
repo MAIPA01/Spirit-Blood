@@ -4,8 +4,7 @@ using System.Collections.Generic;
 public class GroudCheck : MonoBehaviour
 { 
     [SerializeField]
-    // TODO: Make as 3D
-    private List<Collider2D> groundColliders = new();
+    private List<Collider> groundColliders = new();
     [SerializeField]
     private LayerMask groundLayers;
 
@@ -25,9 +24,7 @@ public class GroudCheck : MonoBehaviour
             }
         }
     }
-
-/*
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.IsObjectInAnyLayer(groundLayers) && !groundColliders.Contains(collision))
         {
@@ -37,7 +34,7 @@ public class GroudCheck : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit(Collider collision)
     {
         if (collision.gameObject.IsObjectInAnyLayer(groundLayers) && groundColliders.Contains(collision))
         {
@@ -46,32 +43,22 @@ public class GroudCheck : MonoBehaviour
             //Debug.Log("Ground contacts: " + groundContats);
         }
     }
-*/
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
-        {
-            groundContats++;
-            //Debug.Log("Ground contacts: " + groundContats);
-        }
-    }
-
-    private void OnTriggerExit(Collider collision)
-    {
-        if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
-        {
-            groundContats--;
-            //Debug.Log("Ground contacts: " + groundContats);
-        }
-    }
     
-    // TODO: For 2D. Make it 3D
+    // TODO: TEST IT
     private void CheckGround()
     {
         groundColliders.Clear();
-        List<Collider2D> colliders = new();
-        if (Physics2D.OverlapCollider(this.GetComponent<Collider2D>(), new ContactFilter2D(), colliders) != 0)
+        List<Collider> colliders = new();
+        CapsuleCollider attachedCollider = GetComponent<CapsuleCollider>();
+        Vector3 up = attachedCollider.center + Vector3.up * (attachedCollider.height / 2 - attachedCollider.radius);
+        Vector3 down = attachedCollider.center + Vector3.down * (attachedCollider.height / 2 - attachedCollider.radius);
+
+        Collider[] collidersArray = colliders.ToArray();
+
+        if (Physics.OverlapCapsuleNonAlloc(down, up, GetComponent<CapsuleCollider>().radius, collidersArray) != 0)
         {
+            colliders.AddRange(collidersArray);
+
             foreach (var col in colliders)
             {
                 if (col.gameObject.IsObjectInAnyLayer(groundLayers) && !groundColliders.Contains(col))

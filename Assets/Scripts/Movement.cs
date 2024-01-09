@@ -23,7 +23,7 @@ public class Movement : MonoBehaviour
     void Update()
     {
         Vector3 vel = _rb.velocity;
-        if (groundCheck.groundContats == 0)
+        if (groundCheck.GroundContacts == 0)
         {
             vel.x = Input.GetAxis("Horizontal") * speed * rezistance;
         }
@@ -33,13 +33,14 @@ public class Movement : MonoBehaviour
         }
         
         _rb.velocity = vel;
+
         Jump();   
     }
 
 
     public void Jump()
     {
-        if (Input.GetButtonDown("Jump") && (groundCheck.groundContats != 0 && !_isJumping))
+        if (Input.GetButtonDown("Jump") && (groundCheck.GroundContacts != 0 && !_isJumping))
         {
             _isJumping = true;
             _rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
@@ -51,21 +52,12 @@ public class Movement : MonoBehaviour
             _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y * 0.7f, _rb.velocity.z);
         }
 
-        if (groundCheck.groundContats != 0)
+        if (groundCheck.GroundContacts != 0)
         {
             _isJumping = false;
         }
-        
-        // TODO: ZROB NA 3D
-        /*
-        // NIE USUWAÆ TEGO JEST TO WA¯NE BY DZIA£A£A GRA
-        if (groundCheck.GroundContacts == 0 && !_isJumping && actualJumpCount == 0)
-        {
-            // Budzi fizykê gracza gdy stoi na platformie (naprawia b³¹d z spirit Platform)
-            _rb.WakeUp();
-            GetComponent<Collider2D>().isTrigger = true;
-            GetComponent<Collider2D>().isTrigger = false;
-        }
-        */
     }
+
+
+
 };
