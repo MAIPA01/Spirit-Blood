@@ -354,15 +354,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cf32b1ba22d18994d9cbf50dc6bdb7ae, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.02
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cf32b1ba22d18994d9cbf50dc6bdb7ae, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.02
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cf32b1ba22d18994d9cbf50dc6bdb7ae, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.02
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cf32b1ba22d18994d9cbf50dc6bdb7ae, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1466,7 +1466,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aadc19792f1c2e45bbd07d4daf47415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundContats: 0
+  groundColliders: []
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!135 &1909702367
 SphereCollider:
   m_ObjectHideFlags: 0
