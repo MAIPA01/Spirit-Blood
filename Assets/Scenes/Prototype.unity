@@ -926,7 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4496eab67568b84a826a6aac2c28e21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  round: 1
+  round: 0
   wave: 0
   stage: 0
   maxEnemy: 0
@@ -944,13 +944,10 @@ MonoBehaviour:
   - {fileID: 1978124993}
   - {fileID: 511043745}
   nextRoundWaitTime: 2
-  nextRoundTime: 0
   nextWaveMaxWaitTime: 10
   nextWaveMinWaitTime: 5
-  nextWaveTime: 0
   nextStageMaxWaitTime: 3
   nextStageMinWaitTime: 1
-  nextStageTime: 0
 --- !u!1 &440611750
 GameObject:
   m_ObjectHideFlags: 0
@@ -2560,6 +2557,10 @@ PrefabInstance:
     - target: {fileID: 351551538450558597, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 351551538450558597, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 794629711171286026, guid: 621aed07d85ab4e438d89a16edd9dddd, type: 3}
       propertyPath: image

@@ -116,10 +116,11 @@ public class WaveManager : MonoBehaviour
             }
             else
             {
-                wave -= 1;
                 nextWaveTime -= Time.deltaTime;
                 if (nextWaveTime <= 0f)
                 {
+                    wave--;
+                    stage = 0;
                     nextWaveTime = Random.Range(nextWaveMinWaitTime, nextWaveMaxWaitTime);
                     currEnemy = maxEnemy;
                 }
