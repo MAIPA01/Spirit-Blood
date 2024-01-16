@@ -67,11 +67,11 @@ public class BE_Chase : IState
             movement.x *= 0.5f;
         }
 
-        sc.transform.Translate(movement * Time.fixedDeltaTime );
+        sc.transform.Translate(movement * Time.deltaTime );
 
         if(timer > 0f)
         {
-            timer -= Time.fixedDeltaTime;
+            timer -= Time.deltaTime;
         }
     }
 }

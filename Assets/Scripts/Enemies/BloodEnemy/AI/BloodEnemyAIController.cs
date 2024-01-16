@@ -123,19 +123,19 @@ public class BloodEnemyAIController : ObjectHealth
 
         // Direction Calculation
         Vector2 direction = ((Vector2)(path.vectorPath[currentWaypoint] - transform.position)).normalized;
-        Vector2 force = enemyMoveSpeed * Time.deltaTime * direction;
+        Vector2 force = enemyMoveSpeed * direction;
 
         // Jump
         if (jumpEnabled && isGrounded)
         {
             if (direction.y > jumpNodeHeightRequirement)
             {
-                rb.AddForce(enemyMoveSpeed * jumpModifier * Vector2.up);
+                rb.velocity = new Vector2(rb.velocity.x, enemyMoveSpeed * jumpModifier);
             }
         }
 
         // Movement
-        rb.AddForce(force);
+        rb.velocity = new Vector2(force.x, rb.velocity.y);
 
         // Next Waypoint
         float distance = Vector2.Distance(transform.position, path.vectorPath[currentWaypoint]);

@@ -1122,7 +1122,7 @@ MonoBehaviour:
   manualDebugFloorRoof: 0
   showSearchTree: 0
   unwalkableNodeDebugSize: 0.3
-  logPathResults: 1
+  logPathResults: 0
   maxNearestNodeDistance: 100
   scanOnStartup: 1
   fullGetNearestSearch: 0
@@ -1141,7 +1141,7 @@ MonoBehaviour:
   heuristic: 2
   heuristicScale: 1
   threadCount: 1
-  maxFrameTime: 1
+  maxFrameTime: 10
   batchGraphUpdates: 0
   graphUpdateBatchingInterval: 0.2
   euclideanEmbedding:
@@ -1240,6 +1240,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &407959670 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 6198163197644949503, guid: 6979770ea4398a546a0b3b3f7161d847, type: 3}
+  m_PrefabInstance: {fileID: 387056026742448717}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &514426013
 GameObject:
   m_ObjectHideFlags: 0
@@ -4056,7 +4061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 2052523024}
-  target: {fileID: 0}
+  target: {fileID: 407959670}
   offset: {x: 0, y: 0}
   forwardDistance: 8
   changeDirSpeed: 1.8
@@ -4144,11 +4149,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 803263711401145026, guid: 6979770ea4398a546a0b3b3f7161d847, type: 3}
       propertyPath: jumpModifier
-      value: 0.001
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 803263711401145026, guid: 6979770ea4398a546a0b3b3f7161d847, type: 3}
       propertyPath: enemyMoveSpeed
-      value: 1000
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2719066375283851271, guid: 6979770ea4398a546a0b3b3f7161d847, type: 3}
       propertyPath: m_Name
