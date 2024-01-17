@@ -29,8 +29,6 @@ public class GroudCheck : MonoBehaviour
         if (collision.gameObject.IsObjectInAnyLayer(groundLayers) && !groundColliders.Contains(collision))
         {
             groundColliders.Add(collision);
-            //groundContats++;
-            //Debug.Log("Ground contacts: " + groundContats);
         }
     }
 
@@ -39,33 +37,34 @@ public class GroudCheck : MonoBehaviour
         if (collision.gameObject.IsObjectInAnyLayer(groundLayers) && groundColliders.Contains(collision))
         {
             groundColliders.Remove(collision);
-            //groundContats--;
-            //Debug.Log("Ground contacts: " + groundContats);
         }
     }
-    
-    // TODO: TEST IT
+
     private void CheckGround()
     {
         groundColliders.Clear();
-        List<Collider> colliders = new();
-        CapsuleCollider attachedCollider = GetComponent<CapsuleCollider>();
-        Vector3 up = attachedCollider.center + Vector3.up * (attachedCollider.height / 2 - attachedCollider.radius);
-        Vector3 down = attachedCollider.center + Vector3.down * (attachedCollider.height / 2 - attachedCollider.radius);
+        //CapsuleCollider attachedCollider = GetComponent<CapsuleCollider>();
+        //Vector3 up = attachedCollider.center + Vector3.up * (attachedCollider.height / 2 - attachedCollider.radius);
+        //Vector3 down = attachedCollider.center + Vector3.down * (attachedCollider.height / 2 - attachedCollider.radius);
+        SphereCollider attachedCollider = GetComponent<SphereCollider>();
 
-        Collider[] collidersArray = colliders.ToArray();
+        Collider[] collidersArray = new Collider[0];
 
-        if (Physics.OverlapCapsuleNonAlloc(down, up, GetComponent<CapsuleCollider>().radius, collidersArray) != 0)
+        //if (Physics.OverlapCapsuleNonAlloc(down, up, GetComponent<CapsuleCollider>().radius, collidersArray) != 0)
+        if (Physics.OverlapSphereNonAlloc(attachedCollider.center, attachedCollider.radius, collidersArray, groundLayers) != 0)
         {
-            colliders.AddRange(collidersArray);
-
-            foreach (var col in colliders)
+            /*foreach (var col in collidersArray)
             {
                 if (col.gameObject.IsObjectInAnyLayer(groundLayers) && !groundColliders.Contains(col))
                 {
                     groundColliders.Add(col);
-                    //groundContats++;
-                    //Debug.Log("Ground contacts: " + groundContats);
+                }
+            }*/
+            foreach (var col in collidersArray)
+            {
+                if (groundColliders.Contains(col))
+                {
+                    groundColliders.Add(col);
                 }
             }
         }
