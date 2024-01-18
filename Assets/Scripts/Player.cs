@@ -170,7 +170,7 @@ public class Player : ObjectHealth
     void Update()
     {
         formCooldownTime -= Time.deltaTime;
-		    if (gameController == null)
+		if (gameController == null)
         {
             Debug.Log("Pls Set gameController");
         }
@@ -291,10 +291,30 @@ public class Player : ObjectHealth
 
     void UpdateGround()
     {
-        LayerMask playerCollision = Physics2D.GetLayerCollisionMask(LayerMask.NameToLayer("Player"));
+        /*LayerMask playerCollision = Physics2D.GetLayerCollisionMask(LayerMask.NameToLayer("Player"));
         playerCollision &= ~(IsSpirit() ? bloodGroundLayers : spiritGroundLayers);
         playerCollision |= IsSpirit() ? spiritGroundLayers : bloodGroundLayers;
-        Physics2D.SetLayerCollisionMask(LayerMask.NameToLayer("Player"), playerCollision);
+        Physics2D.SetLayerCollisionMask(LayerMask.NameToLayer("Player"), playerCollision);*/
+
+        LayerMask collDiff = (bloodGroundLayers | spiritGroundLayers) & (~bloodGroundLayers | ~spiritGroundLayers);
+        LayerMask prevLayer = IsSpirit() ? bloodGroundLayers : spiritGroundLayers;
+
+        for (int i = 0; i < 32; i++)
+        {
+            if (((collDiff & (1 << i)) >> i) == 1)
+            {
+                // było włączone więc ignorować
+                if (((prevLayer & (1 << i)) >> i) == 1)
+                {
+                    Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), i, true);
+                }
+                // było wyłączone więc nie ignorować
+                else
+                {
+                    Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), i, false);
+                }
+            }
+        }
 
         if (groundCheck == null)
         {
@@ -324,29 +344,34 @@ public class Player : ObjectHealth
     private void BloodSuperAttack(float killTime, bool check)
     {
         // PUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUNCH!
-        Vector2 lookDir = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position;
+        Vector2 lookDir = (Vector2)(Camera.main.ScreenToWorldPoint(Input.mousePosition) - bloodSuperAttPosition.position);
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         Vector2 origin;
         float circleRad = 1.10f; 
 
         GameObject punch;
         //lookDir.x -= 0.5f;
-        if (right)
+        /*if (right)
         {
             punch = Instantiate(bloodSuperAttackObject, bloodSuperAttPosition.position, Quaternion.identity, bloodSuperAttPosition);
             punch.transform.Translate(0.5f, 0, 0);
-            punch.transform.Rotate(Vector3.forward, Vector2Extensions.Angle360(Vector2.left, lookDir));
+            punch.transform.Rotate(-Vector3.forward, Vector2Extensions.Angle360(Vector2.right, lookDir));
             origin = punch.transform.position;
         }
         else
         {
             punch = Instantiate(bloodSuperAttackObject, bloodSuperAttPosition.position, Quaternion.identity, bloodSuperAttPosition);
             punch.transform.Translate(0.5f, 0, 0);
-            punch.transform.Rotate(Vector3.forward, Vector2Extensions.Angle360(Vector2.right, lookDir));
+            punch.transform.Rotate(-Vector3.forward, Vector2Extensions.Angle360(Vector2.right, lookDir));
             origin = punch.transform.position;
             
-        }
-        if(check)
+        }*/
+        punch = Instantiate(bloodSuperAttackObject, bloodSuperAttPosition.position, Quaternion.identity, bloodSuperAttPosition);
+        punch.transform.Translate(0.5f * this.transform.localScale.z, 0, 0);
+        punch.transform.Rotate(Vector3.forward * this.transform.localScale.z, Vector2Extensions.Angle360(-Vector2.right, lookDir));
+        origin = punch.transform.position;
+
+        if (check)
         {
             punch.GetComponent<SpriteRenderer>().sprite = null;
             punch.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.05f);
@@ -370,6 +395,7 @@ public class Player : ObjectHealth
             if (slashObject != null)
             {
                 GameObject slash = Instantiate(slashObject, slashPosition.position, Quaternion.identity, slashPosition);
+                slash.transform.localScale = new Vector3(this.transform.localScale.z * slash.transform.localScale.x, slash.transform.localScale.y, slash.transform.localScale.z);
 
                 if (slash.TryGetComponent(out Animator animator))
                 {
@@ -411,7 +437,8 @@ public class Player : ObjectHealth
 
         // Multiply the player's x local scale by -1.
         Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
+        //theScale.x *= -1; // 2D
+        theScale.z *= -1; // 3D
         transform.localScale = theScale;
 
         //GetComponent<SpriteRenderer>().flipX = m_FacingRight;
@@ -538,7 +565,7 @@ public class Player : ObjectHealth
         SpriteRenderer renderer = slash.GetComponentInChildren<SpriteRenderer>();
         renderer.transform.localScale = 0.32f * 2f * radius * new Vector3(1f, 1f) + Vector3.forward; // NIE WIEM SKĄD 0.32 nie mam siły teraz tego liczyć i sprawdzać
 
-        slash.transform.Rotate(Vector3.forward, Vector2Extensions.Angle360(Vector2.right, lookDir) - sectorAngle / 2f);
+        slash.transform.Rotate(Vector3.forward * this.transform.localScale.z, Vector2Extensions.Angle360(Vector2.right, lookDir) - sectorAngle / 2f);
         slash.transform.Translate(-slashMaskPivot * radius); // Wstęp do wyższych kątów (na razie nie działa)
 
         slash.GetComponentInChildren<Animator>().Play("SpiritSlashAnim", -1, 0f);
