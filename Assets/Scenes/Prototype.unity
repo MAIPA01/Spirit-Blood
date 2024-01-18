@@ -780,7 +780,7 @@ PrefabInstance:
       objectReference: {fileID: 1705993268}
     - target: {fileID: 6265315673988955527, guid: cc6e683cfb10e6c4eafb1aa48dab65be, type: 3}
       propertyPath: superAttackCooldown
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7205833607805526093, guid: cc6e683cfb10e6c4eafb1aa48dab65be, type: 3}
       propertyPath: m_LocalPosition.y
