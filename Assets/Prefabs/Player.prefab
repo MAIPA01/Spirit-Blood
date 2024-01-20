@@ -208,6 +208,8 @@ MonoBehaviour:
   superAttackDuration: 0.75
   superAttackCooldown: 5
   bloodSuperAttackObject: {fileID: 8604047429649095254, guid: 6996a835373528b4db3ca3f1cf796814, type: 3}
+  lifeSteal: 0
+  skillBonusFactor: 0
 --- !u!114 &5774435722727972453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,7 +226,6 @@ MonoBehaviour:
   jumpForce: 12
   groundCheck: {fileID: 380582366164354119}
   _isJumping: 0
-  _jumpCount: 2
   rezistance: 0.7
 --- !u!114 &794629711171286026
 MonoBehaviour:
