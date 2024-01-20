@@ -64,7 +64,7 @@ public class Player : ObjectHealth
     public float spiritDamage = 2f;
     [SerializeField]
     [ShowIf("form", PlayerForm.Spirit)]
-    private float circleRadius;
+    public float circleRadius;
     [SerializeField]
     [ShowIf("form", PlayerForm.Spirit)]
     private float sectorAngle;
@@ -82,7 +82,7 @@ public class Player : ObjectHealth
     private Transform bloodWeaponTransform;
     [SerializeField]
     [ShowIf("form", PlayerForm.Blood)]
-    private float bloodAttackRange = 0.5f;
+    public float bloodAttackRange = 0.5f;
 
     private bool canAttack = true;
 

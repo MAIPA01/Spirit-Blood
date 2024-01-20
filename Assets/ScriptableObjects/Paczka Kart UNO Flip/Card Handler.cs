@@ -115,7 +115,8 @@ public class CardHandler : MonoBehaviour
 
                 ourPlayer.superAttackCooldown -= ourPlayer.superAttackCooldown * selectedClassCard.skill1;
 
-                //TO DO ATTACK RANGE
+                ourPlayer.circleRadius += ourPlayer.circleRadius * selectedClassCard.skill2;
+                ourPlayer.bloodAttackRange += ourPlayer.bloodAttackRange * selectedClassCard.skill2;
 
                 ourPlayer.skillBonusFactor += selectedClassCard.skill3;
                 break;
@@ -175,9 +176,8 @@ public class CardHandler : MonoBehaviour
                 }
                 else if (skillID == 1)
                 {
-                    /* TO DO ATTACK RANGE
-                    ourPlayer.spiritDamage += selectedClassCard.skill2Up;
-                    ourPlayer.bloodDamage += selectedClassCard.skill2Up;*/
+                    ourPlayer.circleRadius += ourPlayer.circleRadius * selectedClassCard.skill2Up;
+                    ourPlayer.bloodAttackRange += ourPlayer.bloodAttackRange * selectedClassCard.skill2Up;
                 }
                 else if (skillID == 2)
                 {
