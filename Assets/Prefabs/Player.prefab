@@ -208,6 +208,8 @@ MonoBehaviour:
   superAttackDuration: 0.75
   superAttackCooldown: 5
   bloodSuperAttackObject: {fileID: 8604047429649095254, guid: 6996a835373528b4db3ca3f1cf796814, type: 3}
+  lifeSteal: 0
+  skillBonusFactor: 0
 --- !u!114 &5774435722727972453
 MonoBehaviour:
   m_ObjectHideFlags: 0

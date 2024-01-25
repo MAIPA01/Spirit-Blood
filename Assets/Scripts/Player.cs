@@ -45,7 +45,7 @@ public class Player : ObjectHealth
 
     [Header("Forms:")]
     [SerializeField]
-    private float formChangeCooldown = 2f;
+    public float formChangeCooldown = 2f;
     private float formCooldownTime = 0f;
 
     [SerializeField]
@@ -58,13 +58,13 @@ public class Player : ObjectHealth
 
     [Header("Attack:")]
     [SerializeField]
-    private float attackDelay = 1f;
+    public float attackDelay = 1f;
     [SerializeField]
     [ShowIf("form", PlayerForm.Spirit)]
-    private float spiritDamage = 2f;
+    public float spiritDamage = 2f;
     [SerializeField]
     [ShowIf("form", PlayerForm.Spirit)]
-    private float circleRadius;
+    public float circleRadius;
     [SerializeField]
     [ShowIf("form", PlayerForm.Spirit)]
     private float sectorAngle;
@@ -73,7 +73,7 @@ public class Player : ObjectHealth
     private LayerMask spiritLayers;
     [SerializeField]
     [ShowIf("form", PlayerForm.Blood)]
-    private float bloodDamage = 1f;
+    public float bloodDamage = 1f;
     [SerializeField]
     [ShowIf("form", PlayerForm.Blood)]
     private LayerMask bloodLayers;
@@ -82,7 +82,7 @@ public class Player : ObjectHealth
     private Transform bloodWeaponTransform;
     [SerializeField]
     [ShowIf("form", PlayerForm.Blood)]
-    private float bloodAttackRange = 0.5f;
+    public float bloodAttackRange = 0.5f;
 
     private bool canAttack = true;
 
@@ -115,7 +115,7 @@ public class Player : ObjectHealth
     [SerializeField]
     private float superAttackDuration = 0.75f;
     [SerializeField]
-    private float superAttackCooldown = 5.0f;
+    public float superAttackCooldown = 5.0f;
     private float superCooldownTimer;
     [SerializeField]
     private GameObject bloodSuperAttackObject = null;
@@ -123,6 +123,10 @@ public class Player : ObjectHealth
     private bool right = false;
     private float superBloodAttackDmg; //kills all in 1 go, so should be BIG
     private int superAttackPhase = 0; // 0 - none, 1 - windup, 1 - superAttack
+
+    [HideInInspector]
+    public float lifeSteal = 0.0f; //Works only if you pick warrior class
+    public float skillBonusFactor = 0.0f; //Works only if you pick unity class, it makes stun and knockback effects longer
 
     private void OnValidate()
     {
@@ -205,6 +209,7 @@ public class Player : ObjectHealth
                     GameObject b00mEffect = Instantiate(cooldownEndParticles, targetHit.transform.position, Quaternion.identity);
                     b00mEffect.GetComponent<ParticleSystem>().startColor = Color.cyan;
                     Destroy(b00mEffect, 1.0f);
+                    this.AddHealth(lifeSteal);
                 }
                 superCooldownTimer = superAttackCooldown;
             }
@@ -357,6 +362,7 @@ public class Player : ObjectHealth
             {
                 GameObject targetHit = hits[i].collider.gameObject;
                 targetHit.GetComponent<BloodEnemyController>().TakeDamage(superBloodAttackDmg);
+                this.AddHealth(lifeSteal);
             }
         }
 
@@ -397,6 +403,9 @@ public class Player : ObjectHealth
             {
                 if (enemy.collider.TryGetComponent(out ObjectHealth obj))
                 {
+                    this.AddHealth(lifeSteal);
+                    obj.GetComponent<BloodEnemyController>().stunTime *= (1.0f + skillBonusFactor);
+                    obj.GetComponent<BloodEnemyController>().pushBackFactor *= (1.0f + skillBonusFactor);
                     obj.AddHealth(-bloodDamage);
                 }
             }
@@ -517,12 +526,16 @@ public class Player : ObjectHealth
             if (((1 << hits[i].collider.gameObject.layer) & spiritLayers.value) == spiritLayers.value)
             {
                 GameObject spiritEnemy = hits[i].collider.gameObject;
+
+                this.AddHealth(lifeSteal);
+                spiritEnemy.GetComponent<BasicSpirit>().stuntTime *= (1.0f + skillBonusFactor);
+
                 spiritEnemy.GetComponent<BasicSpirit>().TakeDamage(spiritDamage);
                 spiritEnemy.GetComponent<BasicSpirit>().SetStunt();
 
                 Vector2 throwBackDir = spiritEnemy.transform.position - body.transform.position;
                 throwBackDir.Normalize();
-                spiritEnemy.GetComponent<Rigidbody2D>().velocity += throwBackDir * spiritDamage;
+                spiritEnemy.GetComponent<Rigidbody2D>().velocity += throwBackDir * spiritDamage * (1.0f + skillBonusFactor);
             }
         }
 

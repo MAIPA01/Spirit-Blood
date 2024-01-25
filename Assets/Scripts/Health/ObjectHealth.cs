@@ -44,7 +44,12 @@ public class ObjectHealth : MonoBehaviour, IDamageTaker
 
     public void AddHealth(float value)
     {
-        health += value;
+        if(health + value > maxHealth)
+        {
+            health = maxHealth;
+        }
+        else
+            health += value;
     }
 
     [Button]

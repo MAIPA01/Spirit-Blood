@@ -13,10 +13,10 @@ public class BloodEnemyController : ObjectHealth
     public float enemyAttackDmg = 0.00001f;
 
     [Tooltip("The strenght of this enemy PUSHBACK when struck by player")]
-    public float pushBackFactor = 3.0f;
+    public float pushBackFactor = 1.5f;
 
     [Tooltip("Time in which enemy can't act after taking dmg in SECONDS")]
-    public float stunTime = 10f;
+    public float stunTime = 1f;
 
     [Tooltip("Delay between next attack in SECONDS")]
     public float enemyAttackDecay = 2f;
