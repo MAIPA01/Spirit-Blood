@@ -17,7 +17,7 @@ public class BasicSpirit : ObjectHealth
     [SerializeField][Tooltip("Prêdkoœæ poruszania siê")] private float speed = 5f;
     [SerializeField][Tooltip("Odleg³oœæ od gracza w jakiej dusza zacznie atakowaæ")] private float attackRange = 5f;
     [SerializeField][Tooltip("Czas pomiêdzy jednym a drugim atakiem")] private float attackDelay = 1f;
-    [SerializeField][Tooltip("Czas bycia w szoku po uderzeniu")] private float stuntTime = 1f;
+    [SerializeField][Tooltip("Czas bycia w szoku po uderzeniu")] public float stuntTime = 1f;
     [SerializeField][Tooltip("Damage który zadaje przeciwnik")] private float attackDamage = 10f;
     [SerializeField][Tooltip("Prêdkoœæ pocisku")] private float bulletSpeed = 5f;
     [Tooltip("Score gained by killing this enemy")] public float scoreGained = 10;

@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private float speed = 1f;
-    [SerializeField] private float jumpForce = 50f;
+    [SerializeField] public float speed = 1f;
+    [SerializeField] public float jumpForce = 50f;
     [SerializeField] private GroudCheck groundCheck;
     [SerializeField] private bool _isJumping = false;
     [SerializeField] private float rezistance = 0.7f;
