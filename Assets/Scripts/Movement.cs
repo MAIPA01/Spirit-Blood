@@ -34,7 +34,16 @@ public class Movement : MonoBehaviour
         
         _rb.velocity = vel;
 
-        Jump();   
+        Jump();
+
+        // NIE USUWAC TEGO JEST TO WAZNE BY DZIALALA GRA
+        if (groundCheck.GroundContacts == 0 && !_isJumping)
+        {
+            // Budzi fizyke gracza gdy stoi na platformie (naprawia blad z spirit Platform)
+            _rb.WakeUp();
+            GetComponent<Collider>().isTrigger = true;
+            GetComponent<Collider>().isTrigger = false;
+        }
     }
 
 

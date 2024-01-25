@@ -1,14 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using NaughtyAttributes;
-using static UnityEngine.UI.Image;
-using UnityEditor.Rendering.LookDev;
-using UnityEditor.Rendering;
 using Unity.VisualScripting;
-using UnityEngine.Rendering.UI;
 
 enum PlayerForm
 {
@@ -21,10 +16,11 @@ public class Player : ObjectHealth
     [Header("Player Global Settings:")]
     [SerializeField] 
     private PlayerForm form;
-    private UnityEvent formChangedEvent = new();
+    private readonly UnityEvent formChangedEvent = new();
 
     [SerializeField]
-    private SpriteRenderer body;
+    //private SpriteRenderer body; // 2D
+    private MeshRenderer body; // 3D
 
     [SerializeField]
     private bool m_FacingRight = true;
@@ -37,6 +33,9 @@ public class Player : ObjectHealth
     
     [SerializeField]
     private Transform bloodSuperAttPosition;
+
+    [SerializeField]
+    private Transform spiritSlashPosition;
 	
 	[SerializeField] private GameManager gameController;
 
@@ -147,7 +146,8 @@ public class Player : ObjectHealth
 
         if (body != null)
         {
-            body.color = IsSpirit() ? spiritColor : bloodColor;
+            //body.color = IsSpirit() ? spiritColor : bloodColor; // 2D
+            body.sharedMaterial.color = IsSpirit() ? spiritColor : bloodColor;
         }
 
         if (spiritSlashMask == null)
@@ -174,7 +174,7 @@ public class Player : ObjectHealth
     void Update()
     {
         formCooldownTime -= Time.deltaTime;
-		    if (gameController == null)
+		if (gameController == null)
         {
             Debug.Log("Pls Set gameController");
         }
@@ -281,7 +281,8 @@ public class Player : ObjectHealth
         form = isSpirit ? PlayerForm.Blood : PlayerForm.Spirit;
         if (body != null )
         {
-            body.color = isSpirit ? bloodColor : spiritColor;
+            //body.color = isSpirit ? bloodColor : spiritColor; // 2D
+            body.sharedMaterial.color = isSpirit ? bloodColor : spiritColor;
         }
         formChangedEvent.Invoke();
         
@@ -295,10 +296,30 @@ public class Player : ObjectHealth
 
     void UpdateGround()
     {
-        LayerMask playerCollision = Physics2D.GetLayerCollisionMask(LayerMask.NameToLayer("Player"));
+        /*LayerMask playerCollision = Physics2D.GetLayerCollisionMask(LayerMask.NameToLayer("Player"));
         playerCollision &= ~(IsSpirit() ? bloodGroundLayers : spiritGroundLayers);
         playerCollision |= IsSpirit() ? spiritGroundLayers : bloodGroundLayers;
-        Physics2D.SetLayerCollisionMask(LayerMask.NameToLayer("Player"), playerCollision);
+        Physics2D.SetLayerCollisionMask(LayerMask.NameToLayer("Player"), playerCollision);*/
+
+        LayerMask collDiff = (bloodGroundLayers | spiritGroundLayers) & (~bloodGroundLayers | ~spiritGroundLayers);
+        LayerMask prevLayer = IsSpirit() ? bloodGroundLayers : spiritGroundLayers;
+
+        for (int i = 0; i < 32; i++)
+        {
+            if (((collDiff & (1 << i)) >> i) == 1)
+            {
+                // było włączone więc ignorować
+                if (((prevLayer & (1 << i)) >> i) == 1)
+                {
+                    Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), i, true);
+                }
+                // było wyłączone więc nie ignorować
+                else
+                {
+                    Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), i, false);
+                }
+            }
+        }
 
         if (groundCheck == null)
         {
@@ -328,29 +349,34 @@ public class Player : ObjectHealth
     private void BloodSuperAttack(float killTime, bool check)
     {
         // PUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUNCH!
-        Vector2 lookDir = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position;
+        Vector2 lookDir = (Vector2)(Camera.main.ScreenToWorldPoint(Input.mousePosition) - bloodSuperAttPosition.position);
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         Vector2 origin;
         float circleRad = 1.10f; 
 
         GameObject punch;
         //lookDir.x -= 0.5f;
-        if (right)
+        /*if (right)
         {
             punch = Instantiate(bloodSuperAttackObject, bloodSuperAttPosition.position, Quaternion.identity, bloodSuperAttPosition);
             punch.transform.Translate(0.5f, 0, 0);
-            punch.transform.Rotate(Vector3.forward, Vector2Extensions.Angle360(Vector2.left, lookDir));
+            punch.transform.Rotate(-Vector3.forward, Vector2Extensions.Angle360(Vector2.right, lookDir));
             origin = punch.transform.position;
         }
         else
         {
             punch = Instantiate(bloodSuperAttackObject, bloodSuperAttPosition.position, Quaternion.identity, bloodSuperAttPosition);
             punch.transform.Translate(0.5f, 0, 0);
-            punch.transform.Rotate(Vector3.forward, Vector2Extensions.Angle360(Vector2.right, lookDir));
+            punch.transform.Rotate(-Vector3.forward, Vector2Extensions.Angle360(Vector2.right, lookDir));
             origin = punch.transform.position;
             
-        }
-        if(check)
+        }*/
+        punch = Instantiate(bloodSuperAttackObject, bloodSuperAttPosition.position, Quaternion.identity, bloodSuperAttPosition);
+        punch.transform.Translate(0.5f * this.transform.localScale.z, 0, 0);
+        punch.transform.Rotate(Vector3.forward * this.transform.localScale.z, Vector2Extensions.Angle360(-Vector2.right, lookDir));
+        origin = punch.transform.position;
+
+        if (check)
         {
             punch.GetComponent<SpriteRenderer>().sprite = null;
             punch.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.05f);
@@ -375,6 +401,7 @@ public class Player : ObjectHealth
             if (slashObject != null)
             {
                 GameObject slash = Instantiate(slashObject, slashPosition.position, Quaternion.identity, slashPosition);
+                slash.transform.localScale = new Vector3(this.transform.localScale.z * slash.transform.localScale.x, slash.transform.localScale.y, slash.transform.localScale.z);
 
                 if (slash.TryGetComponent(out Animator animator))
                 {
@@ -419,7 +446,8 @@ public class Player : ObjectHealth
 
         // Multiply the player's x local scale by -1.
         Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
+        //theScale.x *= -1; // 2D
+        theScale.z *= -1; // 3D
         transform.localScale = theScale;
 
         //GetComponent<SpriteRenderer>().flipX = m_FacingRight;
@@ -514,7 +542,7 @@ public class Player : ObjectHealth
     private void SpiritAttack()
     {
         // Dodac Delay
-        Vector2 origin = body.transform.position;
+        Vector2 origin = spiritSlashPosition.position;
         Vector2 lookDir = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - origin).normalized;
         RaycastHit2D[] hits = Physic2DExtension.CircleSectorCastAll(origin, circleRadius, sectorAngle, lookDir, float.PositiveInfinity, spiritLayers.value);
         for (uint i = 0; i < hits.Length; i++)
@@ -541,16 +569,16 @@ public class Player : ObjectHealth
 
         // całe to rysowanie działa na razie dla kątów mniejszych równych 90 stopni
         GameObject slash = Instantiate(spiritSlashPrefab);
-        slash.transform.position = transform.position;
+        slash.transform.position = spiritSlashPosition.position;
         float max = slashMaskPivot.x > slashMaskPivot.y ? slashMaskPivot.x : slashMaskPivot.y;
         float radius = circleRadius / (2f * (1f - max));
         slash.transform.localScale = new Vector3(1f, 1f) * radius + Vector3.forward;
-        slash.transform.parent = this.transform;
+        slash.transform.parent = spiritSlashPosition;
         slash.GetComponent<SpriteMask>().sprite = spiritSlashMask;
         SpriteRenderer renderer = slash.GetComponentInChildren<SpriteRenderer>();
         renderer.transform.localScale = 0.32f * 2f * radius * new Vector3(1f, 1f) + Vector3.forward; // NIE WIEM SKĄD 0.32 nie mam siły teraz tego liczyć i sprawdzać
 
-        slash.transform.Rotate(Vector3.forward, Vector2Extensions.Angle360(Vector2.right, lookDir) - sectorAngle / 2f);
+        slash.transform.Rotate(Vector3.forward * this.transform.localScale.z, Vector2Extensions.Angle360(Vector2.right, lookDir) - sectorAngle / 2f);
         slash.transform.Translate(-slashMaskPivot * radius); // Wstęp do wyższych kątów (na razie nie działa)
 
         slash.GetComponentInChildren<Animator>().Play("SpiritSlashAnim", -1, 0f);
@@ -561,35 +589,39 @@ public class Player : ObjectHealth
     {
         if (IsSpirit())
         {
-            Vector2 origin = transform.position;
-            Vector2 lookDir = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - origin).normalized;
-
-            float lookRadians = MathfExtensions.DegreesToRadians(Vector2Extensions.Angle360(Vector2.right, lookDir));
-
-            float halfSectorRadians = MathfExtensions.DegreesToRadians(sectorAngle / 2f);
-            float startRadians = lookRadians + halfSectorRadians;
-            float endRadians = lookRadians - halfSectorRadians;
-
-            Vector2 startPoint = (new Vector2(Mathf.Cos(startRadians), Mathf.Sin(startRadians))).normalized;
-            Vector2 endPoint = (new Vector2(Mathf.Cos(endRadians), Mathf.Sin(endRadians))).normalized;
-
-            Gizmos.color = Color.blue;
-            Gizmos.DrawLine(origin, origin + lookDir * circleRadius);
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(origin, origin + startPoint * circleRadius);
-            Gizmos.DrawLine(origin, origin + endPoint * circleRadius);
-
-            float radiansDiff = (endRadians - startRadians) / 10;
-            Vector2 point1 = startPoint;
-            for (int i = 0; i < 10 - 1; i++)
+            if (spiritSlashPosition != null)
             {
-                Vector2 point2 = (new Vector2(Mathf.Cos(startRadians + (i + 1) * radiansDiff), Mathf.Sin(startRadians + (i + 1) * radiansDiff))).normalized;
 
-                Gizmos.DrawLine(origin + point1 * circleRadius, origin + point2 * circleRadius);
-                point1 = point2;
+                Vector2 origin = spiritSlashPosition.position;
+                Vector2 lookDir = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - origin).normalized;
+
+                float lookRadians = MathfExtensions.DegreesToRadians(Vector2Extensions.Angle360(Vector2.right, lookDir));
+
+                float halfSectorRadians = MathfExtensions.DegreesToRadians(sectorAngle / 2f);
+                float startRadians = lookRadians + halfSectorRadians;
+                float endRadians = lookRadians - halfSectorRadians;
+
+                Vector2 startPoint = (new Vector2(Mathf.Cos(startRadians), Mathf.Sin(startRadians))).normalized;
+                Vector2 endPoint = (new Vector2(Mathf.Cos(endRadians), Mathf.Sin(endRadians))).normalized;
+
+                Gizmos.color = Color.blue;
+                Gizmos.DrawLine(origin, origin + lookDir * circleRadius);
+
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(origin, origin + startPoint * circleRadius);
+                Gizmos.DrawLine(origin, origin + endPoint * circleRadius);
+
+                float radiansDiff = (endRadians - startRadians) / 10;
+                Vector2 point1 = startPoint;
+                for (int i = 0; i < 10 - 1; i++)
+                {
+                    Vector2 point2 = (new Vector2(Mathf.Cos(startRadians + (i + 1) * radiansDiff), Mathf.Sin(startRadians + (i + 1) * radiansDiff))).normalized;
+
+                    Gizmos.DrawLine(origin + point1 * circleRadius, origin + point2 * circleRadius);
+                    point1 = point2;
+                }
+                Gizmos.DrawLine(origin + point1 * circleRadius, origin + endPoint * circleRadius);
             }
-            Gizmos.DrawLine(origin + point1 * circleRadius, origin + endPoint * circleRadius);
         }
         else
         {

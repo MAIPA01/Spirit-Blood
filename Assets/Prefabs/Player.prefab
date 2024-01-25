@@ -170,7 +170,7 @@ MonoBehaviour:
   maxHealth: 500
   health: 0
   form: 0
-  body: {fileID: 1750168044587548506}
+  body: {fileID: 0}
   m_FacingRight: 1
   slashObject: {fileID: 2622314876609431990, guid: edc66f7762b20fe468cd55f2fcca88e7, type: 3}
   slashPosition: {fileID: 4875697160360446081}
