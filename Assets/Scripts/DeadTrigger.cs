@@ -12,4 +12,12 @@ public class DeadTrigger : MonoBehaviour
         }
         
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out ObjectHealth oh))
+        {
+            oh.TakeDamage(oh.GetMaxHealth());
+        }
+    }
 }
