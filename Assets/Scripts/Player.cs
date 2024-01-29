@@ -200,7 +200,7 @@ public class Player : ObjectHealth
 
             if(IsSpirit() && superCooldownTimer <= .0f)
             {
-                RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 200, Vector2.right, 0.01f, spiritLayers.value);
+                RaycastHit[] hits = Physics.SphereCastAll(transform.position, 200, Vector2.right, 0.01f, spiritLayers.value);
 
                 for (int i = 0; i < hits.Length; i++)
                 {
@@ -383,7 +383,8 @@ public class Player : ObjectHealth
         }
         else
         {
-            RaycastHit2D[] hits = Physics2D.CircleCastAll(origin, circleRad, lookDir, float.PositiveInfinity, bloodLayers.value);
+            //RaycastHit2D[] hits = Physics2D.CircleCastAll(origin, circleRad, lookDir, float.PositiveInfinity, bloodLayers.value);
+            RaycastHit[] hits = Physics.SphereCastAll(origin, circleRad, lookDir, float.PositiveInfinity, bloodLayers.value);
             for (int i = 0; i < hits.Length; i++)
             {
                 GameObject targetHit = hits[i].collider.gameObject;
@@ -412,21 +413,23 @@ public class Player : ObjectHealth
                 {
                     Destroy(slash, 0.5f);
                 }
+                Debug.Log("XD");
             }
 
             //Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(bloodWeaponTransform.position, bloodAttackRange, bloodLayers);
 
-            RaycastHit2D[] hitEnemies;
+            //RaycastHit2D[] hitEnemies;
+            RaycastHit[] hitEnemies;
             if (m_FacingRight)
             {
-                hitEnemies = Physic2DExtension.CircleSectorCastAll(bloodWeaponTransform.position, bloodAttackRange, 180, Vector2.right, float.PositiveInfinity, bloodLayers.value);
+                hitEnemies = PhysicExtension.SphereSectorCastAll(bloodWeaponTransform.position, bloodAttackRange, 180, Vector2.right, float.PositiveInfinity, bloodLayers.value);
             }
             else
             {
-                hitEnemies = Physic2DExtension.CircleSectorCastAll(bloodWeaponTransform.position, bloodAttackRange, 180, Vector2.left, float.PositiveInfinity, bloodLayers.value);
+                hitEnemies = PhysicExtension.SphereSectorCastAll(bloodWeaponTransform.position, bloodAttackRange, 180, Vector2.left, float.PositiveInfinity, bloodLayers.value);
             }
 
-            foreach (RaycastHit2D enemy in hitEnemies)
+            foreach (RaycastHit enemy in hitEnemies)
             {
                 if (enemy.collider.TryGetComponent(out ObjectHealth obj))
                 {
@@ -544,7 +547,7 @@ public class Player : ObjectHealth
         // Dodac Delay
         Vector2 origin = spiritSlashPosition.position;
         Vector2 lookDir = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - origin).normalized;
-        RaycastHit2D[] hits = Physic2DExtension.CircleSectorCastAll(origin, circleRadius, sectorAngle, lookDir, float.PositiveInfinity, spiritLayers.value);
+        RaycastHit[] hits = PhysicExtension.SphereSectorCastAll(origin, circleRadius, sectorAngle, lookDir, float.PositiveInfinity, spiritLayers.value);
         for (uint i = 0; i < hits.Length; i++)
         {
             if (hits[i].collider.gameObject == gameObject)
@@ -563,7 +566,8 @@ public class Player : ObjectHealth
 
                 Vector2 throwBackDir = spiritEnemy.transform.position - body.transform.position;
                 throwBackDir.Normalize();
-                spiritEnemy.GetComponent<Rigidbody2D>().velocity += throwBackDir * spiritDamage * (1.0f + skillBonusFactor);
+                //spiritEnemy.GetComponent<Rigidbody2D>().velocity += throwBackDir * spiritDamage * (1.0f + skillBonusFactor);
+                spiritEnemy.GetComponent<Rigidbody>().velocity += (Vector3)(throwBackDir * spiritDamage * (1.0f + skillBonusFactor));
             }
         }
 

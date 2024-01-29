@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class BE_Hurt : IState
@@ -11,7 +8,8 @@ public class BE_Hurt : IState
         timer = Time.time;
         Vector2 throwBackDir = sc.transform.position - sc.target.transform.position;
         throwBackDir.Normalize();
-        sc.GetComponent<Rigidbody2D>().velocity += throwBackDir * sc.pushBackFactor;
+        //sc.GetComponent<Rigidbody2D>().velocity += throwBackDir * sc.pushBackFactor;
+        sc.GetComponent<Rigidbody>().velocity += (Vector3)(throwBackDir * sc.pushBackFactor);
     }
 
     public void OnExit(BloodEnemyController sc)
