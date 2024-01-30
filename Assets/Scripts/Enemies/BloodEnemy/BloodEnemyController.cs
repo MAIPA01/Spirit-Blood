@@ -84,7 +84,7 @@ public class BloodEnemyController : ObjectHealth
 
     public bool checkRange()
     {
-       if (Math.Abs(target.transform.position.x - transform.position.x) <= enemyRange && Math.Abs(target.transform.position.y - transform.position.y) <= enemyHitboxHeight)
+        if (Math.Abs(target.transform.position.x - transform.position.x) <= enemyRange && Math.Abs(target.transform.position.y - transform.position.y) <= enemyHitboxHeight)
             return true;
         return false;
     } 

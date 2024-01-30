@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -62,10 +63,12 @@ public static class Physic2DExtension
 
 public static class PhysicExtension
 {
+    [Obsolete("Coœ nie dzia³a u¿yj ConeCastAll zamiast tego")]
     public static RaycastHit[] SphereSectorCastAll(Vector3 origin, float sphereRadius, float angle, Vector3 lookDirection, float maxDistance, LayerMask layerMask)
     {
         float halfSectorAngle = angle / 2f;
-        RaycastHit[] castHits = Physics.SphereCastAll(origin, sphereRadius, Vector3.zero, maxDistance, layerMask);
+        RaycastHit[] castHits = new RaycastHit[0];
+        Physics.SphereCastNonAlloc(origin - new Vector3(0, 0, sphereRadius), sphereRadius, lookDirection, castHits, 0f, layerMask.value);
         List<RaycastHit> sphereSectorCastHits = new();
 
         Vector2 lookDirXY = new(lookDirection.x, lookDirection.y);
@@ -92,7 +95,7 @@ public static class PhysicExtension
 
         float startRadians = lookRadiansXY + halfSectorRadians;
         Vector3 startPoint = (new Vector2(Mathf.Cos(startRadians), Mathf.Sin(startRadians))).normalized;
-        castHits = Physics.RaycastAll(origin, startPoint, maxDistance, layerMask);
+        castHits = Physics.RaycastAll(origin, startPoint, maxDistance, layerMask.value);
         if (castHits.Length > 0)
         {
             for (uint i = 0; i < castHits.Length; i++)
@@ -106,7 +109,7 @@ public static class PhysicExtension
 
         float endRadians = lookRadiansXY - halfSectorRadians;
         Vector3 endPoint = (new Vector2(Mathf.Cos(endRadians), Mathf.Sin(endRadians))).normalized;
-        castHits = Physics.RaycastAll(origin, endPoint, maxDistance, layerMask);
+        castHits = Physics.RaycastAll(origin, endPoint, maxDistance, layerMask.value);
         if (castHits.Length > 0)
         {
             for (uint i = 0; i < castHits.Length; i++)
@@ -121,5 +124,31 @@ public static class PhysicExtension
         // Nie jest to dobre ale dzia³a do naszej gry która jest semi-3D
 
         return sphereSectorCastHits.ToArray();
+    }
+
+    public static RaycastHit[] ConeCastAll(Vector3 origin, float maxRadius, Vector3 direction, float maxDistance, float coneAngle, LayerMask layerMask)
+    {
+        RaycastHit[] sphereCastHits = Physics.SphereCastAll(origin - new Vector3(0, 0, maxRadius), maxRadius, direction, maxDistance, layerMask.value);
+        List<RaycastHit> coneCastHitList = new List<RaycastHit>();
+
+        if (sphereCastHits.Length > 0)
+        {
+            for (int i = 0; i < sphereCastHits.Length; i++)
+            {
+                Vector3 hitPoint = sphereCastHits[i].point;
+                Vector3 directionToHit = hitPoint - origin;
+                float angleToHit = Vector3.Angle(direction, directionToHit);
+
+                if (angleToHit < coneAngle)
+                {
+                    coneCastHitList.Add(sphereCastHits[i]);
+                }
+            }
+        }
+
+        RaycastHit[] coneCastHits = new RaycastHit[coneCastHitList.Count];
+        coneCastHits = coneCastHitList.ToArray();
+
+        return coneCastHits;
     }
 }
