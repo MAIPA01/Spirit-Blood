@@ -69,7 +69,6 @@ public static class PhysicExtension
         List<RaycastHit> sphereSectorCastHits = new();
 
         Vector2 lookDirXY = new(lookDirection.x, lookDirection.y);
-        Vector2 lookDirXZ = new(lookDirection.x, lookDirection.z);
 
         if (castHits.Length > 0)
         {
@@ -80,11 +79,8 @@ public static class PhysicExtension
                 // testXY
                 Vector2 dirToObjXY = new(directionToObj.x, directionToObj.y);
                 float angleToHitXY = Vector2Extensions.Angle360(lookDirXY.normalized, dirToObjXY.normalized);
-                // testXZ
-                Vector2 dirToObjXZ = new(directionToObj.x, directionToObj.z);
-                float angleToHitXZ = Vector2Extensions.Angle360(lookDirXZ.normalized, dirToObjXZ.normalized);
 
-                if ((angleToHitXY <= halfSectorAngle && angleToHitXY >= -halfSectorAngle) && (angleToHitXZ <= halfSectorAngle && angleToHitXZ >= -halfSectorAngle))
+                if (angleToHitXY <= halfSectorAngle && angleToHitXY >= -halfSectorAngle)
                 {
                     sphereSectorCastHits.Add(castHits[i]);
                 }
@@ -92,7 +88,6 @@ public static class PhysicExtension
         }
 
         float lookRadiansXY = MathfExtensions.DegreesToRadians(Vector2Extensions.Angle360(Vector2.right, lookDirXY));
-        float lookRadiansXZ = MathfExtensions.DegreesToRadians(Vector2Extensions.Angle360(Vector2.right, lookDirXZ));
         float halfSectorRadians = MathfExtensions.DegreesToRadians(halfSectorAngle);
 
         float startRadians = lookRadiansXY + halfSectorRadians;
