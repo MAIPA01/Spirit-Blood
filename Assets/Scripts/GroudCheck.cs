@@ -8,7 +8,13 @@ public class GroudCheck : MonoBehaviour
     [SerializeField]
     private LayerMask groundLayers;
 
-    public int GroundContacts { get => groundColliders.Count; }
+    public int GroundContacts { 
+        get
+        {
+            Debug.Log("Parent: " + this.gameObject.tag);
+            return groundColliders.Count; 
+        }
+    }
     public LayerMask GroundLayers
     {
         get
@@ -62,7 +68,7 @@ public class GroudCheck : MonoBehaviour
         Collider[] collidersArray = new Collider[0];
 
         //if (Physics.OverlapCapsuleNonAlloc(down, up, GetComponent<CapsuleCollider>().radius, collidersArray) != 0)
-        if (Physics.OverlapSphereNonAlloc(attachedCollider.center, attachedCollider.radius, collidersArray, groundLayers) != 0)
+        if (Physics.OverlapSphereNonAlloc(attachedCollider.center, attachedCollider.radius, collidersArray, groundLayers.value) != 0)
         {
             /*foreach (var col in collidersArray)
             {

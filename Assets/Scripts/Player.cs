@@ -239,7 +239,7 @@ public class Player : ObjectHealth
             }
             */
             
-            if (Input.GetMouseButtonDown((int)MouseButton.Left) && formCooldownTime <= 0f)
+            if (Input.GetMouseButtonDown((int)MouseButton.Left) && formCooldownTime <= 0f && GameTimer.TimeMultiplier == GameTimer.PLAYING)
             {
                 formCooldownTime = formChangeCooldown;
                 ChangeForm();
@@ -374,7 +374,7 @@ public class Player : ObjectHealth
         }*/
         punch = Instantiate(bloodSuperAttackObject, bloodSuperAttPosition.position, Quaternion.identity, bloodSuperAttPosition);
         punch.transform.Translate(0.5f * this.transform.localScale.z, 0, 0);
-        punch.transform.Rotate(Vector3.forward * this.transform.localScale.z, Vector2Extensions.Angle360(-Vector2.right, lookDir));
+        punch.transform.Rotate(Vector3.forward * this.transform.localScale.z, Vector2Extensions.Angle360(Vector2.right, lookDir));
         origin = punch.transform.position;
 
         if (check)
