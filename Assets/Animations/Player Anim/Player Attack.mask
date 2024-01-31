@@ -7,7 +7,7 @@ AvatarMask:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Player Attack
-  m_Mask: 00000000010000000100000000000000000000000100000001000000010000000100000000000000000000000100000001000000
+  m_Mask: 00000000010000000100000000000000000000000100000001000000010000000100000000000000000000000000000000000000
   m_Elements:
   - m_Path: 
     m_Weight: 1
@@ -100,7 +100,7 @@ AvatarMask:
   - m_Path: rig/MCH-thigh_ik_target.parent.R/thigh_ik_target.R/thigh_ik_target.R_end
     m_Weight: 0
   - m_Path: rig/MCH-torso.parent
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: rig/MCH-torso.parent/torso
     m_Weight: 0
   - m_Path: rig/MCH-torso.parent/torso/chest
@@ -326,7 +326,7 @@ AvatarMask:
   - m_Path: rig/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine.001/ORG-spine.001/ORG-spine.001_end
     m_Weight: 0
   - m_Path: rig/MCH-torso.parent/torso/MCH-spine.002
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: rig/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002
     m_Weight: 1
   - m_Path: rig/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-pivot
