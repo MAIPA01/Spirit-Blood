@@ -175,6 +175,7 @@ MonoBehaviour:
   maxHealth: 20
   health: 0
   prevHP: 0
+  anime: {fileID: 7783426803478206309}
   enemyMoveSpeed: 2
   enemyRange: 1.5
   enemyHitboxHeight: 1
@@ -440,5 +441,10 @@ PrefabInstance:
 --- !u!4 &4243628508132101407 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 997870b3ef322c44899ba7d20b4f4cf4, type: 3}
+  m_PrefabInstance: {fileID: 4426718310588099316}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7783426803478206309 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 997870b3ef322c44899ba7d20b4f4cf4, type: 3}
   m_PrefabInstance: {fileID: 4426718310588099316}
   m_PrefabAsset: {fileID: 0}

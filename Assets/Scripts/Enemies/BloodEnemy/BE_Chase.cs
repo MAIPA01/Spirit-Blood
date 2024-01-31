@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class BE_Chase : IState
@@ -8,7 +9,7 @@ public class BE_Chase : IState
 
     public void OnEnter(BloodEnemyController sc)
     {
-
+        
     }
 
     public void OnExit(BloodEnemyController sc)
@@ -33,7 +34,7 @@ public class BE_Chase : IState
             sc.ChangeState(sc.attackState);
         }
 
-        Vector2 direction = new(0,0);
+        Vector3 direction = new(1,0,0);
         if (sc.transform.position.x > sc.target.transform.position.x && !left)
         {
             right = false;
@@ -49,11 +50,13 @@ public class BE_Chase : IState
 
         if (left && timer <= 0f)
         {
-            direction = Vector2.left;
+            //direction = Vector3.left;
+            sc.transform.SetPositionAndRotation(sc.transform.position, new Quaternion(sc.transform.rotation.x, -180, sc.transform.rotation.z, sc.transform.rotation.w) );
         }
         else if (right && timer <= 0f)
         {
-            direction = Vector2.right;
+            //direction = Vector3.right;
+            sc.transform.SetPositionAndRotation(sc.transform.position, new Quaternion(sc.transform.rotation.x, 0, sc.transform.rotation.z, sc.transform.rotation.w));
         }
 
         Vector2 movement = sc.enemyMoveSpeed * direction;
