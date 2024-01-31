@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Collider2D))]
+//[RequireComponent(typeof(Rigidbody2D))]
+//[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Collider))]
 public class BasicSpirit : ObjectHealth
 {
-    private Rigidbody2D rigid = null;
+    //private Rigidbody2D rigid = null;
+    private Rigidbody rigid = null;
 
     [Header("Must Have Objects:")]
     [SerializeField][Tooltip("Zazwyczaj gracz ;)")] private ObjectHealth target = null;
@@ -17,7 +18,7 @@ public class BasicSpirit : ObjectHealth
     [SerializeField][Tooltip("Prêdkoœæ poruszania siê")] private float speed = 5f;
     [SerializeField][Tooltip("Odleg³oœæ od gracza w jakiej dusza zacznie atakowaæ")] private float attackRange = 5f;
     [SerializeField][Tooltip("Czas pomiêdzy jednym a drugim atakiem")] private float attackDelay = 1f;
-    [SerializeField][Tooltip("Czas bycia w szoku po uderzeniu")] public float stuntTime = 1f;
+    [Tooltip("Czas bycia w szoku po uderzeniu")] public float stuntTime = 1f;
     [SerializeField][Tooltip("Damage który zadaje przeciwnik")] private float attackDamage = 10f;
     [SerializeField][Tooltip("Prêdkoœæ pocisku")] private float bulletSpeed = 5f;
     [Tooltip("Score gained by killing this enemy")] public float scoreGained = 10;
@@ -29,7 +30,8 @@ public class BasicSpirit : ObjectHealth
     private void Start()
     {
         StartHealth();
-        rigid = rigid != null ? rigid : GetComponent<Rigidbody2D>();
+        //rigid = rigid != null ? rigid : GetComponent<Rigidbody2D>();
+        rigid = rigid != null ? rigid : GetComponent<Rigidbody>();
 
         if (target == null)
         {
@@ -65,7 +67,8 @@ public class BasicSpirit : ObjectHealth
                 float angle = Vector2Extensions.Angle360(b.transform.forward, targetDirection);
                 b.transform.Rotate(new Vector3(0f, 0f, angle));
                 b.damage = attackDamage;
-                b.GetComponent<Rigidbody2D>().velocity = targetDirection * bulletSpeed;
+                //b.GetComponent<Rigidbody2D>().velocity = targetDirection * bulletSpeed;
+                b.GetComponent<Rigidbody>().velocity = targetDirection * bulletSpeed;
             }
             //target.TakeDamage(attackDamage);
         }

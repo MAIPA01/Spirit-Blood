@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Collider2D))]
+//[RequireComponent(typeof(Rigidbody2D))]
+//[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Collider))]
 public class Bullet : MonoBehaviour
 {
     public float liveTime = 10f;
@@ -14,11 +14,21 @@ public class Bullet : MonoBehaviour
         Destroy(this.gameObject, liveTime);
     }
 
+    /*
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<ObjectHealth>().TakeDamage(damage);
+            Destroy(this.gameObject);
+        }
+    }*/
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.collider.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<ObjectHealth>().TakeDamage(damage);
             Destroy(this.gameObject);
         }
     }

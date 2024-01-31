@@ -1,14 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class BE_Chase : IState
 {
     private float timer = 0f;
     private bool left = false;
-    private bool right = false; 
+    private bool right = false;
 
     public void OnEnter(BloodEnemyController sc)
     {

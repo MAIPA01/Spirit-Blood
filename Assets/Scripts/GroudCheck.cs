@@ -42,7 +42,18 @@ public class GroudCheck : MonoBehaviour
 
     private void CheckGround()
     {
-        groundColliders.Clear();
+        //groundColliders.Clear();
+        // Clear only which have invalid layer
+        int deleted = 0;
+        for (int i = 0; i < groundColliders.Count - deleted; i++)
+        {
+            if (!groundColliders[i].gameObject.IsObjectInAnyLayer(groundLayers))
+            {
+                groundColliders.RemoveAt(i);
+                deleted++;
+            }
+        }
+
         //CapsuleCollider attachedCollider = GetComponent<CapsuleCollider>();
         //Vector3 up = attachedCollider.center + Vector3.up * (attachedCollider.height / 2 - attachedCollider.radius);
         //Vector3 down = attachedCollider.center + Vector3.down * (attachedCollider.height / 2 - attachedCollider.radius);
