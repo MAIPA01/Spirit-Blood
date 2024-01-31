@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using NaughtyAttributes;
 using Unity.VisualScripting;
 using static UnityEngine.UI.Image;
+using UnityEngine.VFX;
 
 enum PlayerForm
 {
@@ -403,9 +404,11 @@ public class Player : ObjectHealth
             if (slashObject != null)
             {
                 GameObject slash = Instantiate(slashObject, slashPosition.position, Quaternion.identity, slashPosition);
-                slash.transform.localScale = new Vector3(this.transform.localScale.z * slash.transform.localScale.x, slash.transform.localScale.y, slash.transform.localScale.z);
+                ///slash.transform.localScale = new Vector3(this.transform.localScale.z * slash.transform.localScale.x, slash.transform.localScale.y, slash.transform.localScale.z);
 
-                if (slash.TryGetComponent(out Animator animator))
+                slash.GetComponent<VisualEffect>().Play();
+
+                /*if (slash.TryGetComponent(out Animator animator))
                 {
                     animator.Play("SlashAnim", -1, 0.0f);
                     Destroy(slash, attackDelay + 0.5f);
@@ -413,7 +416,10 @@ public class Player : ObjectHealth
                 else
                 {
                     Destroy(slash, 0.5f);
-                }
+                }*/
+
+                Destroy(slash, attackDelay + 0.5f);
+
             }
 
             //Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(bloodWeaponTransform.position, bloodAttackRange, bloodLayers);
