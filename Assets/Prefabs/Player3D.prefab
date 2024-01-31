@@ -168,7 +168,7 @@ MonoBehaviour:
   maxHealth: 500
   health: 0
   form: 0
-  body: {fileID: 0}
+  body: {fileID: 8966343349244678936}
   m_FacingRight: 1
   slashObject: {fileID: 2622314876609431990, guid: edc66f7762b20fe468cd55f2fcca88e7, type: 3}
   slashPosition: {fileID: 5767242783843579376}
@@ -422,5 +422,10 @@ PrefabInstance:
 --- !u!4 &1681223045352409689 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 55963deed313880409a41fcb81e2f29b, type: 3}
+  m_PrefabInstance: {fileID: 1215512366760013234}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &8966343349244678936 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7831909060113432234, guid: 55963deed313880409a41fcb81e2f29b, type: 3}
   m_PrefabInstance: {fileID: 1215512366760013234}
   m_PrefabAsset: {fileID: 0}
