@@ -49,9 +49,12 @@ public class Movement : MonoBehaviour
 
     public void Jump()
     {
-        /*Debug.Log("Jump: " + Input.GetButtonDown("Jump"));
-        Debug.Log("Contacts: " + groundCheck.GroundContacts);
-        Debug.Log("Is Jumping: " + !_isJumping);*/
+        if (Input.GetButtonDown("Jump"))
+        {
+            Debug.Log("Contacts: " + groundCheck.GroundContacts);
+            Debug.Log("Is Jumping: " + _isJumping);
+        }
+
         if (Input.GetButtonDown("Jump") && (groundCheck.GroundContacts != 0 && !_isJumping))
         {
             _isJumping = true;
