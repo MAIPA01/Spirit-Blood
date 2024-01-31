@@ -24,7 +24,7 @@ public class ObjectHealth : MonoBehaviour, IDamageTaker
 
     public virtual void OnDead()
     {
-        Debug.Log("Dead");
+        //Debug.Log("Dead");
     }
 
     public float GetMaxHealth()
