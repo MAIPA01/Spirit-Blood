@@ -21,7 +21,7 @@ public class Player : ObjectHealth
 
     [SerializeField]
     //private SpriteRenderer body; // 2D
-    private MeshRenderer body; // 3D
+    private SkinnedMeshRenderer body; // 3D
 
     [SerializeField]
     private bool m_FacingRight = true;
