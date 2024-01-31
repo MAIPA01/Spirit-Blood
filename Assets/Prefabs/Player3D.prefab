@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 8
-  jumpForce: 12
+  jumpForce: 8
   groundCheck: {fileID: 4244120012777618093}
   _isJumping: 0
   rezistance: 0.7
