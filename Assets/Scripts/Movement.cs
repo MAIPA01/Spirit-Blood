@@ -8,11 +8,9 @@ public class Movement : MonoBehaviour
     [SerializeField] private GroudCheck groundCheck;
     [SerializeField] private bool _isJumping = false;
     [SerializeField] private float rezistance = 0.7f;
-
-
+    [SerializeField] private ParticleSystem _dust;
 
     Rigidbody _rb;
-
 
     void Start()
     {
@@ -29,7 +27,12 @@ public class Movement : MonoBehaviour
         }
         else
         {
+            float before = vel.x;
             vel.x = Input.GetAxis("Horizontal") * speed;
+            if ((vel.x < 0 && before > 0) || (vel.x > 0 && before < 0))
+            {
+                _dust.Play();
+            }
         }
         
         _rb.velocity = vel;
@@ -57,6 +60,7 @@ public class Movement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && (groundCheck.GroundContacts != 0 && !_isJumping))
         {
+            _dust.Play();
             _isJumping = true;
             _rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
         }
