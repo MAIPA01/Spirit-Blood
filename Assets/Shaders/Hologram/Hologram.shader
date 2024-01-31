@@ -55,7 +55,7 @@ Shader "Unlit/Hologram"
 					v2f OUT;
 
 					//Glitch
-					IN.vertex.z += sin(_Time.y * _GlitchSpeed * 5 * IN.vertex.y) * _GlitchIntensity;
+					IN.vertex.x += sin(_Time.y * _GlitchSpeed * 5 * IN.vertex.y) * _GlitchIntensity;
 
 					OUT.position = UnityObjectToClipPos(IN.vertex);
 					OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
