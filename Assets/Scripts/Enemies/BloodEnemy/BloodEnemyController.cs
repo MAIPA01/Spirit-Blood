@@ -12,6 +12,8 @@ public class BloodEnemyController : ObjectHealth
     public float dieAnimTime = 2;
     private float currAnimTime = 0;
 
+    public bool isFallen = false;
+
     public float enemyMoveSpeed = 0.5f;
     public float enemyRange = 2f;
     public float enemyHitboxHeight = 1f;
@@ -94,7 +96,7 @@ public class BloodEnemyController : ObjectHealth
         body.material = dieMaterial;
         body.material.SetFloat("_AnimationProgress", 0);
         healthCanvas.SetActive(false);
-		//target.GetComponent<Player>().score += scoreGained;
+        if (!isFallen) target.GetComponent<Player>().score += scoreGained;
         Destroy(this.gameObject, dieAnimTime);
     }
 

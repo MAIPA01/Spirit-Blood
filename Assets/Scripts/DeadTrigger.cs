@@ -8,6 +8,10 @@ public class DeadTrigger : MonoBehaviour
     {
         if(collision.TryGetComponent(out ObjectHealth oh))
         {
+            if (collision.TryGetComponent(out BloodEnemyController bec))
+            {
+                bec.isFallen = true;
+            }
             oh.TakeDamage(oh.GetMaxHealth());
         }
         
@@ -17,6 +21,10 @@ public class DeadTrigger : MonoBehaviour
     {
         if (other.TryGetComponent(out ObjectHealth oh))
         {
+            if (other.TryGetComponent(out BloodEnemyController bec))
+            {
+                bec.isFallen = true;
+            }
             oh.TakeDamage(oh.GetMaxHealth());
         }
     }

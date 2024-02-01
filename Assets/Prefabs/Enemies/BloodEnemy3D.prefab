@@ -180,6 +180,7 @@ MonoBehaviour:
   healthCanvas: {fileID: 5047883348418165356}
   dieMaterial: {fileID: 2100000, guid: f68469124f5232340b87b450868325a8, type: 2}
   dieAnimTime: 1
+  isFallen: 0
   enemyMoveSpeed: 2
   enemyRange: 1.5
   enemyHitboxHeight: 1
