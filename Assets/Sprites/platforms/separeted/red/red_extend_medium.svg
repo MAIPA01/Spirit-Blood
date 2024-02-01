@@ -7,8 +7,11 @@
    viewBox="0 0 52.916687 26.458333"
    version="1.1"
    id="svg1"
-   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
    sodipodi:docname="red_extend_medium.svg"
+   inkscape:export-filename="red_extend_medium.png"
+   inkscape:export-xdpi="240"
+   inkscape:export-ydpi="240"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,19 +28,19 @@
      inkscape:document-units="px"
      showgrid="true"
      showborder="true"
-     inkscape:zoom="0.97890839"
-     inkscape:cx="-41.883388"
-     inkscape:cy="73.040543"
+     inkscape:zoom="3.9156336"
+     inkscape:cx="64.229708"
+     inkscape:cy="48.778824"
      inkscape:window-width="1920"
-     inkscape:window-height="991"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg1">
     <inkscape:grid
        id="grid1"
        units="px"
-       originx="-185.20831"
+       originx="-185.20833"
        originy="-52.916665"
        spacingx="5.2916665"
        spacingy="5.2916665"
@@ -65,18 +68,18 @@
        id="rect15-74"
        width="26.458332"
        height="26.458332"
-       x="185.20833"
+       x="185.20831"
        y="52.916664" />
     <rect
        style="fill:#ff3403;fill-opacity:1;stroke:none;stroke-width:1.05833;stroke-dasharray:none;stroke-opacity:0.5"
        id="rect15-7-6"
        width="26.458326"
        height="15.874997"
-       x="185.20833"
+       x="185.20831"
        y="58.208332" />
     <path
        id="rect6-4-4"
        style="display:inline;fill:#ff5e3e;fill-opacity:1;stroke-width:0.187088"
-       d="m 207.28191,52.916665 -13.22942,26.458332 h 1.15962 l 13.2289,-26.458332 z m 3.22539,0 -13.22916,26.458332 h 1.15961 l 13.22891,-26.458332 z" />
+       d="m 207.2819,52.916664 -13.22942,26.458332 h 1.15962 L 208.441,52.916664 Z m 3.22539,0 -13.22916,26.458332 h 1.15961 l 13.22891,-26.458332 z" />
   </g>
 </svg>
