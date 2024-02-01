@@ -599,14 +599,12 @@ MonoBehaviour:
 
     Patryk Antosik
 
-    Jakub Biniek
-
     Nadia Kowalska
 
-    Mateusz
-    Rybicki
+    Mateusz Rybicki
 
-    Katarzyna Tyszka
+    Katarzyna
+    Tyszka
 
 '
   m_isRightToLeft: 0
@@ -1688,7 +1686,6 @@ MonoBehaviour:
   player: {fileID: 0}
   bloodCursor: {fileID: 2800000, guid: 4a51363409a558e4b819f105bc4d55c2, type: 3}
   spiritCursor: {fileID: 2800000, guid: 711962a3fd0bd2c48bf5a5d579b84425, type: 3}
-  testAngle: 120
 --- !u!1 &592258023
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,8 +31,6 @@ public class CursorManager : MonoBehaviour
             {
                 currentTexture = bloodCursor;
             }
-            Texture2D cursorTex = RotatedImage(currentTexture, 120);
-            Cursor.SetCursor(cursorTex, Vector2.zero, CursorMode.ForceSoftware);
             isStatic = true;
         }
     }
@@ -57,6 +55,11 @@ public class CursorManager : MonoBehaviour
             Vector2 dir = cursorPos - (Vector2)player.transform.position;
             float angle = Vector2Extensions.Angle360(Vector2.right, dir);
             Texture2D cursorTex = RotatedImage(currentTexture, angle);
+            Cursor.SetCursor(cursorTex, Vector2.zero, CursorMode.ForceSoftware);
+        }
+        else
+        {
+            Texture2D cursorTex = RotatedImage(currentTexture, 120);
             Cursor.SetCursor(cursorTex, Vector2.zero, CursorMode.ForceSoftware);
         }
     }
