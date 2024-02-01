@@ -26,6 +26,7 @@ struct GeometryOutput {
 };
 
 TEXTURE2D(_MainTex); SAMPLER(sampler_MainTex); float4 _MainTex_ST;
+float4 _Color;
 float _NoiseScale;
 float _BoomPower;
 float _FallPower;
@@ -172,7 +173,7 @@ float4 Fragment(GeometryOutput input) : SV_Target {
     float3 albedo = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv).rgb;
 
     SurfaceData surfaceInput = (SurfaceData)0;
-    surfaceInput.albedo = albedo;
+    surfaceInput.albedo = albedo * _Color;
     surfaceInput.specular = 1;
     surfaceInput.smoothness = 0.5;
     surfaceInput.emission = 0;

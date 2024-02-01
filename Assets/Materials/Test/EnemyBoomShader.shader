@@ -3,6 +3,7 @@ Shader "Patryk/EnemyBoomShader"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _Color ("Color", Color) = (1, 1, 1, 1)
         _NoiseScale("Noise Scale", Float) = 1
         _BoomPower("Boom Power", Float) = 10
         _FallPower("Fall Power", Float) = 5
