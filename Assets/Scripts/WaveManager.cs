@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,6 +7,13 @@ using UnityEngine.VFX;
 
 public class WaveManager : MonoBehaviour
 {
+    [System.Serializable]
+    public class SpawnPoint
+    {
+        public Transform transform;
+        public List<int> enemyPrefabIndexes = new();
+    }
+
     [Header("Info")]
     [SerializeField] private uint round; // która runda
     [SerializeField] private uint wave; // iloœæ fal danej rundy
@@ -25,7 +33,7 @@ public class WaveManager : MonoBehaviour
 
     [Header("Collections")]
     [SerializeField] private List<GameObject> enemysPrefabs = new();
-    [SerializeField] private List<Transform> spawnPoints = new();
+    [SerializeField] private List<SpawnPoint> spawnPoints = new();
 
     [Header("Next Round Wait Time")]
     // czas oczekiwania na nastêpn¹ rundê
@@ -138,10 +146,18 @@ public class WaveManager : MonoBehaviour
 
         for (uint i = 0; i < enemysToSpawn; i++)
         {
-            int enemyTypeId = Random.Range(0, enemysPrefabs.Count);
-            int spawPointId = Random.Range(0, spawnPoints.Count);
-
-            Instantiate(enemysPrefabs[enemyTypeId], spawnPoints[spawPointId].position, Quaternion.identity);
+            int spawnPointId = Random.Range(0, spawnPoints.Count);
+            int enemyTypeId;
+            if (spawnPoints[spawnPointId].enemyPrefabIndexes.Count > 0)
+            {
+                enemyTypeId = Random.Range(0, spawnPoints[spawnPointId].enemyPrefabIndexes.Count);
+                enemyTypeId = spawnPoints[spawnPointId].enemyPrefabIndexes[enemyTypeId];
+            }
+            else
+            {
+                enemyTypeId = Random.Range(0, enemysPrefabs.Count);
+            }
+            Instantiate(enemysPrefabs[enemyTypeId], spawnPoints[spawnPointId].transform.position, Quaternion.identity);
         }
     }
 }
