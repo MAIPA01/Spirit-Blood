@@ -191,7 +191,7 @@ public class Player : ObjectHealth
             }
         }
         
-        if (Input.GetMouseButtonDown((int)MouseButton.Right) && superAttackPhase != 2 || superAttackPhase == 1)
+        if (((Input.GetMouseButtonDown((int)MouseButton.Right) && superAttackPhase != 2) || superAttackPhase == 1) && GameTimer.TimeMultiplier == GameTimer.PLAYING)
         {
             if(!IsSpirit() && superCooldownTimer <= .0f)
             {
