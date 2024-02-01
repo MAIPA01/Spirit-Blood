@@ -405,8 +405,16 @@ public class Player : ObjectHealth
             {
                 GameObject slash = Instantiate(slashObject, slashPosition.position, Quaternion.identity, slashPosition);
                 ///slash.transform.localScale = new Vector3(this.transform.localScale.z * slash.transform.localScale.x, slash.transform.localScale.y, slash.transform.localScale.z);
-
-                slash.GetComponent<VisualEffect>().Play();
+                
+                if (slash.TryGetComponent(out VisualEffect ve))
+                {
+                    ve.Play();
+                    Destroy(slash, attackDelay + 0.5f);
+                }
+                else
+                {
+                    Destroy(slash, 0.5f);
+                }
 
                 /*if (slash.TryGetComponent(out Animator animator))
                 {
@@ -417,8 +425,6 @@ public class Player : ObjectHealth
                 {
                     Destroy(slash, 0.5f);
                 }*/
-
-                Destroy(slash, attackDelay + 0.5f);
 
             }
 
@@ -559,7 +565,7 @@ public class Player : ObjectHealth
         Vector2 origin = spiritSlashPosition.position;
         Vector2 lookDir = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - origin).normalized;
         //RaycastHit[] hits = PhysicExtension.SphereSectorCastAll(origin, circleRadius, sectorAngle, lookDir, float.PositiveInfinity, spiritLayers);
-        RaycastHit[] hits = PhysicExtension.ConeCastAll(origin, circleRadius, lookDir, 0f, sectorAngle, spiritLayers);
+        RaycastHit[] hits = PhysicExtension.ConeCastAll(origin, circleRadius, lookDir, 0, sectorAngle, spiritLayers);
         for (uint i = 0; i < hits.Length; i++)
         {
             if (hits[i].collider.gameObject == gameObject)
@@ -573,7 +579,7 @@ public class Player : ObjectHealth
                 this.AddHealth(lifeSteal);
                 spiritEnemy.GetComponent<BasicSpirit>().stuntTime *= (1.0f + skillBonusFactor);
 
-                spiritEnemy.GetComponent<BasicSpirit>().TakeDamage(spiritDamage);
+                //spiritEnemy.GetComponent<BasicSpirit>().TakeDamage(spiritDamage);
                 spiritEnemy.GetComponent<BasicSpirit>().SetStunt();
 
                 Vector2 throwBackDir = spiritEnemy.transform.position - body.transform.position;
