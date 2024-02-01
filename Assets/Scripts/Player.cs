@@ -111,7 +111,7 @@ public class Player : ObjectHealth
     private GameObject cooldownEndParticles;
     private float superAttackDurTimer = 0f;
     [SerializeField]
-    private float superAttackWindUp = 0.10f;
+    private float superAttackWindUp = 1.10f;
     [SerializeField]
     private float superAttackDuration = 0.75f;
     [SerializeField]
@@ -120,6 +120,9 @@ public class Player : ObjectHealth
     [SerializeField]
     private GameObject bloodSuperAttackObject = null;
 
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip[] clips;
+ 
     private bool right = false;
     private float superBloodAttackDmg; //kills all in 1 go, so should be BIG
     private int superAttackPhase = 0; // 0 - none, 1 - windup, 1 - superAttack
@@ -191,7 +194,14 @@ public class Player : ObjectHealth
         {
             if(!IsSpirit() && superCooldownTimer <= .0f)
             {
-                BloodSuperAttack(superAttackWindUp / 2.0f, true);
+                audioSource.Stop();
+                audioSource.clip = clips[0];
+                audioSource.volume = 0.33f;
+                audioSource.pitch = 1;
+                float add = (UnityEngine.Random.Range(0, 20) - 10) / 100.0f;
+                audioSource.pitch += add + add + add;
+                audioSource.Play();
+                //BloodSuperAttack(superAttackWindUp / 2.0f, true);
                 if (superAttackPhase == 0)
                 {
                     superAttackDurTimer = Time.time;
@@ -201,6 +211,13 @@ public class Player : ObjectHealth
 
             if(IsSpirit() && superCooldownTimer <= .0f)
             {
+                audioSource.Stop();
+                audioSource.clip = clips[1];
+                audioSource.pitch = 1;
+                audioSource.volume = 0.6f;
+                float add = (UnityEngine.Random.Range(0, 20) - 10) / 100.0f;
+                audioSource.pitch += add;
+                audioSource.Play();
                 RaycastHit[] hits = Physics.SphereCastAll(transform.position, 200, Vector2.right, 0.01f, spiritLayers.value);
 
                 for (int i = 0; i < hits.Length; i++)
@@ -356,22 +373,6 @@ public class Player : ObjectHealth
         float circleRad = 1.10f; 
 
         GameObject punch;
-        //lookDir.x -= 0.5f;
-        /*if (right)
-        {
-            punch = Instantiate(bloodSuperAttackObject, bloodSuperAttPosition.position, Quaternion.identity, bloodSuperAttPosition);
-            punch.transform.Translate(0.5f, 0, 0);
-            punch.transform.Rotate(-Vector3.forward, Vector2Extensions.Angle360(Vector2.right, lookDir));
-            origin = punch.transform.position;
-        }
-        else
-        {
-            punch = Instantiate(bloodSuperAttackObject, bloodSuperAttPosition.position, Quaternion.identity, bloodSuperAttPosition);
-            punch.transform.Translate(0.5f, 0, 0);
-            punch.transform.Rotate(-Vector3.forward, Vector2Extensions.Angle360(Vector2.right, lookDir));
-            origin = punch.transform.position;
-            
-        }*/
         punch = Instantiate(bloodSuperAttackObject, bloodSuperAttPosition.position, Quaternion.identity, bloodSuperAttPosition);
         punch.transform.Translate(0.5f * this.transform.localScale.z, 0, 0);
         punch.transform.Rotate(Vector3.forward * this.transform.localScale.z, Vector2Extensions.Angle360(Vector2.right, lookDir));
@@ -384,7 +385,6 @@ public class Player : ObjectHealth
         }
         else
         {
-            //RaycastHit2D[] hits = Physics2D.CircleCastAll(origin, circleRad, lookDir, float.PositiveInfinity, bloodLayers.value);
             RaycastHit[] hits = Physics.SphereCastAll(origin, circleRad, lookDir, float.PositiveInfinity, bloodLayers.value);
             for (int i = 0; i < hits.Length; i++)
             {
