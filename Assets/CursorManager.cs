@@ -68,7 +68,7 @@ public class CursorManager : MonoBehaviour
         float halfHeight = height * 0.5f;
         float halfWidth = width * 0.5f;
         Texture2D rotatedTex = new(width, height, TextureFormat.RGBA32, true);
-        rotatedTex.alphaIsTransparency = true;
+        //rotatedTex.alphaIsTransparency = true;
 
         var oldTexels = tex.GetRawTextureData<Color32>();
         var newTexels = rotatedTex.GetRawTextureData<Color32>();
