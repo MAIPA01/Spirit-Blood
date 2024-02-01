@@ -412,8 +412,8 @@ public class Player : ObjectHealth
                 GameObject slash = Instantiate(slashObject, slashPosition.position, Quaternion.identity, slashPosition);
                 ///slash.transform.localScale = new Vector3(this.transform.localScale.z * slash.transform.localScale.x, slash.transform.localScale.y, slash.transform.localScale.z);
 
-                slash.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                slash.transform.Rotate(new Vector3(0.0f, 0.0f, -60f));
+                /*slash.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                slash.transform.Rotate(new Vector3(0.0f, 0.0f, -60f));*/
 
                 if (slash.TryGetComponent(out VisualEffect ve))
                 {
@@ -618,14 +618,12 @@ public class Player : ObjectHealth
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.gray;
-        Gizmos.DrawWireSphere(transform.position, superAttackRadius);
-
-
         if (IsSpirit())
         {
             if (spiritSlashPosition != null)
             {
+                Gizmos.color = Color.gray;
+                Gizmos.DrawWireSphere(transform.position, superAttackRadius);
 
                 Vector2 origin = spiritSlashPosition.position;
                 Vector2 lookDir = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - origin).normalized;
