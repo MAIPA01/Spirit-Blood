@@ -18022,6 +18022,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player3D
       objectReference: {fileID: 0}
+    - target: {fileID: 6276100297121862721, guid: cc6e683cfb10e6c4eafb1aa48dab65be, type: 3}
+      propertyPath: m_Height
+      value: 1.4004178
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276100297121862721, guid: cc6e683cfb10e6c4eafb1aa48dab65be, type: 3}
+      propertyPath: m_Center.y
+      value: 0.086660385
+      objectReference: {fileID: 0}
+    - target: {fileID: 6478986042331043888, guid: cc6e683cfb10e6c4eafb1aa48dab65be, type: 3}
+      propertyPath: _dust
+      value: 
+      objectReference: {fileID: 1967529473}
     - target: {fileID: 6831386362464692681, guid: cc6e683cfb10e6c4eafb1aa48dab65be, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.5
@@ -18064,7 +18076,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6831386362464692681, guid: cc6e683cfb10e6c4eafb1aa48dab65be, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1967529471}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc6e683cfb10e6c4eafb1aa48dab65be, type: 3}
 --- !u!114 &9169602756278280659 stripped
@@ -18078,6 +18093,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c240b1ee805aab44981b552e467f302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &9169602756278280660 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6831386362464692681, guid: cc6e683cfb10e6c4eafb1aa48dab65be, type: 3}
+  m_PrefabInstance: {fileID: 9169602756278280658}
+  m_PrefabAsset: {fileID: 0}
 --- !u!54 &9169602756278280665 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 4529941063483137744, guid: cc6e683cfb10e6c4eafb1aa48dab65be, type: 3}
