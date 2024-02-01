@@ -36,7 +36,7 @@ Material:
     RenderType: Transparent
   disabledShaderPasses:
   - DepthOnly
-  m_LockedProperties: 
+  m_LockedProperties: _isActive
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -132,6 +132,8 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
+    - _StartTime: 0
+    - _StopTime: 70
     - _Surface: 1
     - _WorkflowMode: 1
     - _ZTest: 4
