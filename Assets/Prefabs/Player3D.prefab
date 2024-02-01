@@ -139,7 +139,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3313548652978202746}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 483ed23d8fc38e14d91bbe6946f9dec6, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -213,6 +213,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: bf96fb4de02bd974db9930be71ba7c41, type: 3}
   - {fileID: 8300000, guid: 0cfcaaccb606fe0439a7830e47f968b8, type: 3}
+  cameraShake: {fileID: 0}
   lifeSteal: 0
   skillBonusFactor: 0
 --- !u!114 &6478986042331043888
