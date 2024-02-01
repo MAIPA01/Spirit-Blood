@@ -193,7 +193,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   bloodWeaponTransform: {fileID: 8025717144302283557}
-  bloodAttackRange: 1.2
+  bloodAttackRange: 1.95
   slashMaskSpriteResolution: 128
   slashMaskPivot: {x: 0, y: 0}
   spiritSlashPrefab: {fileID: 2889274423400091504, guid: bcdd9bd99888c934887a88f24cde2c4e, type: 3}
