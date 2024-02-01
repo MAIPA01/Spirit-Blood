@@ -9,12 +9,32 @@ public class CursorManager : MonoBehaviour
     [SerializeField] private Texture2D spiritCursor;
 
     private Texture2D currentTexture;
+    private bool isStatic;
 
     // Start is called before the first frame update
     void Awake()
     {
-        player.AddChangeFormCallback(OnPlayerFormChanged);
-        OnPlayerFormChanged();
+        if (player != null)
+        {
+            player.AddChangeFormCallback(OnPlayerFormChanged);
+            OnPlayerFormChanged();
+            isStatic = false;
+        }
+        else
+        {
+            int tex = Random.Range(0, 2);
+            if (tex == 0)
+            {
+                currentTexture = spiritCursor;
+            }
+            else
+            {
+                currentTexture = bloodCursor;
+            }
+            Texture2D cursorTex = RotatedImage(currentTexture, 120);
+            Cursor.SetCursor(cursorTex, Vector2.zero, CursorMode.ForceSoftware);
+            isStatic = true;
+        }
     }
 
     void OnPlayerFormChanged()
@@ -31,11 +51,14 @@ public class CursorManager : MonoBehaviour
 
     private void Update()
     {
-        Vector2 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 dir = cursorPos - (Vector2)player.transform.position;
-        float angle = Vector2Extensions.Angle360(Vector2.right, dir);
-        Texture2D cursorTex = RotatedImage(currentTexture, angle);
-        Cursor.SetCursor(cursorTex, Vector2.zero, CursorMode.ForceSoftware);
+        if (!isStatic)
+        {
+            Vector2 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 dir = cursorPos - (Vector2)player.transform.position;
+            float angle = Vector2Extensions.Angle360(Vector2.right, dir);
+            Texture2D cursorTex = RotatedImage(currentTexture, angle);
+            Cursor.SetCursor(cursorTex, Vector2.zero, CursorMode.ForceSoftware);
+        }
     }
 
     public Texture2D RotatedImage(Texture2D tex, float angleDegrees)
