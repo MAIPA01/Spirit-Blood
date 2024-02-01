@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5055842293107318653}
   - component: {fileID: 2605486016027125064}
   - component: {fileID: 3280076091168390185}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
-  m_SelectedVertices: 01000000
+  m_SelectedVertices: 
 --- !u!114 &3708948952795490734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,7 +363,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6210698338165723765}
   - component: {fileID: 4372499557648589512}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: blue_platform_extend_medium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,7 +446,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2024168481089616980}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Blue_Platform_Extend_Medium
   m_TagString: Untagged
   m_Icon: {fileID: 0}

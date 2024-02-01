@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3853307025197148968}
   - component: {fileID: 9195790907997347493}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: red_platform_extend_medium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3786158884183478445}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Red_Platform_Extend_Medium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 2546058785837257439}
   - component: {fileID: 5043633740401434391}
   - component: {fileID: 2974622562968471016}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6948288899061259983}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Gray_Platform_Middle_Small_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2949752515024286716}
   - component: {fileID: 174670964536727900}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: gray_platform_middle_small_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 1635286851744184491}
   - component: {fileID: 1339612095165706576}
   - component: {fileID: 5090275028043621172}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +485,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 6442
+  m_VersionIndex: 6446
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -538,7 +538,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 637c36b442123d44bba16df37994e98f, type: 2}
+  - {fileID: 2100000, guid: fbf6b8acbb368ae408bbce15f9f6040c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
