@@ -5,6 +5,8 @@ public class BloodEnemyController : ObjectHealth
 {
 	[HideInInspector] public float prevHP;
     [SerializeField] public Animator anime;
+    [SerializeField] public AudioSource audioSource;
+    [SerializeField] public AudioClip[] clips;
     public SkinnedMeshRenderer body;
     public GameObject healthCanvas;
     private bool isDead = false;
@@ -95,6 +97,17 @@ public class BloodEnemyController : ObjectHealth
         currAnimTime = 0;
         body.material = dieMaterial;
         body.material.SetFloat("_AnimationProgress", 0);
+
+        if(Vector3.Distance(transform.position, target.transform.position) < 25)
+        {
+            audioSource.Stop();
+            audioSource.clip = clips[0];
+            audioSource.volume = 0.5f;
+            audioSource.pitch = 1;
+            float add = (UnityEngine.Random.Range(0, 20) - 10) / 100.0f;
+            audioSource.pitch += add;
+            audioSource.Play();
+        }
         healthCanvas.SetActive(false);
         if (!isFallen) target.GetComponent<Player>().score += scoreGained;
         Destroy(this.gameObject, dieAnimTime);
