@@ -34,17 +34,20 @@ public class BE_Chase : IState
         }
 
         Vector2 direction = new(0,0);
-        if (sc.transform.position.x > sc.target.transform.position.x && !left)
+        if (sc.target != null)
         {
-            right = false;
-            left = true;
-            timer = 2f;
-        }
-        else if (sc.transform.position.x < sc.target.transform.position.x && !right)
-        {
-            left = false;   
-            right = true;
-            timer = 2f;
+            if (sc.transform.position.x > sc.target.transform.position.x && !left)
+            {
+                right = false;
+                left = true;
+                timer = 2f;
+            }
+            else if (sc.transform.position.x < sc.target.transform.position.x && !right)
+            {
+                left = false;
+                right = true;
+                timer = 2f;
+            }
         }
 
         if (left && timer <= 0f)

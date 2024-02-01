@@ -26,7 +26,6 @@ struct GeometryOutput {
 };
 
 TEXTURE2D(_MainTex); SAMPLER(sampler_MainTex); float4 _MainTex_ST;
-sampler2D _NormalMap;
 float _NoiseScale;
 float _BoomPower;
 float _FallPower;
@@ -153,17 +152,17 @@ void Geometry(triangle VertexOutput inputs[3], inout TriangleStream<GeometryOutp
     SetupAndOutputTriangle(outputStream, inputs[0], inputs[1], inputs[2]);
 }
 
+void Unity_NormalStrength_float(float3 In, float Strength, out float3 Out)
+{
+    Out = float3(In.rg * Strength, lerp(1, In.b, saturate(Strength)));
+}
+
 float4 Fragment(GeometryOutput input) : SV_Target {
 #ifdef SHADOW_CASTER_PASS
     return 0;
 #else
     InputData lightingInput = (InputData)0;
     lightingInput.positionWS = input.positionWS;
-
-    /*float3 normal = tex2D(_NormalMap, input.uv).xyz * 2 - 1;
-    normal = normal.xzy;
-    normal = float3(normal.x * input.normalWS.x, normal.y * input.normalWS.y, normal.z * input.normalWS.z);
-	normal = normalize(normal);*/
 
     lightingInput.normalWS = NormalizeNormalPerPixel(input.normalWS);
 
@@ -175,7 +174,7 @@ float4 Fragment(GeometryOutput input) : SV_Target {
     SurfaceData surfaceInput = (SurfaceData)0;
     surfaceInput.albedo = albedo;
     surfaceInput.specular = 1;
-    surfaceInput.smoothness = 0;
+    surfaceInput.smoothness = 0.5;
     surfaceInput.emission = 0;
     surfaceInput.alpha = 1;
 
