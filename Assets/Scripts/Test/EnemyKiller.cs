@@ -15,7 +15,8 @@ public class EnemyKiller : MonoBehaviour
         currDelay -= Time.deltaTime;
         if (currDelay <= 0)
         {
-            currDelay = Random.Range(0.5f, 1f);
+            //currDelay = Random.Range(0.5f, 1f);
+            currDelay = 0;
             enemys[0].TakeDamage(enemys[0].GetMaxHealth());
             enemys.RemoveAt(0);
         }
