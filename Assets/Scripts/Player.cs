@@ -381,20 +381,23 @@ public class Player : ObjectHealth
 
         GameObject punch;
         punch = Instantiate(bloodSuperAttackObject, bloodSuperAttPosition.position, Quaternion.identity, bloodSuperAttPosition);
-        punch.transform.Translate(0.5f * this.transform.localScale.x, 0, 0);
-        punch.transform.Rotate(Vector3.forward, Vector2Extensions.Angle360(-Vector2.right * this.transform.localScale.x, lookDir));
+        //punch.transform.Translate(0.5f * this.transform.localScale.x, 0, 0);
+        punch.transform.Rotate(Vector3.forward, Vector2Extensions.Angle360(Vector2.right * this.transform.localScale.x, lookDir));
         origin = punch.transform.position;
 
         if (check)
         {
             punch.GetComponent<SpriteRenderer>().sprite = null;
-            punch.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.05f);
         }
         else
         {
             RaycastHit[] hits = Physics.SphereCastAll(origin, circleRad, lookDir, float.PositiveInfinity, bloodLayers.value);
             for (int i = 0; i < hits.Length; i++)
             {
+                if (punch.TryGetComponent(out VisualEffect ve))
+                {
+                    ve.Play();
+                }
                 GameObject targetHit = hits[i].collider.gameObject;
                 targetHit.GetComponent<BloodEnemyController>().TakeDamage(superBloodAttackDmg);
                 this.AddHealth(lifeSteal);

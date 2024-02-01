@@ -1403,10 +1403,14 @@ MonoBehaviour:
   - {fileID: 7967603493693123244, guid: 784180c2228a0014898858eef660cb94, type: 3}
   - {fileID: 3552822283720846142, guid: a4fd253d3404c1744ae65c677aa897ad, type: 3}
   spawnPoints:
-  - {fileID: 206251607}
-  - {fileID: 1805554676}
-  - {fileID: 1978124993}
-  - {fileID: 511043745}
+  - transform: {fileID: 0}
+    enemyPrefabIndexes: 
+  - transform: {fileID: 0}
+    enemyPrefabIndexes: 
+  - transform: {fileID: 0}
+    enemyPrefabIndexes: 
+  - transform: {fileID: 0}
+    enemyPrefabIndexes: 
   nextRoundWaitTime: 2
   nextWaveMaxWaitTime: 10
   nextWaveMinWaitTime: 5
@@ -4405,6 +4409,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1676866464}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1120414511 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1060586394216925028, guid: cc6e683cfb10e6c4eafb1aa48dab65be, type: 3}
+  m_PrefabInstance: {fileID: 9169602756278280658}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1131615696
 GameObject:
   m_ObjectHideFlags: 0
@@ -6009,6 +6018,7 @@ MonoBehaviour:
   card2: {fileID: 1766099679}
   card3: {fileID: 129452589}
   cardsView: {fileID: 145521813}
+  audioSource: {fileID: 0}
   classCardMonk: {fileID: 11400000, guid: 007234435e2919b4c8793204cd482f51, type: 2}
   classCardUnity: {fileID: 11400000, guid: 4abcb34e9eabd1544a9b21edac5f1e26, type: 2}
   classCardWarrior: {fileID: 11400000, guid: 59133ce14a781e54185f2435ba5b26d7, type: 2}
@@ -8015,75 +8025,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &22635169252973036
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 990942912923003907, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
-      propertyPath: m_Name
-      value: BloodSuperSttackVFX
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319509310516480198, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 16.133541
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319509310516480198, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.9014115
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319509310516480198, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.9014115
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319509310516480198, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.26
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319509310516480198, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319509310516480198, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.38818
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319509310516480198, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319509310516480198, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319509310516480198, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319509310516480198, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319509310516480198, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319509310516480198, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319509310516480198, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
 --- !u!1001 &9169602756278280658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8093,17 +8034,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -5985712295286874463, guid: cc6e683cfb10e6c4eafb1aa48dab65be, type: 3}
-      propertyPath: body
+      propertyPath: spiritSlashPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2889274423400091504, guid: bcdd9bd99888c934887a88f24cde2c4e, type: 3}
     - target: {fileID: -5985712295286874463, guid: cc6e683cfb10e6c4eafb1aa48dab65be, type: 3}
-      propertyPath: form
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -5985712295286874463, guid: cc6e683cfb10e6c4eafb1aa48dab65be, type: 3}
-      propertyPath: slashObject
+      propertyPath: bloodSuperAttPosition
       value: 
-      objectReference: {fileID: 7286325288391222674, guid: dea4c0ca775869c41b1dc7ad7d4b0b3b, type: 3}
+      objectReference: {fileID: 1120414511}
+    - target: {fileID: -5985712295286874463, guid: cc6e683cfb10e6c4eafb1aa48dab65be, type: 3}
+      propertyPath: bloodSuperAttackObject
+      value: 
+      objectReference: {fileID: 990942912923003907, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
     - target: {fileID: 3313548652978202746, guid: cc6e683cfb10e6c4eafb1aa48dab65be, type: 3}
       propertyPath: m_Name
       value: Player3D
@@ -8184,4 +8125,3 @@ SceneRoots:
   - {fileID: 555886652}
   - {fileID: 9169602756278280658}
   - {fileID: 1366189425}
-  - {fileID: 22635169252973036}
