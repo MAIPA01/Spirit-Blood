@@ -208,6 +208,7 @@ MonoBehaviour:
   superAttackWindUp: 0.15
   superAttackDuration: 0.75
   superAttackCooldown: 5
+  superAttackRadius: 16
   bloodSuperAttackObject: {fileID: 8604047429649095254, guid: 6996a835373528b4db3ca3f1cf796814, type: 3}
   audioSource: {fileID: 5406262969607179069}
   clips:
@@ -386,7 +387,7 @@ Transform:
   m_GameObject: {fileID: 5388357885778979204}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.802, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
