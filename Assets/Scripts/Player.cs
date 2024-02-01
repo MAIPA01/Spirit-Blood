@@ -123,7 +123,8 @@ public class Player : ObjectHealth
 
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip[] clips;
- 
+    public CamShake cameraShake;
+
     private bool right = false;
     private float superBloodAttackDmg; // kills all in 1 go, so should be BIG
     private int superAttackPhase = 0; // 0 - none, 1 - windup, 1 - superAttack
@@ -202,6 +203,7 @@ public class Player : ObjectHealth
                 float add = (UnityEngine.Random.Range(0, 20) - 10) / 100.0f;
                 audioSource.pitch += add + add + add;
                 audioSource.Play();
+                StartCoroutine(cameraShake.Shake(superAttackWindUp+superAttackDuration, 0.3f));
                 //BloodSuperAttack(superAttackWindUp / 2.0f, true);
                 if (superAttackPhase == 0)
                 {
@@ -219,6 +221,7 @@ public class Player : ObjectHealth
                 float add = (UnityEngine.Random.Range(0, 20) - 10) / 100.0f;
                 audioSource.pitch += add;
                 audioSource.Play();
+                StartCoroutine(cameraShake.Shake(superAttackWindUp + superAttackDuration/2.0f, 0.3f));
                 RaycastHit[] hits = Physics.SphereCastAll(transform.position, 200, Vector2.right, 0.01f, spiritLayers.value);
 
                 for (int i = 0; i < hits.Length; i++)
