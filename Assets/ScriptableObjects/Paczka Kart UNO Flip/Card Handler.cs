@@ -34,7 +34,7 @@ public class CardHandler : MonoBehaviour
     private List<int> skillLvlUpList = new List<int> { 1, 1, 1 };
     private Player ourPlayer; //change to waves after :P
     private float scoreForLvlUp = 50;
-    private float scoreMultiplier = 1.5f;
+    private float scoreMultiplier = 1.3f;
     private float lvlUpQueuer = 0;
 
     private void Awake()
