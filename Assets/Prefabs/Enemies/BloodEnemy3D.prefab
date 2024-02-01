@@ -190,8 +190,8 @@ MonoBehaviour:
   enemyRange: 1.5
   enemyHitboxHeight: 1
   enemyAttackDmg: 5
-  pushBackFactor: 7
-  stunTime: 10
+  pushBackFactor: 4
+  stunTime: 2
   enemyAttackDecay: 2
   scoreGained: 10
   target: {fileID: 0}
