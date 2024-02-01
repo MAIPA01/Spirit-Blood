@@ -108,8 +108,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4243628508132101407}
   - {fileID: 8526054174889016160}
+  - {fileID: 4243628508132101407}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &3662239022083190623
@@ -176,7 +176,7 @@ MonoBehaviour:
   health: 0
   prevHP: 0
   anime: {fileID: 7783426803478206309}
-  body: {fileID: 426870318003646656}
+  body: {fileID: 2361365972291098479}
   healthCanvas: {fileID: 5047883348418165356}
   dieMaterial: {fileID: 2100000, guid: f68469124f5232340b87b450868325a8, type: 2}
   dieAnimTime: 1
@@ -442,12 +442,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 997870b3ef322c44899ba7d20b4f4cf4, type: 3}
---- !u!4 &4243628508132101407 stripped
+--- !u!137 &2361365972291098479 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2137975134731451803, guid: 997870b3ef322c44899ba7d20b4f4cf4, type: 3}
-  m_PrefabInstance: {fileID: 1749385965514444123}
+  m_PrefabInstance: {fileID: 4426718310588099316}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2291672748826012336 stripped
+--- !u!4 &4243628508132101407 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 997870b3ef322c44899ba7d20b4f4cf4, type: 3}
   m_PrefabInstance: {fileID: 4426718310588099316}
