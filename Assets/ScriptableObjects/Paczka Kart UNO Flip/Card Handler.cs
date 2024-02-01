@@ -18,7 +18,7 @@ public class CardHandler : MonoBehaviour
     [SerializeField] GameObject card2;
     [SerializeField] GameObject card3;
     [SerializeField] GameObject cardsView;
-
+    [SerializeField] AudioSource audioSource;
     private GameObject class1;
     private GameObject class2;
     private GameObject class3;
@@ -71,6 +71,7 @@ public class CardHandler : MonoBehaviour
         if(lvlUpQueuer > 0)
         {
             LvlUp();
+            audioSource.Play();
         }
 
     }
