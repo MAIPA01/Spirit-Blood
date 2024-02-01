@@ -206,7 +206,7 @@ MonoBehaviour:
   spiritGroundLayers:
     serializedVersion: 2
     m_Bits: 2560
-  cooldownEndParticles: {fileID: 3665871754390567661, guid: 3abdf4bd79b69414786666ad02891e93, type: 3}
+  cooldownEndParticles: {fileID: 8705205693944784572, guid: 19bcd89f942991749857a022b2138d1f, type: 3}
   superAttackWindUp: 0.15
   superAttackDuration: 0.75
   superAttackCooldown: 5
@@ -477,6 +477,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BloodSuperSttackVFX
       objectReference: {fileID: 0}
+    - target: {fileID: 990942912923003907, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4319509310516480198, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
       propertyPath: m_LocalScale.x
       value: 14.862075
@@ -519,6 +523,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4319509310516480198, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514503784231044167, guid: e480aaea4f54e4d42a9c5c90b5b5c053, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
