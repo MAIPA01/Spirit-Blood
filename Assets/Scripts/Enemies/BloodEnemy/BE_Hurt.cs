@@ -29,7 +29,7 @@ public class BE_Hurt : IState
             sc.OnDead();
         }
 
-        if (Time.time >= timer + sc.stunTime)
+        if (Time.time * GameTimer.TimeMultiplier >= timer + sc.stunTime)
         {
             sc.ChangeState(sc.chaseState);
         }

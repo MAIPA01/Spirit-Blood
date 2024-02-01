@@ -241,12 +241,12 @@ public class Player : ObjectHealth
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if (mousePos.x >= transform.position.x && !m_FacingRight)
+            if (mousePos.x >= transform.position.x && !m_FacingRight && GameTimer.TimeMultiplier == GameTimer.PLAYING)
             {
                 Flip();
                 right = true;
             }
-            else if (mousePos.x < transform.position.x && m_FacingRight)
+            else if (mousePos.x < transform.position.x && m_FacingRight && GameTimer.TimeMultiplier == GameTimer.PLAYING)
             {
                 Flip();
                 right = false;
