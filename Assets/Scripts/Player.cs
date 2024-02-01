@@ -177,6 +177,8 @@ public class Player : ObjectHealth
         CreateSlashMaskSprite();
         UpdateGround();
 
+        ChangeForm();
+
         superBloodAttackDmg = 9999.0f;
         superCooldownTimer = superAttackCooldown;
     }
@@ -308,7 +310,7 @@ public class Player : ObjectHealth
         if (body != null )
         {
             //body.color = isSpirit ? bloodColor : spiritColor; // 2D
-            body.sharedMaterial.color = isSpirit ? bloodColor : spiritColor;
+            body.material.color = isSpirit ? bloodColor : spiritColor;
         }
         formChangedEvent.Invoke();
         
