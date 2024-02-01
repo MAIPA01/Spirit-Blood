@@ -8,13 +8,7 @@ public class GroudCheck : MonoBehaviour
     [SerializeField]
     private LayerMask groundLayers;
 
-    public int GroundContacts { 
-        get
-        {
-            Debug.Log("Parent: " + this.gameObject.tag);
-            return groundColliders.Count; 
-        }
-    }
+    public int GroundContacts { get => groundColliders.Count; }
     public LayerMask GroundLayers
     {
         get

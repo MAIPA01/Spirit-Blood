@@ -7,6 +7,7 @@ public class BE_Attack : IState
     Color attackColor = new(248.0f/255.0f , 131.0f / 255.0f, 121.0f / 255.0f);
     public void OnEnter(BloodEnemyController sc)
     {
+        sc.anime.SetLayerWeight(1, 1);
         lastAttackTime = -999f;
         //startColor = sc.gameObject.GetComponent<SpriteRenderer>().color;
         startColor = sc.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterial.color;
@@ -14,7 +15,7 @@ public class BE_Attack : IState
 
     public void OnExit(BloodEnemyController sc)
     {
-
+        sc.anime.SetLayerWeight(1, 0);
     }
 
     public void OnHurt(BloodEnemyController sc)
