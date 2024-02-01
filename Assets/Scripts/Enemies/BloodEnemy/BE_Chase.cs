@@ -69,11 +69,11 @@ public class BE_Chase : IState
             movement.x *= 0.5f;
         }
 
-        sc.transform.Translate(movement * Time.fixedDeltaTime );
+        sc.transform.Translate(movement * Time.fixedDeltaTime * GameTimer.TimeMultiplier);
 
         if(timer > 0f)
         {
-            timer -= Time.fixedDeltaTime;
+            timer -= Time.fixedDeltaTime * GameTimer.TimeMultiplier;
         }
     }
 }

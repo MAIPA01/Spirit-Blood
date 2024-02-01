@@ -172,7 +172,7 @@ MonoBehaviour:
   form: 0
   body: {fileID: 8966343349244678936}
   m_FacingRight: 1
-  slashObject: {fileID: 2622314876609431990, guid: edc66f7762b20fe468cd55f2fcca88e7, type: 3}
+  slashObject: {fileID: 7286325288391222674, guid: dea4c0ca775869c41b1dc7ad7d4b0b3b, type: 3}
   slashPosition: {fileID: 5767242783843579376}
   bloodSuperAttPosition: {fileID: 1060586394216925028}
   spiritSlashPosition: {fileID: 1216831920267927347}
