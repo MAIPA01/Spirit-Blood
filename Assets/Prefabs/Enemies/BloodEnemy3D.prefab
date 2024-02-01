@@ -190,8 +190,8 @@ MonoBehaviour:
   enemyRange: 1.5
   enemyHitboxHeight: 1
   enemyAttackDmg: 5
-  pushBackFactor: 7
-  stunTime: 10
+  pushBackFactor: 4
+  stunTime: 2
   enemyAttackDecay: 2
   scoreGained: 10
   target: {fileID: 0}
@@ -220,7 +220,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

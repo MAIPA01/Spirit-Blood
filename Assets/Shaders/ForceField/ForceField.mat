@@ -121,9 +121,11 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _MaxTime: 0.8
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
+    - _Progress: 0.021
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -150,5 +152,5 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _backColor: {r: 0.110918686, g: 0.37058336, b: 4.237095, a: 0.34509805}
     - _frontColor: {r: 0.22183737, g: 4.1269164, b: 8.47419, a: 0.49019608}
-    - _vertexAmount: {r: 1.5, g: 1.5, b: 1.5, a: 0}
+    - _vertexAmount: {r: 16, g: 16, b: 16, a: 0}
   m_BuildTextureStacks: []

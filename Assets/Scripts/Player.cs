@@ -6,6 +6,7 @@ using NaughtyAttributes;
 using Unity.VisualScripting;
 using static UnityEngine.UI.Image;
 using UnityEngine.VFX;
+using UnityEditor.Rendering.LookDev;
 
 enum PlayerForm
 {
@@ -119,6 +120,8 @@ public class Player : ObjectHealth
     public float superAttackCooldown = 5.0f;
     private float superCooldownTimer;
     [SerializeField]
+    private float superAttackRadius = 20.0f;
+    [SerializeField]
     private GameObject bloodSuperAttackObject = null;
 
     [SerializeField] AudioSource audioSource;
@@ -222,7 +225,7 @@ public class Player : ObjectHealth
                 audioSource.pitch += add;
                 audioSource.Play();
                 StartCoroutine(cameraShake.Shake(superAttackWindUp + superAttackDuration/2.0f, 0.3f));
-                RaycastHit[] hits = Physics.SphereCastAll(transform.position, 200, Vector2.right, 0.01f, spiritLayers.value);
+                RaycastHit[] hits = Physics.SphereCastAll(transform.position, superAttackRadius, Vector2.right, 0.01f, spiritLayers.value);
 
                 for (int i = 0; i < hits.Length; i++)
                 {
@@ -411,7 +414,10 @@ public class Player : ObjectHealth
             {
                 GameObject slash = Instantiate(slashObject, slashPosition.position, Quaternion.identity, slashPosition);
                 ///slash.transform.localScale = new Vector3(this.transform.localScale.z * slash.transform.localScale.x, slash.transform.localScale.y, slash.transform.localScale.z);
-                
+
+                /*slash.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                slash.transform.Rotate(new Vector3(0.0f, 0.0f, -60f));*/
+
                 if (slash.TryGetComponent(out VisualEffect ve))
                 {
                     ve.Play();
@@ -619,6 +625,8 @@ public class Player : ObjectHealth
         {
             if (spiritSlashPosition != null)
             {
+                Gizmos.color = Color.gray;
+                Gizmos.DrawWireSphere(transform.position, superAttackRadius);
 
                 Vector2 origin = spiritSlashPosition.position;
                 Vector2 lookDir = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - origin).normalized;
