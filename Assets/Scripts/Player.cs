@@ -25,6 +25,8 @@ public class Player : ObjectHealth
     //private SpriteRenderer body; // 2D
     private SkinnedMeshRenderer body; // 3D
 
+    [SerializeField] GameObject spiritBubble;
+
     [SerializeField]
     private bool m_FacingRight = true;
 
@@ -226,7 +228,7 @@ public class Player : ObjectHealth
                 audioSource.Play();
                 StartCoroutine(cameraShake.Shake(superAttackWindUp + superAttackDuration/2.0f, 0.3f));
                 RaycastHit[] hits = Physics.SphereCastAll(transform.position, superAttackRadius, Vector2.right, 0.01f, spiritLayers.value);
-
+                Instantiate(spiritBubble, this.transform);
                 for (int i = 0; i < hits.Length; i++)
                 {
                     GameObject targetHit = hits[i].collider.gameObject;

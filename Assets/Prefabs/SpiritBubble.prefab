@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2658516715275007100}
   - component: {fileID: 8013234636933863467}
   - component: {fileID: 5133532265116033194}
+  - component: {fileID: 1931285231845732850}
   m_Layer: 0
   m_Name: SpiritBubble
   m_TagString: Untagged
@@ -83,3 +84,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1931285231845732850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2591529339341337683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8daa594203d781f45a9dc5a063450e35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
