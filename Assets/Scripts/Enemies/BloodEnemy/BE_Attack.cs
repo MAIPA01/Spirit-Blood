@@ -49,6 +49,13 @@ public class BE_Attack : IState
         {
             //Debug.Log("OUCH! taking dmg: " + sc.enemyAttackDmg);
             sc.target.GetComponent<Player>().TakeDamage(sc.enemyAttackDmg);
+            sc.audioSource.Stop();
+            sc.audioSource.clip = sc.clips[1];
+            sc.audioSource.volume = 0.2f;
+            sc.audioSource.pitch = 1;
+            float add = (UnityEngine.Random.Range(0, 20) - 10) / 100.0f;
+            sc.audioSource.pitch += add;
+            sc.audioSource.Play();
             lastAttackTime = Time.time;
         }
     }
