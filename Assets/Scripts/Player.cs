@@ -121,12 +121,12 @@ public class Player : ObjectHealth
     private GameObject bloodSuperAttackObject = null;
 
     private bool right = false;
-    private float superBloodAttackDmg; //kills all in 1 go, so should be BIG
+    private float superBloodAttackDmg; // kills all in 1 go, so should be BIG
     private int superAttackPhase = 0; // 0 - none, 1 - windup, 1 - superAttack
 
     [HideInInspector]
-    public float lifeSteal = 0.0f; //Works only if you pick warrior class
-    public float skillBonusFactor = 0.0f; //Works only if you pick unity class, it makes stun and knockback effects longer
+    public float lifeSteal = 0.0f; // Works only if you pick warrior class
+    public float skillBonusFactor = 0.0f; // Works only if you pick unity class, it makes stun and knockback effects longer
 
     private void OnValidate()
     {

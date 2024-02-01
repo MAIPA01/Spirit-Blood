@@ -145,6 +145,7 @@ public class CardHandler : MonoBehaviour
         lvlUpQueuer--;
         cardsView.SetActive(false);
         Time.timeScale = 1;
+        GameTimer.StartTime();
     }
 
     public void SelectSkill(int skillID)
@@ -209,12 +210,14 @@ public class CardHandler : MonoBehaviour
         lvlUpQueuer--;
         cardsView.SetActive(false);
         Time.timeScale = 1;
+        GameTimer.StartTime();
     }
 
     private void LvlUp()
     {
         cardsView.SetActive(true);
         Time.timeScale = 0;
+        GameTimer.StopTime();
         if (selectedClassCard != null)
         {
             switch (classType)

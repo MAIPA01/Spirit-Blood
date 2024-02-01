@@ -12,6 +12,8 @@ public class Movement : MonoBehaviour
 
     Rigidbody _rb;
 
+    private bool _isFalling = false;
+
     void Start()
     {
         //_rb = GetComponent<Rigidbody2D>();
@@ -29,7 +31,7 @@ public class Movement : MonoBehaviour
         {
             float before = vel.x;
             vel.x = Input.GetAxis("Horizontal") * speed;
-            if ((vel.x < 0 && before > 0) || (vel.x > 0 && before < 0))
+            if ((vel.x < 0 && before >= 0) || (vel.x > 0 && before <= 0))
             {
                 _dust.Play();
             }
@@ -52,6 +54,23 @@ public class Movement : MonoBehaviour
 
     public void Jump()
     {
+        if (_rb.velocity.y <= 0.0f)
+        {
+            if (groundCheck.GroundContacts != 0 && _isJumping)
+            {
+                _dust.Play();
+            }
+            else if (groundCheck.GroundContacts == 0)
+            {
+                _isJumping = true;
+            }
+        }
+
+        if (groundCheck.GroundContacts != 0 && _isJumping)
+        {
+            _isJumping = false;
+        }
+
         if (Input.GetButtonDown("Jump") && (groundCheck.GroundContacts != 0 && !_isJumping))
         {
             _dust.Play();
@@ -63,13 +82,5 @@ public class Movement : MonoBehaviour
         {
             _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y * 0.7f, _rb.velocity.z);
         }
-
-        if (groundCheck.GroundContacts != 0)
-        {
-            _isJumping = false;
-        }
     }
-
-
-
 };
