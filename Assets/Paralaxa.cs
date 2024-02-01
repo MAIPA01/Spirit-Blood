@@ -13,7 +13,7 @@ public class Paralaxa : MonoBehaviour
     void Start()
     {
         startpos = new Vector2(transform.position.x, transform.position.y);
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
+        length = GetComponent<SpriteRenderer>().bounds.size.x*this.gameObject.transform.lossyScale.x;
     }
 
     // Update is called once per frame

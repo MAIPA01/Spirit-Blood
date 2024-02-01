@@ -31,7 +31,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
@@ -104,7 +104,7 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _Blend: 2
+    - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
     - _CastShadows: 1
@@ -114,9 +114,10 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DstBlend: 1
+    - _DstBlend: 10
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
+    - _FrenalPower: 2
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -136,11 +137,16 @@ Material:
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
+    - _fakeTime: 0
+    - _isActive: 1
+    - _vertexFrequancy: 2
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FresnelColor: {r: 0.7701468, g: 0, b: 10.432952, a: 0.39215687}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _backColor: {r: 0.051886797, g: 0.737889, b: 1, a: 1}
-    - _frontColor: {r: 0, g: 0.420887, b: 1, a: 1}
+    - _backColor: {r: 0.110918686, g: 0.37058336, b: 4.237095, a: 0.34509805}
+    - _frontColor: {r: 0.22183737, g: 4.1269164, b: 8.47419, a: 0.49019608}
+    - _vertexAmount: {r: 1.5, g: 1.5, b: 1.5, a: 0}
   m_BuildTextureStacks: []

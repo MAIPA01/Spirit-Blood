@@ -4,7 +4,7 @@ using System;
 public class BloodEnemyController : ObjectHealth
 {
 	[HideInInspector] public float prevHP;
-
+    [SerializeField] public Animator anime;
     public SkinnedMeshRenderer body;
     public GameObject healthCanvas;
     private bool isDead = false;
@@ -61,6 +61,8 @@ public class BloodEnemyController : ObjectHealth
             //Debug.LogError("Target player not assigned for blood enemy :( Assign me pls");
         }
 		prevHP = GetHealth();
+        anime.SetLayerWeight(1, 0);
+
         ChangeState(chaseState);
     }
 
@@ -110,7 +112,6 @@ public class BloodEnemyController : ObjectHealth
             return true;
         return false;
     } 
-
 }
 
 public interface IState
