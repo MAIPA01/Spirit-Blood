@@ -128,7 +128,7 @@ public static class PhysicExtension
 
     public static RaycastHit[] ConeCastAll(Vector3 origin, float maxRadius, Vector3 direction, float maxDistance, float coneAngle, LayerMask layerMask)
     {
-        RaycastHit[] sphereCastHits = Physics.SphereCastAll(origin - direction * maxRadius, maxRadius, direction, maxDistance + maxRadius, layerMask.value);
+        RaycastHit[] sphereCastHits = Physics.SphereCastAll(origin - direction * maxRadius, maxRadius, direction, maxDistance + maxRadius * 2, layerMask.value);
         List<RaycastHit> coneCastHitList = new();
 
         if (sphereCastHits.Length > 0)
@@ -138,7 +138,7 @@ public static class PhysicExtension
                 Vector3 hitPoint = sphereCastHits[i].point;
                 Vector3 directionToHit = hitPoint - origin;
                 float halfSectorAngle = coneAngle / 2f;
-                float angleToHit = Vector2Extensions.Angle360(directionToHit, direction);
+                float angleToHit = Vector2Extensions.Angle360(direction, directionToHit);
 
                 if (angleToHit <= halfSectorAngle && angleToHit >= -halfSectorAngle && (hitPoint - origin).magnitude <= maxRadius && (hitPoint - origin).magnitude >= 0)
                 {

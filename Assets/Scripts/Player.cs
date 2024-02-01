@@ -582,7 +582,7 @@ public class Player : ObjectHealth
                 this.AddHealth(lifeSteal);
                 spiritEnemy.GetComponent<BasicSpirit>().stuntTime *= (1.0f + skillBonusFactor);
 
-                //spiritEnemy.GetComponent<BasicSpirit>().TakeDamage(spiritDamage);
+                spiritEnemy.GetComponent<BasicSpirit>().TakeDamage(spiritDamage);
                 spiritEnemy.GetComponent<BasicSpirit>().SetStunt();
 
                 Vector2 throwBackDir = spiritEnemy.transform.position - body.transform.position;

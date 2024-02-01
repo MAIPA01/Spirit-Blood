@@ -15,10 +15,10 @@ public class EnemyKiller : MonoBehaviour
         currDelay -= Time.deltaTime;
         if (currDelay <= 0)
         {
-            //currDelay = Random.Range(0.5f, 1f);
-            currDelay = 0;
-            enemys[0].TakeDamage(enemys[0].GetMaxHealth());
-            enemys.RemoveAt(0);
+            currDelay = Random.Range(0.5f, 1f);
+            int index = Random.Range(0, enemys.Count);
+            enemys[index].TakeDamage(enemys[index].GetMaxHealth());
+            enemys.RemoveAt(index);
         }
     }
 }

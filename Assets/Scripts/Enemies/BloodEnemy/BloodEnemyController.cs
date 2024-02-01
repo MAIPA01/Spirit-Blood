@@ -72,15 +72,14 @@ public class BloodEnemyController : ObjectHealth
 
     void Update()
     {
-        if (!isDead)
-        {
-            currentState?.UpdateState(this);
-        }
-        else
+        if (isDead)
         {
             currAnimTime += Time.deltaTime;
             body.material.SetFloat("_AnimationProgress", Mathf.Clamp01(currAnimTime / dieAnimTime));
+            return;
         }
+
+        currentState?.UpdateState(this);
     }
 
     public void ChangeState(IState newState)
@@ -97,8 +96,9 @@ public class BloodEnemyController : ObjectHealth
         currAnimTime = 0;
         body.material = dieMaterial;
         body.material.SetFloat("_AnimationProgress", 0);
+        healthCanvas.SetActive(false);
 
-        if(Vector3.Distance(transform.position, target.transform.position) < 25)
+        if (Vector3.Distance(transform.position, target.transform.position) < 25)
         {
             audioSource.Stop();
             audioSource.clip = clips[0];
@@ -108,7 +108,6 @@ public class BloodEnemyController : ObjectHealth
             audioSource.pitch += add;
             audioSource.Play();
         }
-        healthCanvas.SetActive(false);
         if (!isFallen) target.GetComponent<Player>().score += scoreGained;
         Destroy(this.gameObject, dieAnimTime);
     }

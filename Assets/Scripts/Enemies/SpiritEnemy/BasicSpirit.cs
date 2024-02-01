@@ -9,6 +9,13 @@ public class BasicSpirit : ObjectHealth
     //private Rigidbody2D rigid = null;
     private Rigidbody rigid = null;
 
+    public MeshRenderer body;
+    public GameObject healthCanvas;
+    private bool isDead = false;
+    public Material dieMaterial;
+    public float dieAnimTime = 2;
+    private float currAnimTime = 0;
+
     [Header("Must Have Objects:")]
     [SerializeField][Tooltip("Zazwyczaj gracz ;)")] private ObjectHealth target = null;
     [SerializeField][Tooltip("Pocisk przeciwnika")] private Bullet bullet = null;
@@ -41,6 +48,13 @@ public class BasicSpirit : ObjectHealth
 
     void Update()
     {
+        if (isDead)
+        {
+            currAnimTime += Time.deltaTime;
+            body.material.SetFloat("_AnimationProgress", Mathf.Clamp01(currAnimTime / dieAnimTime));
+            return;
+        }
+
         if (target == null || rigid == null)
         {
             return;
@@ -80,9 +94,15 @@ public class BasicSpirit : ObjectHealth
 
     public override void OnDead()
     {
-        target.GetComponent<Player>().score += scoreGained;
+        isDead = true;
+        currAnimTime = 0;
+        body.material = dieMaterial;
+        body.material.SetFloat("_AnimationProgress", 0);
+        healthCanvas.SetActive(false);
+
+        if (target != null) target.GetComponent<Player>().score += scoreGained;
         base.OnDead();
-        Destroy(this.gameObject);
+        Destroy(this.gameObject, dieAnimTime);
     }
 
     public void SetStunt()

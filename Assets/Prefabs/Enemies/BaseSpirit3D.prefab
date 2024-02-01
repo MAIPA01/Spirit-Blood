@@ -276,6 +276,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 20
   health: 0
+  body: {fileID: 8395538639951838412}
+  healthCanvas: {fileID: 4368395773221432950}
+  dieMaterial: {fileID: 2100000, guid: e8040f2c37bc6fe42bcbe132497a51d1, type: 2}
+  dieAnimTime: 1
   target: {fileID: 0}
   bullet: {fileID: 6192927225461569809, guid: 9593f334b0ebd2d43aa67e09fa1e2647, type: 3}
   changeDirectionSpeed: 2
@@ -479,3 +483,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   glitchChance: 0.1
+--- !u!23 &8395538639951838412 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 1f6b21c754dc36d489f1027ffe7e8781, type: 3}
+  m_PrefabInstance: {fileID: 7152670895990349896}
+  m_PrefabAsset: {fileID: 0}
