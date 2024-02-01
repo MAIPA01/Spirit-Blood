@@ -34,6 +34,9 @@ public class BasicSpirit : ObjectHealth
 
     private float attackTimer = 0f;
 
+    [SerializeField] public AudioSource audioSource;
+    [SerializeField] public AudioClip[] clips;
+
     private void Start()
     {
         StartHealth();
@@ -99,6 +102,17 @@ public class BasicSpirit : ObjectHealth
         body.material = dieMaterial;
         body.material.SetFloat("_AnimationProgress", 0);
         healthCanvas.SetActive(false);
+
+        if (Vector3.Distance(transform.position, target.transform.position) < 25)
+        {
+            audioSource.Stop();
+            audioSource.clip = clips[0];
+            audioSource.volume = 0.5f;
+            audioSource.pitch = 1;
+            float add = (UnityEngine.Random.Range(0, 20) - 10) / 100.0f;
+            audioSource.pitch += add;
+            audioSource.Play();
+        }
 
         if (target != null) target.GetComponent<Player>().score += scoreGained;
         base.OnDead();
