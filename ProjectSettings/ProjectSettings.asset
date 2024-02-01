@@ -22,7 +22,7 @@ PlayerSettings:
   m_SplashScreenOverlayOpacity: 1
   m_SplashScreenAnimation: 1
   m_SplashScreenLogoStyle: 1
-  m_SplashScreenDrawMode: 1
+  m_SplashScreenDrawMode: 0
   m_SplashScreenBackgroundAnimationZoom: 1
   m_SplashScreenLogoAnimationZoom: 1
   m_SplashScreenBackgroundLandscapeAspect: 1
@@ -40,7 +40,7 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos:
-  - logo: {fileID: 10404, guid: 0000000000000000f000000000000000, type: 0}
+  - logo: {fileID: 21300000, guid: dcc19ed6970025a448e0c97ba28ee3fc, type: 3}
     duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
@@ -159,7 +159,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Standalone: com.DefaultCompany.2DProject
+    Standalone: com.TheLongCat.SpiritBlood
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -284,7 +284,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: fa094bbc13a6f1e4d8bcff9198ca9aac, type: 3}
+      m_Icon: {fileID: 2800000, guid: dd501dd00d78e7c4aa27cc1512b6aaa5, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

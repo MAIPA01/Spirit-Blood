@@ -1547,6 +1547,7 @@ GameObject:
   - component: {fileID: 576603340}
   - component: {fileID: 576603339}
   - component: {fileID: 576603342}
+  - component: {fileID: 576603343}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1672,6 +1673,22 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &576603343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576603338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c13c8bb9d163a4fa6f6ec0bd0eed83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  bloodCursor: {fileID: 2800000, guid: 4a51363409a558e4b819f105bc4d55c2, type: 3}
+  spiritCursor: {fileID: 2800000, guid: 711962a3fd0bd2c48bf5a5d579b84425, type: 3}
+  testAngle: 120
 --- !u!1 &592258023
 GameObject:
   m_ObjectHideFlags: 0
