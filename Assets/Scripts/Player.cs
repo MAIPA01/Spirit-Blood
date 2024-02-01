@@ -375,8 +375,8 @@ public class Player : ObjectHealth
 
         GameObject punch;
         punch = Instantiate(bloodSuperAttackObject, bloodSuperAttPosition.position, Quaternion.identity, bloodSuperAttPosition);
-        punch.transform.Translate(0.5f * this.transform.localScale.z, 0, 0);
-        punch.transform.Rotate(Vector3.forward * this.transform.localScale.z, Vector2Extensions.Angle360(Vector2.right, lookDir));
+        punch.transform.Translate(0.5f * this.transform.localScale.x, 0, 0);
+        punch.transform.Rotate(Vector3.forward, Vector2Extensions.Angle360(-Vector2.right * this.transform.localScale.x, lookDir));
         origin = punch.transform.position;
 
         if (check)

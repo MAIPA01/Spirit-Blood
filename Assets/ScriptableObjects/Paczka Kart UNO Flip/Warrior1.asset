@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill1: 10
   skill2: 1
-  skill3: 10
+  skill3: 1
   skill1Up: 10
   skill2Up: 1
-  skill3Up: 10
+  skill3Up: 1
