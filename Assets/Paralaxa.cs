@@ -17,7 +17,7 @@ public class Paralaxa : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         float temp = (cam.transform.position.x * (1 - parallaxEffect));
         Vector2 distance = new Vector2(cam.transform.position.x, cam.transform.position.y) * parallaxEffect;
